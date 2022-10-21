@@ -1,0 +1,72 @@
+﻿@model KarkaThamizha.Object.Models.LoginModels
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<style>
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        @using (Ajax.BeginForm("Login", "Login", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "" }))
+        {
+            <div class="row">
+                <h2 style="text-align:center">Login with Social Media or Manually</h2>
+                <div class="vl">
+                    <span class="vl-innertext">or</span>
+                </div>
+
+                <div class="col">
+                    <a href="#" class="fb btn">
+                        <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+                    </a>
+                    <a href="#" class="twitter btn">
+                        <i class="fa fa-twitter fa-fw"></i> Login with Twitter
+                    </a>
+                    <a href="#" class="google btn">
+                        <i class="fa fa-google fa-fw">
+                        </i> Login with Google+
+                    </a>
+                </div>
+
+                <div class="col">
+                    <div class="hide-md-lg">
+                        <p>Or sign in manually:</p>
+                    </div>
+                    <div class="input-container">
+                        <i class="fa fa-user icon"></i>
+                        @Html.TextBoxFor(m => m.Name, new { @placeholder = "Username", @class = "input-field" })
+                    </div>
+                    <div class="input-container">
+                        <i class="fa fa-key icon"></i>
+                        @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @class = "input-field" })
+                        <p id="txtPassword">Warning! Caps lock is ON.</p>
+                    </div>
+                    <input type="submit" id="Login" value="Login">
+                    <div class="checkbox">
+                        <label><input type="checkbox" checked="checked" id="Rememberme" name="remember" value="true"> Remember me</label>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="bottom-container">
+        <div class="row">
+            <div class="col">
+                <a href="#" style="color:white" class="btn">Sign up</a>
+            </div>
+            <div class="col">
+                <a href="#" style="color:white" class="btn">Forgot password?</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

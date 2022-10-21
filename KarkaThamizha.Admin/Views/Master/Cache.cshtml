@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="divCacheDetails"></div>
+
+
+@{
+@section scripts{
+    <script>
+        
+        $(document).ready(function () {
+            LoadCacheDetails(1);            
+        });
+
+        $(document).on("click", "#contentPager a[href]", function (e) {
+            e.preventDefault();
+            LoadCacheDetails($(e.target).text());
+        });
+
+        function LoadCacheDetails(PageSize) {
+            var targetControl = "#divCacheDetails";
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '/Master/GetAllCacheDetails',
+                data: { page: PageSize },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $(targetControl).html(response);
+                },
+                error: function () {
+                    alert("Error on loading CacheDetails");
+                }
+            });
+        }
+    </script>
+}
+    }

@@ -1,0 +1,144 @@
+﻿@model IEnumerable<KarkaThamizha.Object.Models.BooksDetailsModels>
+
+<style type="text/css">
+    .Grid {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        background-color: #fff; /*width:500px;*/
+        min-width: 500px;
+    }
+
+        .Grid th {
+            background-color: #Feb500;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .Grid th, .Grid td {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .Grid img {
+            cursor: pointer;
+        }
+
+    .ChildGrid {
+        width: 100%;
+    }
+
+        .ChildGrid th {
+            background-color: #6C6C6C;
+            font-weight: bold;
+            text-align: center;
+        }
+
+            .ChildGrid th a {
+                color: white;
+            }
+
+    a.link {
+        cursor: pointer;
+    }
+
+        a.link:active {
+            color: #1A0DAB;
+        }
+
+        a.link:link {
+            color: #1A0DAB;
+        }
+
+        a.link:visited {
+            color: #609;
+        }
+
+    .right-align {
+        text-align: right;
+    }
+
+    .pricestyle {
+        width: 67px;
+        max-width: 67px;
+        text-align: right;
+    }
+</style>
+
+<div style="overflow-x:auto;">
+    @{ WebGrid webGrid = new WebGrid(source: Model, canSort: false, canPage: false);}
+    @webGrid.GetHtml(
+        htmlAttributes: new { @id = "WebGrid", @class = "Grid" },
+        columns: webGrid.Columns(
+                 webGrid.Column(null, null, format: @<text><img src="~/Images-Website/details_open.png" /><div style="display:none"></div></text>),
+webGrid.Column("CategoryName", "வகைகள் (Category)"),
+webGrid.Column(format: (item1) =>
+{
+//WebGrid childGrid = new WebGrid(source: item1.authorBooks, canSort: false, canPage: true, rowsPerPage: 10);
+WebGrid childGrid = new WebGrid(source: item1.authorBooks, canSort: false, canPage: false);
+return childGrid.GetHtml(
+
+htmlAttributes: new { @class = "ChildGrid" },
+columns: childGrid.Columns(
+childGrid.Column(header: "வ.எண்",
+format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(childGrid.TotalRowCount / childGrid.PageCount) / childGrid.RowsPerPage) * childGrid.RowsPerPage * childGrid.PageIndex),
+//childGrid.Column(null, null, format: @<input type="hidden" name="Books.BookID" value="@item.Books.BookID" />),
+childGrid.Column(header: "புத்தகத்தின் பெயர்",
+format: (item) =>
+{
+if (item.BooksReview.BooksReviewID > 0)
+return Html.ActionLink((string)@item.Books.Book, "BooksReview", "BooksReview", new { BooksReviewID = item.BooksReview.BooksReviewID }, new { @class = "link", target = "_blank" });
+else
+{
+if (item.UserTypeID == 2)
+{ return @item.Books.Book + " (உரையாசிரியர்)"; }
+else if (item.UserTypeID == 3)
+{ return @item.Books.Book +  " - " + "(தொகுப்பாசிரியர்)"; }
+else if (item.UserTypeID == 5)
+{ return @item.Books.Book + " (பதிப்பாசிரியர்)"; }
+else if (item.UserTypeID == 7)
+{ return @item.Books.Book + " (மொழிபெயர்ப்பாளர்)"; }
+else
+{ return @item.Books.Book; }
+}
+}),
+childGrid.Column("விலை", format: @<text>@item.Price.ToString("c")</text>, style: "pricestyle"),
+childGrid.Column("FirstEdition", "முதல் பதிப்பு")
+));
+})
+))
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        //Loop through all Child Grids.
+        $("#WebGrid .ChildGrid").each(function () {
+            //Copy the Child Grid to DIV.
+            var childGrid = $(this).clone();
+            $(this).closest("TR").find("TD").eq(0).find("DIV").append(childGrid);
+
+            //Remove the Last Column from the Row.
+            $(this).parent().remove();
+        });
+
+        //Remove Last Column from Header Row.
+        $("#WebGrid TH:last-child").eq(0).remove();
+    });
+
+
+    //Assign Click event to Plus Image.
+    $("#WebGrid").on("click", "img[src*='/Images-Website/details_open.png']", function () {
+        $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
+        $(this).attr("src", "/Images-Website/details_close.png");
+    });
+
+
+    //Assign Click event to Minus Image.
+    $("#WebGrid").on("click", "img[src*='/Images-Website/details_close.png']", function () {
+        $(this).attr("src", "/Images-Website/details_open.png");
+        $(this).closest("tr").next().remove();
+    });
+
+</script>

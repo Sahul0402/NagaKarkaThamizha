@@ -1,0 +1,171 @@
+﻿@model KarkaThamizha.Object.Models.BooksDetailsModels
+@{
+    ViewBag.Title = "Update BooksDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .ui-datepicker-calendar {
+        display: none;
+    }
+    /*if dateformat month year is not shown override the below color property*/
+    .ui-datepicker .ui-datepicker-title select {
+        color: #000;
+    }
+
+    a {
+        color: deepskyblue;
+    }
+</style>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-9">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Update Book Details</h3>
+                    <span style="float:right">
+                        @Html.ActionLink("Books List", "Books", "Books") |
+                        @Html.ActionLink("BooksDetail List", "BooksDetails", "BooksDetails")
+                    </span>
+                </div>
+
+                <!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("AddBooksDetails", "BooksDetails", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.BookDetailsID, new { Value = Model.BookDetailsID })
+                            @Html.HiddenFor(m => m.Books.BookID, new { @Value = Model.Books.BookID })
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Books.BookID)</span>
+                                @Html.DisplayTextFor(m => m.Books.BookID) (@Html.DisplayTextFor(m => m.Books.Book))
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.BookCode)
+                                </span>
+                                @Html.TextBoxFor(m => m.BookCode, new { @maxlength = "15", @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Price)</span>
+                                @Html.TextBoxFor(m => m.Price, new { @class = "", style = "width:50%;min-width:50%;" })
+                                <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })</span>
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.Pages)
+                                </span>
+                                @Html.TextBoxFor(m => m.Pages, new { @class = "", style = "width:50%;min-width:50%;" })
+                                <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.Pages, "", new { @class = "text-danger" })</span>
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <fieldset>
+                                @{Html.RenderPartial("_TamilChar");}
+                            </fieldset>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.PublisherID)</span>
+                                @Html.DropDownListFor(m => m.PublisherID, new SelectList(Model.PublisherList, "Value", "Text"), Model.PublisherID.ToString(), new { @class = "", style = "width:50%;min-width:50%;" })
+                                <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.PublisherID, "", new { @class = "text-danger" })</span>
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.NoofCopy)
+                                </span>
+                                @Html.TextBoxFor(m => m.NoofCopy, new { @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.BookFormatID)</span>
+                                @Html.DropDownListFor(m => m.BookFormatID, new SelectList(Model.BookFormat.lstBookFormat, "Value", "Text"), "...Select BookFormat...", new { @class = "", style = "width:50%;min-width:50%;" })
+                                <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.BookFormatID, "", new { @class = "text-danger" })</span>
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.ISBN13)
+                                </span>
+                                @Html.TextBoxFor(m => m.ISBN13, new { @maxlength = "17", @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.FirstEdition)</span>
+                                @Html.TextBoxFor(m => m.FirstEdition, new { @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.CurrentEdition)
+                                </span>
+                                @Html.TextBoxFor(m => m.CurrentEdition, new { @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.ImgBookSmallBS)
+                                </span>
+                                <input type="file" id="BookImgSmall" name="imgFile[0]" />
+                                <input type="hidden" name="fileId" />
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.ImgBookLarge)</span>
+                                <input type="file" id="ImgBookLarge" name="imgFile[1]" />
+                                <input type="hidden" name="fileId" />
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Dimensions)</span>
+                                @Html.TextBoxFor(m => m.Dimensions, new { @maxlength = "14", @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.CheckBoxFor(m => m.IsKarkaBook)<span>IsKarka Book</span>
+                                </span>                                
+                            </div>
+                        </div>
+
+                        <!--/.col (left) -->
+                    </div>
+
+
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                }
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@{
+    @section scripts{
+        <script>
+            var setBookID=@Model.BookDetailsID;
+        </script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+        <script src="~/JavaScript/BooksDetails.js"></script>
+    }
+}

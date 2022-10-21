@@ -1,0 +1,118 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.UserModels>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "User";
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">User List</h3>
+                    <span style="float:right">
+                        @Html.ActionLink("Add New User", "AddUser") |
+                        @Html.ActionLink("Add New Book", "AddBooks", "Books") |
+                        @Html.ActionLink("Book List", "Books", "Books")
+                    </span>
+                    <span>@ViewBag.Message</span>
+                </div>
+                <br />
+
+                @using (Html.BeginForm("User", "User", FormMethod.Get))
+                {
+                    <div class="refresh"><a href="@Url.Action("Refresh", "User")" title="Refresh"><img src="~/Images/Refresh.png" /></a></div>
+
+                    @Html.Partial("~/Views/Shared/_SearchString.cshtml", Model)
+
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <div class="box-body">
+                        <table class="" id="pattern-style-b">
+                            <thead>
+                                <tr>
+                                    <th scope="col">@Html.ActionLink("Name", "User", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                                    <th scope="col">@Html.ActionLink("Name - English", "User", new { sortOrder = ViewBag.EngNameSort, currentFilter = ViewBag.CurrentFilter })</th>
+                                    <th scope="col">Profession</th>
+                                    <th scope="col">@Html.ActionLink("Facebook", "User", new { sortOrder = ViewBag.Facebook, currentFilter = ViewBag.CurrentFilter })</th>
+                                    <th scope="col">@Html.ActionLink("Created Date", "User", new { sortOrder = ViewBag.CreatedDate, currentFilter = ViewBag.CurrentFilter })</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            @if (Model != null && Model.Count == 0)
+                            { return; }
+
+                            @foreach (var item in Model)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Profession.Profession)</td>
+                                        <td>
+                                            @if (item.UserDetail != null && !string.IsNullOrWhiteSpace(item.UserDetail.FaceBook))
+                                            {
+                                                <a href="@Url.Content("https://www.facebook.com/" + item.UserDetail.FaceBook)" target="_blank"><span>Show</span></a>
+                                            }
+                                            else
+                                            { <div>-</div>}
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "UpdateUser", new { id = item.UserID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { onclick = "return confirm('Are sure wants to delete?');" })|
+                                            @Html.ActionLink("Books", "AuthorBooks", new { id = item.UserID }, new { target = "_blank" })|
+                                            <a href="@Url.Content("http://www.karkathamizha.com/Author?Name=" + item.Name.Replace(" ", "-"))" target="_blank"><span>View</span></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                        <div style="padding:0 5px;">
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                            @Html.PagedListPager(Model, page => Url.Action("User", new { page, type = Request.QueryString["type"], sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                }
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace('Description', {
+            editor: extraAllowedContent = '*(*);*{*}'//,
+            //editor: resize('100%', '150')
+        });
+    </script>
+    <script src="~/JavaScript/Users.js"></script>
+    <script src="~/JavaScript/KarkaAdminCommonJS.js"></script>
+    <script>
+        $.validator.addMethod('date',
+            function (value, element) {
+                if (this.optional(element)) {
+                    return true;
+                }
+                var valid = true;
+                try {
+                    $.datepicker.parseDate('dd-mm-yy', value);
+                }
+                catch (err) {
+                    valid = false;
+                }
+                return valid;
+            });
+    </script>
+}

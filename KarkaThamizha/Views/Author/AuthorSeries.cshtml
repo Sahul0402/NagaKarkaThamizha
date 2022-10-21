@@ -1,0 +1,36 @@
+﻿@model IList<KarkaThamizha.Object.Models.SeriesModels>
+@using KarkaThamizha.Common.Utility
+
+@{
+    ViewBag.Title = "Author Series";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- main content -->
+<article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
+    <div class="article-content clearfix">
+        <footer class="article-boxes clearfix">
+            <div id="divAuthorSeries"></div>
+            <div id="TaggedWith"></div>
+            <div id="ShareOn"></div>
+            <!-- Comments Box -->
+            <div id="Comments"></div>
+        </footer>
+    </div>
+</article>
+
+@section scripts{
+    <script>
+        var hdnPage = "";
+        $(document).ready(function () {
+            LoadAuthorSeries(1);
+        });
+
+        $(document).on("click", "#contentPager a[href]", function (e) {
+            e.preventDefault();
+            LoadAuthorSeries($(e.target).text());
+        });
+    </script>
+    <script src="~/JavaScript/Authors.js"></script>
+}
+

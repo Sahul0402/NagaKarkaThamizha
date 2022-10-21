@@ -1,0 +1,165 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.BooksReviewModels>
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility
+
+@section metatags{
+    <meta name="keywords" content='@ViewBag.MetaKeywords' />
+    <meta name="description" content='@ViewBag.MetaDescription' />
+}
+
+<style>
+    .user {
+        margin: 1em 0;
+        border-bottom: 3px double #cecece;
+    }
+</style>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="~/framework/js/html5shiv.js"></script>
+    <script src="~/framework/js/respond.min.js"></script>
+<![endif]-->
+
+<link href="~/framework/addons/lightbox/nivo-lightbox.css" rel="stylesheet" />
+
+<link href="~/Content/social-icons.css" rel="stylesheet" />
+
+<link href="~/Content/style.css" rel="stylesheet" />
+
+<link href="~/Content/theme-color.css" rel="stylesheet" />
+
+<link href="~/Content/responsive.css" rel="stylesheet" />
+
+<link href="~/Content/firefox.css" rel="stylesheet" />
+
+<script src="~/framework/js/modernizr.js"></script>
+
+@{ Int16 id = 1;}
+<div class="container main-site-container" itemscope itemtype="http://schema.org/CreativeWork">
+
+    <div class="row">
+        <div class="col-md-8">
+
+            <!-- main content -->
+            <article class="article-container" itemscope itemtype="http://schema.org/Article">
+                <div class="article-content blog-page">
+                    <header>
+
+                        <div class="breadcrumb-container clearfix" itemscope itemtype="http://schema.org/WebPage">
+                            <ul class="breadcrumb ltr" itemprop="breadcrumb">
+                                <li><i class="icon-home3"></i><a href="#">Home</a></li>
+                                <li>Blog - Style 2</li>
+                            </ul>
+                        </div>
+
+                        <h1 itemprop="headline">புத்தக மதிப்புரை- வாசகர்கள்</h1>
+
+                        <div class="post-meta">
+                            <ul>
+                                <li title="Post Author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></li>
+                                <li><i class="icon-library"></i><a href="#" title="">World</a></li>
+
+                                <li itemprop="datePublished"><i class="icon-alarm2"></i>14 Aug, 2013 at 06:15 AM</li>
+                                <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">122</a></li>
+                                <li itemprop="interactionCount"><i class="icon-tv"></i>0</li>
+                                <li itemprop="interactionCount"><i class="icon-heart"></i>0</li>
+
+                            </ul>
+                        </div>
+
+                        <div class="divider"></div>
+                    </header>
+
+                    <div class="post-entry" itemprop="articleBody"></div>
+
+                    <div class="blog-items style-1">
+                        @if (Model != null)
+                        {
+                            foreach (var review in Model)
+                            {
+                                <div class="blog-items style-1">
+                                    <ul class="list-unstyled">
+                                        <li class="post-item" data-posttype="image" data-showonscroll="true" data-animation="fadeIn">
+                                            <article class="post-box clearfix">
+                                                <div class="sec-title category-@id">
+                                                    <div class="post-meta-metro">
+                                                        <ul class="list-unstyled color-theme">
+                                                            <li>
+                                                                <div class="meta-icon"><i class="icon-user3"></i></div>
+                                                                <div class="popup-info animated more-fast fadeInRight"><a href="#" title="">@review.Users.Name</a></div>
+                                                            </li>
+
+                                                            <li>
+                                                                <div class="meta-icon"><i class="icon-library"></i></div>
+                                                                <div class="popup-info animated more-fast fadeInRight"><a href="#" title="">@review.BookName</a></div>
+                                                            </li>
+
+                                                            <li>
+                                                                <div class="meta-icon"><i class="icon-alarm2"></i></div>
+                                                                <div class="popup-info animated more-fast fadeInRight"><a href="#" itemprop="datePublished">@review.SourceDate</a></div>
+                                                            </li>
+
+                                                            <li>
+                                                                <div class="meta-icon"><i class="icon-tags"></i></div>
+                                                                <div class="popup-info animated more-fast fadeInRight">
+                                                                    <div class="tags">
+                                                                        <a href="#">@review.BookCategory</a>@*, <a href="#">Smartphones</a>*@
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="post-title">
+
+                                                        <h2><a href="#" title="">@review.Header</a></h2>
+
+                                                        <div class="post-desc">
+                                                            <p style="text-align:justify;padding-right:10px;">@Html.Raw(review.Description.ToString().Replace("\r\n", "<br />").ToString().Chop(400))</p>
+                                                        </div>
+
+                                                        <div class="post-meta-extended clearfix">
+                                                            <span class="read-more">
+                                                                <i class="icon-eye3"></i>
+                                                                @Html.ActionLink("Read More...", "BooksReview", "BooksReview", new { BooksReviewId = review.BooksReviewID }, new { target = "_blank" })
+                                                            </span>
+
+                                                            <span><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">12</a></span>
+                                                            <span><i class="icon-tv"></i><a href="#" itemprop="interactionCount">55</a></span>
+                                                            <span><i class="icon-heart"></i><a href="#" itemprop="interactionCount">120</a></span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    </ul>
+                                </div>
+                                id++;
+                                if (id == 5)
+                                { id = 1; }
+                            }
+                        }
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</div>
+
+<div class="pagination" id="contentPager">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("UsersReview",
+                     new { Page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly,
+                     new AjaxOptions
+                     {
+                         InsertionMode = InsertionMode.Replace,
+                         HttpMethod = "Get",
+                         UpdateTargetId = "divUserReview"
+                     }))
+</div>
+

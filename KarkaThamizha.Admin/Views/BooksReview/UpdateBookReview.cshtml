@@ -1,0 +1,139 @@
+﻿@model KarkaThamizha.Object.Models.BooksReviewModels
+@using KarkaThamizha.Common.Utility;
+
+@{
+    ViewBag.Title = "UpdateBookReview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-9">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Update Books Review</h3>
+                    <div class="refresh">
+                        @Html.ActionLink("Books Review List", "BooksReview")
+                    </div>
+                </div>
+
+                <!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("UpdateBookReview", "BooksReview", FormMethod.Post))
+                {
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.BookName):
+                            @Html.DisplayTextFor(m => m.BookName) (
+                            @Html.DisplayTextFor(m => m.BookDetail.BookDetailsID) )
+                            @Html.HiddenFor(m => m.BookDetail.BookDetailsID)
+                            @Html.HiddenFor(m => m.BooksReviewID)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Header)
+                            @Html.TextBoxFor(m => m.Header, new { @class = "txtAreaCtrl" })
+                        </div>
+                        <div class="form-group">
+                            <label for="txtTamEng">BookDescription</label>
+                            @Html.TextAreaFor(m => m.Description, new { @class = "ckeditor", @id = "Description" })
+                        </div>
+                        <div class="form-group">
+                            <span style="width:39%;float:left;">
+                                <span style="width:25%;float:left;">@Html.LabelFor(m => m.SourceDate, htmlAttributes: new { @class = "control-label col-md-1" })</span>
+                                @Html.EditorFor(m => m.SourceDate, new { htmlAttributes = new { @disabled = "disabled", @class = "" } })
+                            </span>
+                        </div>
+                        <div style="width:49%;float:left;">
+                            @*@Html.LabelFor(m => m.MagazineID)*@
+                            @*@Html.DropDownListFor(m => m.MagazineID, new SelectList(Model.MagazineSourceList, "Value", "Text"), "Select Magazine", new { @class = "form-control", style = "display:inline;" })*@
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                }
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/JavaScript/BooksReview.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace('Description', {
+            editor: extraAllowedContent = '*(*);*{*}'
+        });
+    </script>
+    <script>
+        $.validator.addMethod('date',
+            function (value, element) {
+                if (this.optional(element)) {
+                    return true;
+                }
+                var valid = true;
+                try {
+                    $.datepicker.parseDate('dd-mm-yy', value);
+                }
+                catch (err) {
+                    valid = false;
+                }
+                return valid;
+            });
+    </script>
+
+    <script type="text/javascript">
+        //$('#' + '<%= submit.ClientID%>').mousedown(function () {
+        //    for (var i in CKEDITOR.instances) {
+        //        CKEDITOR.instances[i].updateElement();
+        //    }
+        //});
+    </script>
+    <script>
+        //In edit mode dont show the and dont allow to update the calendor
+        //$(function () {
+        //    var currentYear = (new Date).getFullYear();
+        //    var lastYear = (new Date).getFullYear() - 75;
+        //    $("#SourceDate").datepicker({
+        //        changeMonth: true,
+        //        changeYear: true,
+        //        dateFormat: 'dd/mm/yy',
+        //        yearRange: lastYear + ":" + currentYear
+        //    });
+        //});
+    </script>
+
+    <script type="text/javascript">
+        //CKEDITOR.on('instanceReady', function (ev) {
+        //    ev.editor.dataProcessor.writer.setRules('br',
+        //        {
+        //            indent: false,
+        //            breakBeforeOpen: false,
+        //            breakAfterOpen: false,
+        //            breakBeforeClose: false,
+        //            breakAfterClose: false
+        //        });
+        //});
+        //config.enterMode = CKEDITOR.ENTER_BR;
+        //config.shiftEnterMode = CKEDITOR.ENTER_BR;
+
+        CKEDITOR.editorConfig = function (config) {
+
+            //   config.enterMode = 2; //disabled <p> completely
+            config.enterMode = CKEDITOR.ENTER_BR; // pressing the ENTER KEY input <br/>
+            config.shiftEnterMode = CKEDITOR.ENTER_P; //pressing the SHIFT + ENTER KEYS input <p>
+            config.autoParagraph = false; // stops automatic insertion of <p> on focus
+        };
+    </script>
+}
+

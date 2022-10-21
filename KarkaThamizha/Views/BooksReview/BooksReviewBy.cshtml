@@ -1,0 +1,11 @@
+﻿<div id="divUserReview" style="display:none;"></div>
+<div id="divMagReview" style="display:none;"></div>
+
+@{
+    @section scripts{
+        <script>
+            var hdnPageReview = '@ViewData["ReviewBy"]';
+        </script>
+        <script src="~/JavaScript/BooksReviews.js"></script>
+    }
+}

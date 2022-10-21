@@ -1,0 +1,99 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.BooksModels>
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility;
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div id="divBookPrint">
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <div class="box-body">
+                        @if (Model != null)
+                        {
+                            if (Model.Where(x => x.FileUploadType == "Books").Any())
+                            {
+                                <table id="pattern-style-b">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">BookID</th>
+                                            <th scope="col">Book Name</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Tanglish</th>
+                                            <th scope="col">Book Description</th>
+                                            <th scope="col">Book Status</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tbody>
+                                                <tr>
+                                                    <td>@Html.DisplayFor(modelItem => item.BookID)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Book)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Tanglish)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.BookDescription)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                                    <td style="width:277px;">
+                                                        @Html.ActionLink("Edit", "UpdateBook", new { bookID = item.BookID }) |
+                                                        @Html.ActionLink("Delete", "DeleteBook", new { bookID = item.BookID }, new { onclick = "return confirm('Are sure wants to delete?');" })
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        }
+                                    }
+                                </table>
+                                if (Model != null)
+                                {
+                                    <div class="box-header" id="contentPager">
+                                        @Html.PagedListPager(Model, page => Url.Action("FileUpload", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                                        <span style="float:right">
+                                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                        </span>
+                                    </div>
+                                }
+                            }
+                            else if (Model.Where(x => x.FileUploadType == "BookAuthor").Any())
+                            {
+                                <table id="pattern-style-b">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">BookID</th>
+                                            <th scope="col">AuthorID</th>
+                                            <th scope="col">UserTypeID</th>
+                                        </tr>
+                                    </thead>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tbody>
+                                                <tr>
+                                                    <td>@Html.DisplayFor(modelItem => item.BookID)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Users.AuthorID)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.Users.UserType.UserTypeID)</td>
+                                                </tr>
+                                            </tbody>
+                                        }
+                                    }
+                                </table>
+                            }                            
+                        }
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->

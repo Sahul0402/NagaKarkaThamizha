@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarkaThamizha", "KarkaThamizha.csproj", "{250C80BF-F5AB-49DD-A941-F1196B593CF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KarkaThamizha.Common", "..\KarkaThamizha.Common\KarkaThamizha.Common.csproj", "{152DF0C5-7E35-4E71-95D2-7ECC08B5FB7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarkaThamizha.Admin", "..\KarkaThamizha.Admin\KarkaThamizha.Admin.csproj", "{333CF9D9-43CC-4613-835D-A5432F64F6BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarkaThamizha.Web.Common", "..\KarkaThamizha.Web.Common\KarkaThamizha.Web.Common.csproj", "{DD4E9812-80E4-4E52-AA13-C212CB260E17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KarkaThamizha.Object", "..\KarkaThamizha.Object\KarkaThamizha.Object.csproj", "{633FA36F-114E-4812-BA56-3F7A8BD9ECA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarkaThamizha.Repository", "..\KarkaThamizha.Repository\KarkaThamizha.Repository.csproj", "{59A9E35D-A1C5-400D-8AAE-A8F60AA6BCA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{250C80BF-F5AB-49DD-A941-F1196B593CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{250C80BF-F5AB-49DD-A941-F1196B593CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{250C80BF-F5AB-49DD-A941-F1196B593CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{250C80BF-F5AB-49DD-A941-F1196B593CF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{152DF0C5-7E35-4E71-95D2-7ECC08B5FB7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{152DF0C5-7E35-4E71-95D2-7ECC08B5FB7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{152DF0C5-7E35-4E71-95D2-7ECC08B5FB7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{152DF0C5-7E35-4E71-95D2-7ECC08B5FB7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{333CF9D9-43CC-4613-835D-A5432F64F6BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{333CF9D9-43CC-4613-835D-A5432F64F6BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{333CF9D9-43CC-4613-835D-A5432F64F6BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{333CF9D9-43CC-4613-835D-A5432F64F6BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD4E9812-80E4-4E52-AA13-C212CB260E17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD4E9812-80E4-4E52-AA13-C212CB260E17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD4E9812-80E4-4E52-AA13-C212CB260E17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4E9812-80E4-4E52-AA13-C212CB260E17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{633FA36F-114E-4812-BA56-3F7A8BD9ECA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{633FA36F-114E-4812-BA56-3F7A8BD9ECA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{633FA36F-114E-4812-BA56-3F7A8BD9ECA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{633FA36F-114E-4812-BA56-3F7A8BD9ECA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59A9E35D-A1C5-400D-8AAE-A8F60AA6BCA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59A9E35D-A1C5-400D-8AAE-A8F60AA6BCA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59A9E35D-A1C5-400D-8AAE-A8F60AA6BCA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59A9E35D-A1C5-400D-8AAE-A8F60AA6BCA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E242C40-A3EC-46A5-A8DD-FBB900C751AF}
+	EndGlobalSection
+EndGlobal

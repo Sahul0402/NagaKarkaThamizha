@@ -1,0 +1,476 @@
+﻿@model KarkaThamizha.Object.Models.ArticleModels
+
+@{
+    ViewBag.Title = "நேர்காணல்கள்";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- main Model -->
+<article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
+
+    <div class="article-content clearfix">
+        @if (Model != null)
+        {
+            <header>
+
+                <div class="breadcrumb-container clearfix" itemscope itemtype="http://schema.org/WebPage">
+                    <ul class="breadcrumb ltr" itemprop="breadcrumb">
+                        <li><i class="icon-home3"></i><a href="#">Home</a></li>
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Smartphones</a></li>
+                        <li>@Model.Header</li>
+                    </ul>
+                </div>
+
+
+                <div class="figure-container">
+                    <figure class="featured-post-figure" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+
+                        <a data-lightbox="true" title="Image With Image + Lightbox" href="~/Images-Website/8.png"><img itemprop="contentURL" src="~/Images-Website/7.jpg" data-src="" /></a>
+
+                        <figcaption itemprop="description">A few words about item</figcaption>
+                    </figure>
+
+                </div>
+
+                <h3 itemprop="headline">@Model.Header</h3>
+
+                <div class="post-meta">
+                    <ul>
+                        <li><i class="icon-user3"></i><a href="#">@Model.MagazineName.Name</a></li>
+                        <li><i class="icon-library"></i><a href="#">World</a></li>
+
+                        <li itemprop="datePublished"><i class="icon-alarm2"></i>@Model.SourceDate.Value.ToShortDateString()</li>
+                        <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">4 Comments</a></li>
+                        <li itemprop="interactionCount"><i class="icon-tv"></i>3555</li>
+                        <li itemprop="interactionCount"><i class="icon-heart"></i>10000</li>
+                    </ul>
+                </div>
+
+                <div class="divider"></div>
+            </header>
+
+            <div class="post-entry" itemprop="articleBody">
+
+                <span class="drop-capital"></span><p style="text-align:justify;">
+                    @Html.Raw(Server.HtmlDecode(@Model.Description))
+                </p>
+                <h5 itemprop="headline">நன்றி: @Model.MagazineName.Name (@Model.SourceDate.Value.ToString("dd/MM/yyyy"))</h5>
+                <nav class="post-navigation clearfix">
+                    <div class="prev-article col-md-6 col-sm-6 col-xs-12">
+                        <cite>Previous Article</cite>
+                        <h3>India Takes Down Its First Cyber Criminal</h3>
+                        <a href="#Prev_Article" class="more"></a>
+                    </div>
+
+                    <div class="next-article col-md-6 col-sm-6 col-xs-12">
+                        <cite>Next Article</cite>
+                        <h3>@Model.Header</h3>
+                        <a href="#Next_Article" class="more"></a>
+                    </div>
+                </nav>
+
+            </div>
+        }
+        <footer class="article-boxes clearfix">
+
+            <aside class="tags-box clearfix" data-showonscroll="true" data-animation="fadeIn">
+                <div class="box-title">
+                    <h3>Tagged With:</h3>
+                </div>
+
+                <div class="box-content tags-cloud clearfix">
+                    <a href="#">Technology<span class="badge">15</span></a>
+                    <a href="#">President<span class="badge">10</span></a>
+                    <a href="#">Coup<span class="badge">13</span></a>
+                </div>
+            </aside>
+
+            <aside class="share-box clearfix" data-showonscroll="true" data-animation="fadeIn">
+                <div class="box-title">
+                    <h3>Share On:</h3>
+                </div>
+
+                <div class="box-content share-icons clearfix">
+                    <a href="#" class="facebook">facebook<span class="badge"><i class="zoc-facebook"></i></span></a>
+                    <a href="#" class="twitter">twitter<span class="badge"><i class="zoc-twitter"></i></span></a>
+                    <a href="#" class="gplus">google+<span class="badge"><i class="zoc-gplus"></i></span></a>
+                    <a href="#" class="pinterest">pinterest<span class="badge"><i class="zoc-pinterest"></i></span></a>
+                    <a href="#" class="stumbleupon">stumbleupon<span class="badge"><i class="zoc-stumbleupon"></i></span></a>
+                </div>
+            </aside>
+
+            <!-- Author Details with Social Media-->
+            <div id="divUserDetails"></div>
+
+            <!-- Related Article Box -->
+            <aside id="divRelatedBox_1" class="cat-widget wdg-cat-scrollbox cat-scroll-box clearfix">
+
+                <div class="widget-title">
+                    <h3>Related Articles</h3>
+
+                    <div class="sep-widget"></div>
+                </div>
+
+                <div class="widget-content color-theme clearfix">
+                    <div>
+                        <ul class="nav-arrows list-inline">
+                            <li><a href="#" class="backward"><i class="icon-arrow-left6"></i></a></li>
+                            <li><a href="#" class="forward"><i class="icon-arrow-right6"></i></a></li>
+                        </ul>
+
+                        <div class="scroll-box">
+
+                            <div class="post-item">
+                                <article class="post-box clearfix">
+                                    <a class="post-thumbnail">
+                                        <img src="" data-src="holder.js/314x210/sky" />
+                                    </a>
+
+                                    <div class="top-bar">
+                                        <span class="likes"><a href="#"><i class="icon-heart"></i>10</a></span>
+
+                                        <span class="comments"><i class="icon-bubble"></i>1500</span>
+                                        <span class="views"><i class="icon-tv"></i>2000</span>
+
+                                        <span class="btn-srp"><a href="#">Sport</a></span>
+                                    </div>
+
+                                    <div class="title-bar">
+                                        <h4 class="post-title"><a href="#">Post With Featured Image</a></h4>
+
+                                        <div class="meta-info">
+                                            <span class="author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></span>
+                                            <span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="bottom-bar">
+                                        <span class="btn-srp"><a href="#">Read More...</a></span>
+
+                                        <div class="rating">
+                                            <div class="stars retina x-2">
+                                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+
+                                                <div class="fill" style="width: 90%">
+                                                    <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="post-item">
+                                <article class="post-box clearfix">
+                                    <a class="post-thumbnail">
+                                        <img src="" data-src="holder.js/314x210/sky" />
+                                    </a>
+
+                                    <div class="top-bar">
+                                        <span class="likes"><a href="#"><i class="icon-heart"></i>10</a></span>
+
+                                        <span class="comments"><i class="icon-bubble"></i>1500</span>
+                                        <span class="views"><i class="icon-tv"></i>2000</span>
+
+                                        <span class="btn-srp"><a href="#">Movies</a></span>
+                                    </div>
+
+                                    <div class="title-bar">
+                                        <h4 class="post-title"><a href="#">Post With Youtube Video</a></h4>
+
+                                        <div class="meta-info">
+                                            <span class="author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></span>
+                                            <span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="bottom-bar">
+                                        <span class="btn-srp"><a href="#">Read More...</a></span>
+
+                                        <div class="rating">
+                                            <div class="stars retina x-2">
+                                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+
+                                                <div class="fill" style="width: 50%">
+                                                    <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="post-item">
+                                <article class="post-box clearfix">
+                                    <a class="post-thumbnail">
+                                        <img src="" data-src="holder.js/314x210/sky" />
+                                    </a>
+
+                                    <div class="top-bar">
+                                        <span class="likes"><a href="#"><i class="icon-heart"></i>10</a></span>
+
+                                        <span class="comments"><i class="icon-bubble"></i>1500</span>
+                                        <span class="views"><i class="icon-tv"></i>2000</span>
+
+                                        <span class="btn-srp"><a href="#">Music</a></span>
+                                    </div>
+
+                                    <div class="title-bar">
+                                        <h4 class="post-title"><a href="#">Post With Sound Cloud</a></h4>
+
+                                        <div class="meta-info">
+                                            <span class="author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></span>
+                                            <span class="date-time"><i class="icon-alarm2"></i>15 Aug 2013, 05:15 AM</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="bottom-bar">
+                                        <span class="btn-srp"><a href="#">Read More...</a></span>
+
+                                        <div class="rating">
+                                            <div class="stars retina x-2">
+                                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+
+                                                <div class="fill" style="width: 20%">
+                                                    <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="post-item">
+                                <article class="post-box clearfix">
+                                    <a class="post-thumbnail">
+                                        <img src="" data-src="holder.js/314x210/sky" />
+                                    </a>
+
+                                    <div class="top-bar">
+                                        <span class="likes"><a href="#"><i class="icon-heart"></i>10</a></span>
+
+                                        <span class="comments"><i class="icon-bubble"></i>1500</span>
+                                        <span class="views"><i class="icon-tv"></i>2000</span>
+
+                                        <span class="btn-srp"><a href="#">Technology</a></span>
+                                    </div>
+
+                                    <div class="title-bar">
+                                        <h4 class="post-title"><a href="#">Honda Now Lets You 3D Print Its Concept Car Models</a></h4>
+
+                                        <div class="meta-info">
+                                            <span class="author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></span>
+                                            <span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="bottom-bar">
+                                        <span class="btn-srp"><a href="#">Read More...</a></span>
+
+                                        <div class="rating">
+                                            <div class="stars retina x-2">
+                                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+
+                                                <div class="fill" style="width: 40%">
+                                                    <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </article>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+
+            <!-- Comments Box -->
+            <aside class="cat-widget comments-box clearfix" itemprop="comment" itemscope="" itemtype="http://schema.org/UserComments">
+                <div class="widget-title">
+                    <h3>Comments</h3>
+
+                    <div class="sep-widget"></div>
+                </div>
+
+                <div class="widget-content color-theme clearfix">
+                    <div class="comments">
+                        <ol class="comment-list">
+
+                            <li class="comment-main" data-showonscroll="true" data-animation="fadeIn">
+                                <article class="comment">
+
+                                    <div class="comment-meta comment-author vcard">
+                                        <img alt="" src="" data-src="holder.js/45x45/sky" />
+                                    </div>
+
+                                    <div class="comment-content comment">
+
+                                        <a href="#" class="time"><i class="icon-alarm2"></i><time itemprop="commentTime" datetime="">August 14, 2013 at 05:41 am</time></a>
+
+                                        <cite class="creator" itemprop="creator"><a href="#" class="url">Serpentsoft</a><span> - Post author</span></cite>
+
+                                        <p class="text" itemprop="commentText">Etiam pharetra, erat sed fermentum feugiat.</p>
+
+                                        <div class="options clearfix">
+                                            <span class="edit-link">
+                                                <a class="comment-edit-link" href="#" title="Edit comment">Edit</a>
+                                            </span>
+
+                                            <span class="reply">
+                                                <a class="comment-reply-link" href="#">Reply</a>
+                                                <meta itemprop="replyToUrl" content="" />
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                </article>
+
+                                <ol class="children">
+
+                                    <li class="comment-main" data-showonscroll="true" data-animation="fadeIn">
+                                        <article class="comment">
+                                            <div class="comment-meta comment-author vcard">
+                                                <img alt="" src="" data-src="holder.js/45x45/sky" />
+                                            </div>
+
+                                            <div class="comment-content comment">
+
+                                                <a href="#" class="time"><i class="icon-alarm2"></i><time itemprop="commentTime" datetime="">August 15, 2013 at 05:41 am</time></a>
+
+                                                <cite class="creator" itemprop="creator"><a href="#" class="url">JoJo</a></cite>
+
+                                                <p class="text" itemprop="commentText">Etiam pharetra, erat sed fermentum feugiat.</p>
+
+                                                <div class="options clearfix">
+
+                                                    <span class="reply">
+                                                        <a class="comment-reply-link" href="#">Reply</a>
+                                                        <meta itemprop="replyToUrl" content="" />
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                        <ol class="children">
+
+                                            <li class="comment-main" data-showonscroll="true" data-animation="fadeIn">
+                                                <article class="comment">
+                                                    <div class="comment-meta comment-author vcard">
+                                                        <img alt="" src="" data-src="holder.js/45x45/sky" />
+                                                    </div>
+
+                                                    <div class="comment-content comment">
+
+                                                        <a href="#" class="time"><i class="icon-alarm2"></i><time itemprop="commentTime" datetime="">August 16, 2013 at 05:41 am</time></a>
+
+                                                        <cite class="creator" itemprop="creator"><a href="#" class="url">Samuel</a></cite>
+
+                                                        <p class="text" itemprop="commentText">Etiam pharetra, erat sed fermentum feugiat.</p>
+
+                                                        <div class="options clearfix">
+
+                                                            <span class="reply">
+                                                                <a class="comment-reply-link" href="#">Reply</a>
+                                                                <meta itemprop="replyToUrl" content="" />
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </article>
+
+                                            </li>
+                                        </ol>
+
+                                    </li>
+                                </ol>
+
+                            </li>
+
+
+                            <li class="comment-main" data-showonscroll="true" data-animation="fadeIn">
+                                <article class="comment">
+
+                                    <div class="comment-meta comment-author vcard">
+                                        <img alt="" src="" data-src="holder.js/45x45/sky" />
+                                    </div>
+
+                                    <div class="comment-content comment">
+
+                                        <a href="#" class="time"><i class="icon-alarm2"></i><time itemprop="commentTime" datetime="">August 14, 2013 at 05:41 am</time></a>
+
+                                        <cite class="creator" itemprop="creator"><a href="#" class="url">Ahmad</a></cite>
+
+                                        <p class="text" itemprop="commentText">Etiam pharetra, erat sed fermentum feugiat.</p>
+
+                                        <div class="options clearfix">
+
+                                            <span class="reply">
+                                                <a class="comment-reply-link" href="#">Reply</a>
+                                                <meta itemprop="replyToUrl" content="" />
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                </article>
+
+                            </li>
+
+                        </ol>
+                        <div id="respond" class="comment-respond" data-showonscroll="true" data-animation="fadeIn">
+                            <h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3>
+                            <form role="form" method="post" action="~/Content/AddComments">
+                                <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+                                <p class="comment-form-author">
+
+                                    @*<label for="email">@Html.LabelFor(m => EMail) <span class="required">*</span></label>
+                                        @Html.TextBoxFor(m => EMail, new { @class = "form-control" })*@
+                                </p>
+                                <p class="comment-form-email">
+                                    @*<label for="email">@Html.LabelFor(m => EMail) <span class="required">*</span></label>
+                                        @Html.TextBoxFor(m => EMail, new { @class = "form-control" })*@
+                                </p>
+                                <p class="comment-form-url">
+                                    <label for="url">Website</label>
+                                    <input id="url" name="url" type="text" value="" size="30">
+                                </p>
+                                <p class="comment-form-comment">
+                                    @*<label for="comment">@Html.LabelFor(m => Comments)</label>
+                                        @Html.TextBoxFor(m => Comments, new { @class = "form-control" })*@
+                                </p>
+
+                                <p class="form-submit">
+                                    @*<button type="submit" class="btn btn-primary" id="@content.ContentID">Post Comment</button>*@
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </footer>
+    </div>
+</article>
+
+@section scripts{
+    <script>
+        var name = '@(Model.Author.AuthorID)';
+        $(document).ready(function () {
+            GetUserDetailswithSocialMedia(name);
+        });
+    </script>
+    <script src="~/JavaScript/Interviews.js"></script>
+    <script src="~/JavaScript/Authors.js"></script>
+}

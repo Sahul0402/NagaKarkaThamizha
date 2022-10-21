@@ -1,0 +1,68 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<KarkaThamizha.Object.Models.EventsModels>
+
+<link href="~/Content/Karkastyle.css" rel="stylesheet" />
+@if (Model != null)
+{
+<header>
+    <div class="breadcrumb-container clearfix" itemscope itemtype="http://schema.org/WebPage">
+        <ul class="breadcrumb ltr" itemprop="breadcrumb">
+            <li><i class="icon-home3"></i><a href="#">Home</a></li>
+            <li><a href="#">Technology</a></li>
+            <li><a href="#">Smartphones</a></li>
+            <li>Bear Introduced to Snow for the First Time</li>
+        </ul>
+    </div>
+    <div class="figure-container">
+        <figure class="featured-post-figure" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+            <a data-lightbox="true" title="Image With Image + Lightbox" href="~/Images-Website/8.png"><img itemprop="contentURL" src="~/Images-Website/7.jpg" /></a>
+            <figcaption itemprop="description">A few words about item</figcaption>
+        </figure>
+    </div>
+
+    <h3 itemprop="headline">சிறப்புத் தள்ளுபடி</h3>
+
+    <div class="post-meta">
+        <ul>
+            <li><i class="icon-user3"></i><a href="#">Serpentsoft</a></li>
+            <li><i class="icon-library"></i><a href="#">World</a></li>
+            <li itemprop="datePublished"><i class="icon-alarm2"></i>14 Aug, 2013 at 06:15 AM</li>
+            <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">4 Comments</a></li>
+            <li itemprop="interactionCount"><i class="icon-tv"></i><label id="lblPageViewCount"></label></li>
+            <li itemprop="interactionCount"><a href="#" id="PageLike" data-target="#loginModal" data-toggle="modal" itemprop="interactionCount"><i class="icon-heart"></i><label id="lblPageLikeCount"></label></a></li>
+        </ul>
+    </div>
+    @Html.ActionLink("Clr", "ClearEventsCache", "BookPreRelease", null, new { @style = "color:white;" })
+    <div class="divider"></div>
+</header>
+
+    <div style="padding-bottom:5px;" class="post-entry" itemprop="articleBody">
+        <div class="box-body">
+            <table class="table table-bordered table-condensed table-hover table-striped">
+                <thead>
+                    <tr id="t01"><th>தலைப்பு</th><th>ஆசிரியர்</th><th>கடைசி நாள்</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var _offer in Model)
+                    {
+                        <tr>
+                            <th>
+                                @Html.ActionLink((string)_offer.Header, "OfferBook", "BookPreRelease", new { eventId = _offer.EventID }, new { @class = "link", target = "_blank" })
+                            </th>
+                            <th>@_offer.UserList.UserName</th>
+                            <th>@(_offer.EndDate==null?"": _offer.EndDate.Value.ToString("dd-MM-yyyy"))</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="pagination" id="contentPager">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Offer", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+
+}
+

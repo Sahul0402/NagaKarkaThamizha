@@ -1,0 +1,65 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility;
+@model PagedList.IPagedList<KarkaThamizha.Object.Models.EventsModels>
+
+<link href="~/Content/Karkastyle.css" rel="stylesheet" />
+<div id="wait" class="loaderDiv"><img src='~/Images-Website/ajax-loader.gif' /><br>Loading..</div>
+
+<table class="table table-bordered table-condensed table-hover table-striped">
+    @Html.ActionLink("Clr", "ClearEventsCache", "Events", null, new { @style = "color:white;" }) 
+    <thead>
+
+        <tr id="t01"><th>தலைப்பு</th><th>நிகழ்ச்சி நாள்</th><th>கடைசி நாள்</th></tr>
+
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var _event in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.ActionLink((string)_event.Header, "EventName", "Events", new { eventId = _event.EventID }, new { @class = "link", target = "_blank" })
+                        @if (_event.EventsTypeID.Equals(Convert.ToInt16(EnumCode.EventsType.BookRelease)))
+                        {
+                            if (!string.IsNullOrEmpty(_event.VideoURL))
+                            {
+                                <a href="@Url.Content("https://www.youtube.com/" + _event.VideoURL)" target="_blank"><i class="icon-camera" style="float:right;"></i> </a>
+                            }
+                        }
+                    </th>
+                    <th>@_event.EventsDate.Value.ToShortDateString()</th>
+                    @if (_event.EventsTypeID.Equals(Convert.ToInt16(EnumCode.EventsType.BookFair)))
+                    {
+                        if (_event.EndDate != null)
+                        {
+                            <th>@_event.EndDate.Value.ToShortDateString()</th>
+                        }
+                        else
+                        {
+                            <th>-</th>
+                        }
+                    }
+                    else
+                    {
+                        <th>-</th>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="d-flex;">
+        <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
+        <div class="pagination" id="contentPager">
+            @Html.PagedListPager(Model, page => Url.Action("Events",
+                        new { Page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly,
+                        new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "divEvents" }))
+        </div>
+    </div>
+}
+

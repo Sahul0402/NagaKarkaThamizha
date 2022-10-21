@@ -1,0 +1,76 @@
+﻿@model List<KarkaThamizha.Object.Models.ArticleModels>
+@using KarkaThamizha.Common.Utility
+
+@section metatags{
+    <meta name="keywords" content='@ViewBag.MetaKeywords' />
+    <meta name="description" content='@ViewBag.MetaDescription' />
+}
+
+<aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+    <div class="widget-title clearfix">
+        <h3>கட்டுரைகள்</h3>
+        <div class="sep-widget"></div>
+    </div>
+
+    <div class="widget-content clearfix">
+        <div class="wdg-classic-posts color-theme clearfix">
+            <ul class="list-unstyled">
+                @if (Model != null)
+                {
+                    foreach (var article in Model)
+                    {
+                        <li class="post-item">
+                            <article class="post-box clearfix">
+                                <figure class="wdg-col-4 sec-image">
+                                    <div class="mask-background white"></div>
+
+                                    <div class="post-type anim"><i class="icon-camera2"></i></div>
+
+                                    <div class="post-thumbnail border-radius-2px">
+
+                                        @*<img class="border-radius-2px" src="(http://www.karkathamizha.com/Images-Author/" + Author.jpg)" data-src="" alt="Tamil Writer" />*@
+
+                                        @if (article != null && (!string.IsNullOrWhiteSpace(article.UserDetail.ImgComments)))
+                                        {
+                                            <img class="border-radius-2px" src="@Url.Content("~/Images-Author/" + article.UserDetail.ImgComments)" data-src="" alt="" />
+                                        }
+                                        else
+                                        { <img class="border-radius-2px" src="@Url.Content("http://www.karkathamizha.com/Images-Author/Author.jpg")" data-src="" alt="Tamil Writer" />}
+                                    </div>
+
+                                    <div class="rating">
+                                        <div class="stars retina x-1">
+                                            <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+
+                                            <div class="fill" style="width: 50%">
+                                                <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a href="#" class="more"></a>
+                                </figure>
+
+                                <div class="wdg-col-8 sec-title">
+
+                                    @*<span class="btn-srp"><a href="#">Smartphones</a></span>*@
+
+                                    <a href="#" title="">@Html.ActionLink(Convert.ToString(article.Header).Substring(0, (Convert.ToString(article.Header)).Length), "Article", "Author", new { id = article.ArticleID }, new { target = "_blank" })</a>
+
+
+                                    <div class="meta-info">
+
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@article.MagazineName.Name</a></span>
+                                        <span class="date"><i class="icon-alarm2"></i>@article.SourceDate.Value.ToShortDateString()</span>
+
+                                    </div>
+
+                                </div>
+                            </article>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</aside>

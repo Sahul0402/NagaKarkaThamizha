@@ -1,0 +1,50 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.UserModels>
+@using PagedList.Mvc;
+
+@using KarkaThamizha.Common.Utility
+@{
+    ViewBag.Title = "தமிழ் எழுத்தாளர்கள்";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Karkastyle.css" rel="stylesheet" />
+
+<!-- main content -->
+<article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
+
+    <div class="article-content authors-page">
+        <header>
+
+            <div class="breadcrumb-container clearfix" itemscope itemtype="http://schema.org/WebPage">
+                <ul class="breadcrumb ltr" itemprop="breadcrumb">
+                    <li><i class="icon-home3"></i><a href="#">Home</a></li>
+                    <li>Authors Page</li>
+                </ul>
+            </div>
+
+            <h3 itemprop="headline">எழுத்தாளர்கள்</h3>
+            <span>@Html.ActionLink("Clr", "ClearAuthorCache", "Author", null, new { @style = "color:white;" })</span>
+            <div class="post-meta">
+                <ul>
+                    <li title="Post Author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></li>
+                    <li><i class="icon-library"></i><a href="#" title="">World</a></li>
+                    <li itemprop="datePublished"><i class="icon-alarm2"></i>14 Aug, 2013 at 06:15 AM</li>
+                    <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">12</a></li>
+                    <li itemprop="interactionCount"><i class="icon-tv"></i>35</li>
+                    <li itemprop="interactionCount"><i class="icon-heart"></i>120</li>
+                </ul>
+            </div>
+            <div class="divider"></div>
+        </header>
+        <div id="divAuthorList"></div>
+    </div>
+</article>
+
+@{
+    @section scripts{
+        <script>
+            var hdnPage = "AuthorList";
+        </script>
+        <script src="~/JavaScript/Authors.js"></script>
+    }
+}

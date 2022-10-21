@@ -1,0 +1,83 @@
+﻿@model List<KarkaThamizha.Object.Models.ArticleModels>
+@using KarkaThamizha.Common.Utility
+
+
+@section metatags{
+    <meta name="keywords" content='@ViewBag.MetaKeywords' />
+    <meta name="description" content='@ViewBag.MetaDescription' />
+}
+
+<aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+    <div class="widget-title clearfix">
+        <h3>நேர்காணல்கள்</h3>
+
+        <div class="sep-widget"></div>
+    </div>
+    <div class="widget-content clearfix">
+        <div class="wdg-review-posts color-theme clearfix">
+            <ul class="list-unstyled">
+
+                @if (Model != null)
+                {
+                    foreach (var interview in Model)
+                    {
+                        <li class="post-item">
+                            <article class="post-box clearfix">
+                                <figure class="wdg-col-4 sec-image">
+
+                                    <div class="mask-background white"></div>
+
+                                    <div class="post-thumbnail border-radius-2px">
+                                        @*<img class="border-radius-2px" src="" data-src="holder.js/70x65/sky" alt="" />*@
+                                        @if (interview != null && interview.Author.AuthorID != 0)
+                                        {<img class="border-radius-2px" src="@Url.Action("GetAuthor", "Author", new { authordid = @interview.Author.AuthorID })" data-src="" alt=@interview.Author.Name />
+                                        }
+                                        @*else if (interview.ArticleImage != null && interview.ArticleImage != "")
+                                            {<img class="border-radius-2px" src="@Url.Content("~/Images-Articles/" + @interview.ArticleImage)" data-src="" alt="" />
+
+                                            }*@
+                                        else
+                                        { <img class="border-radius-2px" src="@Url.Content("http://www.karkathamizha.com/Images-Author/Author.jpg")" data-src="" alt="Tamil Writer" />}
+                                    </div>
+
+                                    <a href="#" class="more"></a>
+                                </figure>
+
+                                <div class="wdg-col-8 sec-title">
+                                    <span class="btn-srp"><a href="#">40%</a></span>
+                                    <div style="text-align:justify;font-size:12px;">
+                                        @Html.ActionLink(Convert.ToString(interview.Header).Substring(0, (Convert.ToString(interview.Header)).Length), "Interview", "Article", new { id = interview.ArticleID }, new { target = "_blank" })
+                                    </div>
+
+                                    <div class="meta-info">
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@interview.MagazineName.Name</a></span>
+                                        @if (interview.SourceDate != null)
+                                        {<span class="date"><i class="icon-alarm2"></i>@interview.SourceDate.Value.ToShortDateString()</span>}
+
+
+                                    </div>
+
+                                    <div class="review-rate clearfix">
+
+                                        <div class="rating-progress" itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating">
+                                            <div class="progress progress-striped">
+                                                <div class="progress-bar progress-bar-theme" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                    <span class="sr-only">30% Complete (warning)</span>
+                                                    <span class="hidden" itemprop="worstRating">1</span>
+                                                    <span class="hidden" itemprop="ratingValue">30</span>
+                                                    <span class="hidden" itemprop="bestRating">100</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </article>
+                        </li>
+                    }
+                }
+            </ul><span style="float:right;margin-top:10px;font-size:medium;">@Html.ActionLink("மேலும்...", "Interviews", "Article", null, new { target = "_blank" })</span>
+        </div>
+    </div>
+</aside>

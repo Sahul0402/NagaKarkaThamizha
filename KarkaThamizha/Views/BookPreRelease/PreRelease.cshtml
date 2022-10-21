@@ -1,0 +1,386 @@
+﻿@model KarkaThamizha.Object.Models.EventsModels
+@using KarkaThamizha.Common.Utility
+
+@section metatags{
+    <meta name="keywords" content='@ViewBag.MetaKeywords' />
+    <meta name="description" content='@ViewBag.MetaDescription' />
+}
+
+<!-- main content -->
+<article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
+
+    <div class="article-content clearfix">
+        <header>
+            <div class="breadcrumb-container clearfix" itemscope itemtype="http://schema.org/WebPage">
+                <ul class="breadcrumb ltr" itemprop="breadcrumb">
+                    <li><i class="icon-home3"></i><a href="#">Home</a></li>
+                    <li><a href="#">Technology</a></li>
+                    <li><a href="#">Smartphones</a></li>
+                    <li>@Model.Header</li>
+                </ul>
+            </div>
+
+            <div class="figure-container">
+                <figure class="featured-post-figure" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                    <a data-lightbox="true" title="Image With Image + Lightbox" href="~/Images-Website/8.png"><img itemprop="contentURL" src="~/Images-Website/7.jpg" data-src="" /></a>
+                    <figcaption itemprop="description">A few words about item</figcaption>
+                </figure>
+            </div>
+
+            <h3 itemprop="headline">@Model.Header</h3>
+
+            <div class="post-meta">
+                <ul>
+                    @*<li><i class="icon-user3"></i><a href="#">@content.MagazineName</a></li>*@
+                    <li><i class="icon-library"></i><a href="#">World</a></li>
+
+                    <li itemprop="datePublished"><i class="icon-alarm2"></i>@Model.EventsDate.Value.ToString("dd-MM-yyyy")</li>
+                    <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">4 Comments</a></li>
+                    <li itemprop="interactionCount"><i class="icon-tv"></i>35</li>
+                    <li itemprop="interactionCount"><i class="icon-heart"></i>100</li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+        </header>
+
+        <div itemprop="articleBody">
+            <span style="color:red;">முன் பதிவு செய்ய கடைசி நாள்: </span>@Model.EndDate.Value.ToShortDateString()<br /><br />
+        </div>
+
+        <div class="post-entry" itemprop="articleBody">
+
+            <span class="drop-capital"></span>
+
+            @if (string.IsNullOrEmpty(Model.Description))
+            {
+        <p>
+            <img src="@Url.Content("../Images-Events/" + Model.ImgPath)" alt=@Model.Header />
+        </p>
+            }
+            else
+            {
+                @Html.Raw(Server.HtmlDecode(Model.Description))
+                if (Model.ImgPath != null)
+                {
+                    <img src="@Url.Content("../Images-Events/" + Model.ImgPath)" alt=@Model.Header />
+                }
+            }
+
+            <nav class="post-navigation clearfix">
+                <div class="prev-article col-md-6 col-sm-6 col-xs-12">
+                    @*<a href="@Url.Action("PreviousEvents", "BooksPreRelease",new { eveid = Model.EventID})"><i class="fa fa-cog"></i> <cite>Previous Article</cite></a>*@
+                    @*<h3>@Html.ActionLink("<cite>" + Previous Article + "</cite>", "PreviousEvents", "BooksPreRelease", new { eveid = Model.EventID}, new { target = "_blank" })</h3>*@
+                </div>
+
+                <div class="next-article col-md-6 col-sm-6 col-xs-12">
+                    @*<a href="@Url.Action("NextEvents", "BooksPreRelease",new { eveid = Model.EventID})"><i class="fa fa-cog"></i> <cite>Next Article</cite></a>*@
+                </div>
+            </nav>
+
+        </div>
+
+        <footer class="article-boxes clearfix">
+            <aside class="tags-box clearfix" data-showonscroll="true" data-animation="fadeIn">
+                <div class="box-title">
+                    <h3>Tagged With:</h3>
+                </div>
+                <div class="box-content tags-cloud clearfix">
+                    <a href="#">Technology<span class="badge">15</span></a>
+                    <a href="#">President<span class="badge">10</span></a>
+                    <a href="#">Coup<span class="badge">13</span></a>
+                </div>
+            </aside>
+
+            <aside class="share-box clearfix" data-showonscroll="true" data-animation="fadeIn">
+                <div class="box-title">
+                    <h3>Share On:</h3>
+                </div>
+                <div class="box-content share-icons clearfix">
+                    <a href="#" class="facebook">facebook<span class="badge"><i class="zoc-facebook"></i></span></a>
+                    <a href="#" class="twitter">twitter<span class="badge"><i class="zoc-twitter"></i></span></a>
+                    <a href="#" class="gplus">google+<span class="badge"><i class="zoc-gplus"></i></span></a>
+                    <a href="#" class="pinterest">pinterest<span class="badge"><i class="zoc-pinterest"></i></span></a>
+                    <a href="#" class="stumbleupon">stumbleupon<span class="badge"><i class="zoc-stumbleupon"></i></span></a>
+                </div>
+            </aside>
+
+            <aside class="author-box clearfix" itemprop="author" itemscope="" itemtype="http://schema.org/Person" data-showonscroll="true" data-animation="fadeIn">
+                <div class="box-title">
+                    <h3 class="hidden">Written By:</h3>
+                    <div itemprop="image">
+                        <img alt="Serpentsoft" src="" data-src="holder.js/85x85/sky" class="avatar">
+                    </div>
+                </div>
+
+                <div class="box-content clearfix">
+                    <h4 class="name">
+                        <a itemprop="name" href="#" title="Serpentsoft">Serpentsoft</a>
+                    </h4>
+                    <div itemprop="description">
+                        <p>A few words about article's author, I am a Web Developer and Designer, i love computer programming either Desktop or Web</p>
+                    </div>
+                    <div class="social-icons">
+                        <ul class="clearfix">
+                            <li class="tooltip_item fb-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="facebook">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-facebook"></i></a>
+                            </li>
+
+                            <li class="tooltip_item twitter-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="twitter">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-twitter"></i></a>
+                            </li>
+
+                            <li class="tooltip_item googleplus-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="google+">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-gplus"></i></a>
+                            </li>
+
+                            <li class="tooltip_item pinterest-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="pinterest">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-pinterest"></i></a>
+                            </li>
+
+                            <li class="tooltip_item youtube-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="youtube">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-youtube"></i></a>
+                            </li>
+
+                            <li class="tooltip_item github-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="github">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-github-circled"></i></a>
+                            </li>
+
+                            <li class="tooltip_item flickr-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="flickr">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-flickr"></i></a>
+                            </li>
+
+                            <li class="tooltip_item rss-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="rss">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-rss"></i></a>
+                            </li>
+
+                            <li class="tooltip_item email-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="send an email to Serpentsoft">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-email"></i></a>
+                            </li>
+
+                            <li class="tooltip_item website-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="visit Serpentsoft's website">
+                                <div class="mask-background animated lightSpeedIn"></div>
+                                <a href="#"><i class="zoc-ie"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </aside>
+
+            <!-- Related Article Box -->
+            <aside id="divRelatedBox_1" class="cat-widget wdg-cat-scrollbox cat-scroll-box clearfix">
+
+                <div class="widget-title">
+                    <h3>Related Articles</h3>
+                    <div class="sep-widget"></div>
+                </div>
+
+                <div class="widget-content color-theme clearfix">
+                    <div>
+                        <ul class="nav-arrows list-inline">
+                            <li><a href="#" class="backward"><i class="icon-arrow-left6"></i></a></li>
+                            <li><a href="#" class="forward"><i class="icon-arrow-right6"></i></a></li>
+                        </ul>
+
+                        <div class="scroll-box">
+
+                            <div class="post-item">
+                                <article class="post-box clearfix">
+                                    <a class="post-thumbnail">
+                                        <img src="" data-src="holder.js/314x210/sky" />
+                                    </a>
+                                    <div class="top-bar">
+                                        <span class="likes"><a href="#"><i class="icon-heart"></i>10</a></span>
+                                        <span class="comments"><i class="icon-bubble"></i>1500</span>
+                                        <span class="views"><i class="icon-tv"></i>2000</span>
+                                        <span class="btn-srp"><a href="#">Sport</a></span>
+                                    </div>
+
+                                    <div class="title-bar">
+                                        <h4 class="post-title"><a href="#">Post With Featured Image</a></h4>
+                                        <div class="meta-info">
+                                            <span class="author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></span>
+                                            <span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="bottom-bar">
+                                        <span class="btn-srp"><a href="#">Read More...</a></span>
+                                        <div class="rating">
+                                            <div class="stars retina x-2">
+                                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                                                <div class="fill" style="width: 90%">
+                                                    <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="post-item">
+                                <article class="post-box clearfix">
+                                    <a class="post-thumbnail">
+                                        <img src="" data-src="holder.js/314x210/sky" />
+                                    </a>
+
+                                    <div class="top-bar">
+                                        <span class="likes"><a href="#"><i class="icon-heart"></i>10</a></span>
+                                        <span class="comments"><i class="icon-bubble"></i>1500</span>
+                                        <span class="views"><i class="icon-tv"></i>2000</span>
+                                        <span class="btn-srp"><a href="#">Movies</a></span>
+                                    </div>
+
+                                    <div class="title-bar">
+                                        <h4 class="post-title"><a href="#">Post With Youtube Video</a></h4>
+                                        <div class="meta-info">
+                                            <span class="author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></span>
+                                            <span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="bottom-bar">
+                                        <span class="btn-srp"><a href="#">Read More...</a></span>
+                                        <div class="rating">
+                                            <div class="stars retina x-2">
+                                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                                                <div class="fill" style="width: 50%">
+                                                    <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="post-item">
+                                <article class="post-box clearfix">
+                                    <a class="post-thumbnail">
+                                        <img src="" data-src="holder.js/314x210/sky" />
+                                    </a>
+
+                                    <div class="top-bar">
+                                        <span class="likes"><a href="#"><i class="icon-heart"></i>10</a></span>
+                                        <span class="comments"><i class="icon-bubble"></i>1500</span>
+                                        <span class="views"><i class="icon-tv"></i>2000</span>
+                                        <span class="btn-srp"><a href="#">Music</a></span>
+                                    </div>
+
+                                    <div class="title-bar">
+                                        <h4 class="post-title"><a href="#">Post With Sound Cloud</a></h4>
+                                        <div class="meta-info">
+                                            <span class="author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></span>
+                                            <span class="date-time"><i class="icon-alarm2"></i>15 Aug 2013, 05:15 AM</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="bottom-bar">
+                                        <span class="btn-srp"><a href="#">Read More...</a></span>
+                                        <div class="rating">
+                                            <div class="stars retina x-2">
+                                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                                                <div class="fill" style="width: 20%">
+                                                    <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="post-item">
+                                <article class="post-box clearfix">
+                                    <a class="post-thumbnail">
+                                        <img src="" data-src="holder.js/314x210/sky" />
+                                    </a>
+
+                                    <div class="top-bar">
+                                        <span class="likes"><a href="#"><i class="icon-heart"></i>10</a></span>
+                                        <span class="comments"><i class="icon-bubble"></i>1500</span>
+                                        <span class="views"><i class="icon-tv"></i>2000</span>
+                                        <span class="btn-srp"><a href="#">Technology</a></span>
+                                    </div>
+
+                                    <div class="title-bar">
+                                        <h4 class="post-title"><a href="#">Honda Now Lets You 3D Print Its Concept Car Models</a></h4>
+                                        <div class="meta-info">
+                                            <span class="author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></span>
+                                            <span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="bottom-bar">
+                                        <span class="btn-srp"><a href="#">Read More...</a></span>
+                                        <div class="rating">
+                                            <div class="stars retina x-2">
+                                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                                                <div class="fill" style="width: 40%">
+                                                    <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Comments Box -->
+            <div id="divComments"></div>
+        </footer>
+    </div>
+</article>
+
+@section scripts{
+    <script>
+        var masterPageID = @((int)EnumCode.Pages.BookPreRelease);
+        var childPageID = @Model.EventID;    //EVentsID / ArticleID / InterviewID
+
+        jQuery(function () {
+            // Owl
+            serpentsoft_owlStartCarousel('divRelatedBox_1', 2, {
+                itemsCustom: [
+	                [0, 2],
+                    [992, 2],
+	                [765, 2],
+                    [480, 1],
+                    [150, 1],
+                ],
+                itemsTablet: false, //2 items between 600 and 0
+                itemsMobile: false, // itemsMobile disabled - inherit from itemsTablet option
+                rewindNav: true,
+                lazyLoad: true,
+            });
+
+            // Widget Slides ( divWidgetSlides_1 )
+            serpentsoft_owlStartCarousel('divWidgetSlides_1', 1, {
+                itemsCustom: [
+	                [0, 1],
+                    [992, 1],
+	                [765, 1],
+                    [480, 1],
+                    [150, 1],
+                ],
+                itemsTablet: false, //2 items between 600 and 0
+                itemsMobile: false, // itemsMobile disabled - inherit from itemsTablet option
+                rewindNav: true,
+                lazyLoad: true,
+            });
+        });
+    </script>
+    <script src="~/JavaScript/KarkaCommonJS.js"></script>
+}

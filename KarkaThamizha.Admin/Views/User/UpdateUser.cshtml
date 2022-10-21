@@ -1,0 +1,267 @@
+﻿@model KarkaThamizha.Object.Models.UserModels
+@{
+    ViewBag.Title = "Update User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    .ui-datepicker .ui-datepicker-title select {
+        color: #000;
+    }
+</style>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-9">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Update User</h3>
+                    <span style="float:right">
+                        @Html.ActionLink("User List", "User", "User") |
+                        @Html.ActionLink("Author List", "User", "User?type=Author") |
+                        @Html.ActionLink("Book List", "Books", "Books") |
+                        @Html.ActionLink("Add New Book", "AddBooks", "Books") |
+                        @Html.ActionLink("Clear Cache", "Cache", "Master")
+                    </span>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div style="margin-left:5px;font-size:medium;color:red;">
+                        <span>Basic User Info</span>
+                        <div style="margin-left:30px;">@Html.HiddenFor(m => m.UserID, new { Value = Model.UserID })</div>
+                    </div>
+                    <div class="box-body">
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Name)</span>
+                                @Html.TextBoxFor(m => m.Initial, new { @maxlength = "14", @class = "", style = "width:15%;min-width:15%;" })
+                                @Html.TextBoxFor(m => m.UserName, ViewBag.CurrentFilter as string, new { @maxlength = "100", @class = "", style = "width:35;min-width:35%;", onblur = "CheckUser();" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.Name)
+                                </span>
+                                @Html.TextBoxFor(m => m.Name, new { @maxlength = "35", @class = "toProperCase", style = "width:50%;min-width:50%;" })
+                                <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })</span>
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Email)</span>
+                                @Html.TextBoxFor(m => m.Email, new { @maxlength = "40", @class = "toLowerCase", style = "width:50%;min-width:50%;" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.Password)
+                                </span>
+                                @Html.PasswordFor(m => m.Password, new { @minlength = "8", @maxlength = "12", @Value = Model.Password, @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Mobile)</span>
+                                @Html.TextBoxFor(m => m.Mobile,new { @maxlength = "20", Value = "8189989911" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.Profession.ProfessionID)
+                                </span>
+                                @Html.DropDownListFor(m => m.Profession.ProfessionID, new SelectList(Model.Profession.lstProfession, "Value", "Text"), "...Select Profession...", new { @class = "", style = "width:50%;min-width:50%;" })
+                                <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.Profession.ProfessionID, "", new { @class = "text-danger" })</span>
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserType.UserTypeID)</span>
+                                @Html.DropDownListFor(m => m.UserType.UserTypeID, new SelectList(Model.UserType.LstUserType, "Value", "Text"), "...Select User Type...", new { @class = "", style = "width:50%;min-width:50%;" })
+                                <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.UserType.UserTypeID, "", new { @class = "text-danger" })</span>
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.SpecialName.SpecialNameID)
+                                </span>
+                                @Html.DropDownListFor(m => m.SpecialName.SpecialNameID, new SelectList(Model.SpecialName.lstSpecialName, "Value", "Text"), "...Select SpecialName Type...", new { @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+                        <div style="margin-left:5px;font-size:medium;color:red;">User Details Info</div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.Website)</span>
+                                @Html.DropDownListFor(m => m.UserDetail.Protocol, new List<SelectListItem>
+                                         {
+                                            new SelectListItem{Text="http://www.", Value="1"},
+                                            new SelectListItem{Text="https://www.", Value="2"},
+                                         },
+                                           "Select")
+                                @Html.TextBoxFor(m => m.UserDetail.Website, new { @maxlength = "30", @class = "toLowerCase", style = "width:50%;min-width:50%;", placeholder = "karkathamizha.com" })
+                            </div>
+                            <div style="float:left;width:50%;padding:0 2%;">
+                                <span style="float:left;width:30%;text-align:left;">
+                                    @Html.LabelFor(m => m.UserDetail.Blog)
+                                </span>
+                                @Html.TextBoxFor(m => m.UserDetail.Blog, new { @maxlength = "20", @class = "", style = "width:40%;min-width:40%;" })
+                                @Html.DropDownListFor(m => m.UserDetail.BlogType, new List<SelectListItem> { new SelectListItem { Text="Blogspot",Value="B" },
+                            new SelectListItem {Text="Wordpress",Value="W" }}, "Please Select", new { @class = "", style = "width:20%;min-width:20%;" })
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.FaceBook)</span>
+                                @Html.TextBoxFor(m => m.UserDetail.FaceBook, new { @maxlength = "50", style = "width:50%;min-width:50%;", placeholder = "sahulhameediqbal (or) id=100010314105460" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.UserDetail.Twitter)
+                                </span>
+                                @Html.TextBoxFor(m => m.UserDetail.Twitter, new { @maxlength = "30", @class = "", style = "width:50%;min-width:50%;", placeholder = "karkathamizha" })
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.Instagram)</span>
+                                @Html.TextBoxFor(m => m.UserDetail.Instagram, new { @maxlength = "15", style = "width:50%;min-width:50%;" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.UserDetail.Pinterest)
+                                </span>
+                                @Html.TextBoxFor(m => m.UserDetail.Pinterest, new { @maxlength = "25", @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.YouTube)</span>
+                                @Html.TextBoxFor(m => m.UserDetail.YouTube, new { @maxlength = "35", style = "width:50%;min-width:50%;", placeholder = "v=6zcq1aebNQE" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.UserDetail.Wikipedia)
+                                </span>
+                                @Html.TextBoxFor(m => m.UserDetail.Wikipedia, new { @maxlength = "100", @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.DOB)</span>
+                                @Html.EditorFor(m => m.UserDetail.DOB, new { htmlAttributes = new { @class = "", onkeydown = "", onpaste = "return false" } }) &nbsp;
+
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.UserDetail.DOD)
+                                </span>
+                                @Html.EditorFor(m => m.UserDetail.DOD, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "", onkeydown = "", onpaste = "return false" } })
+                                @Html.CheckBoxFor(m=>m.UserDetail.OldAuthorDOD)
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.ImgComments)</span>
+                                <input type="file" id="UserDetail_CommentsImage" name="imgFile[0]" />@Html.DisplayFor(m => m.UserDetail.ImgComments)
+                                @Html.HiddenFor(m => m.UserDetail.ImgComments, new { value = Model.UserDetail.ImgComments })
+                            </div>
+                            <div style="float:left;width:48%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.ImgProfile)</span>
+                                <input type="file" id="UserDetail_ProfileImage" name="imgFile[1]" />@Html.DisplayFor(m => m.UserDetail.ImgProfile)
+                                @Html.HiddenFor(m => m.UserDetail.ImgProfile, new { value = Model.UserDetail.ImgProfile })
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.Address)</span>
+                                @Html.TextBoxFor(m => m.UserDetail.Address, new { @class = "", style = "width:50%;min-width:50%;", autocomplete = "off" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.CountryID)</span>
+                                @Html.DropDownListFor(m => m.UserDetail.CountryID, new SelectList(Model.Country.LstCountry, "Value", "Text"), "...Select Country...", new { @class = "", style = "width:50%;min-width:50%;", @onchange = "FillStates();" })
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.StateID)</span>
+                                @Html.DropDownListFor(m => m.UserDetail.StateID, new SelectList(Model.State.LstState, "Value", "Text"), "...Select State...", htmlAttributes: new { @class = "", style = "width:50%;min-width:50%;", @onchange = "FillCities();" })
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                    @Html.LabelFor(m => m.UserDetail.CityID)
+                                </span>
+                                @Html.DropDownListFor(m => m.UserDetail.CityID, new SelectList(Model.City.LstCity, "Value", "Text"), "...Select City...", htmlAttributes: new { @class = "", style = "width:50%;min-width:50%;" })
+                            </div>
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserDetail.IsShownInMenu)</span>
+                                @Html.CheckBoxFor(m => m.UserDetail.IsShownInMenu)
+                            </div>
+                            <div style="float:left;width:45%;padding:0 2%;">
+                                <span style="float:left;width:33%;text-align:left;padding-right:1%;">Mail Subscription</span>
+                                @Html.CheckBoxFor(m => m.UserDetail.IsMailSubscription)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtTamEng">Profile</label>
+                            @Html.TextAreaFor(m => m.UserDetail.Profile, new { @class = "ckeditor", @id = "Description" })
+                        </div>
+                        <div class="form-group">
+                            <label for="txtTamEng">Reference</label>
+                            @Html.TextAreaFor(m => m.UserDetail.Reference, new { rows = "5", style = "resize:none;position: relative;width:72%;min-width:72%;text-align: justify;" })
+                        </div>
+                        <!-- /.box -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+                        <!--/.col (left) -->
+                    </div>
+
+                }
+                <!-- /.row -->
+            </div>
+
+        </div>
+    </div>
+    <div id="dialog" style="display: none"></div>
+</section>
+<!-- /.content -->
+
+@section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace('Description', {
+            editor: extraAllowedContent = '*(*);*{*}'
+        });
+    </script>
+    <script src="~/JavaScript/Users.js"></script>
+    <script>
+        $.validator.addMethod('date',
+        function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var valid = true;
+            try {
+                $.datepicker.parseDate('dd-mm-yy', value);
+            }
+            catch (err) {
+                valid = false;
+            }
+            return valid;
+        });
+    </script>
+}

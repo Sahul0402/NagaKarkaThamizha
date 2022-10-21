@@ -1,0 +1,140 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility;
+@model PagedList.IPagedList<KarkaThamizha.Object.Models.SeriesModels>
+
+<style>
+    thead, th, td {
+        border: 1px solid #Feb500;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+    }
+
+    #t01 tr:nth-child(even) {
+        background-color: #eee;
+    }
+
+    #t01 tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    #t01 th {
+        background-color: #Feb500;
+        color: white;
+        text-align: center;
+    }
+
+    a.link {
+        cursor: pointer;
+    }
+
+        a.link:active {
+            color: #1A0DAB;
+        }
+
+        a.link:link {
+            color: #1A0DAB;
+        }
+
+        a.link:visited {
+            color: #609;
+        }
+</style>
+
+<article class="article-container" itemscope itemtype="http://schema.org/Article">
+    <div class="article-content timeline-page">
+        <header>
+            <div class="breadcrumb-container clearfix" itemscope itemtype="http://schema.org/WebPage">
+                <ul class="breadcrumb ltr" itemprop="breadcrumb">
+                    <li><i class="icon-home3"></i><a href="#">Home</a></li>
+                    <li><a href="#">Technology</a></li>
+                    <li><a href="#">Smartphones</a></li>
+                    <li>Bear Introduced to Snow for the First Time</li>
+                </ul>
+            </div>
+            <div class="figure-container">
+                <figure class="featured-post-figure" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+
+                    <a data-lightbox="true" title="Image With Image + Lightbox" href="~/Images-Website/8.png"><img itemprop="contentURL" src="~/Images-Website/7.jpg" /></a>
+
+                    <figcaption itemprop="description">A few words about item</figcaption>
+                </figure>
+
+            </div>
+
+            <h3 itemprop="headline">எழுத்தாளர்களின் தொடர்கள்</h3>
+
+            <div class="post-meta">
+                <ul>
+                    <li><i class="icon-user3"></i><a href="#">Serpentsoft</a></li>
+                    <li><i class="icon-library"></i><a href="#">World</a></li>
+
+                    <li itemprop="datePublished"><i class="icon-alarm2"></i>14 Aug, 2013 at 06:15 AM</li>
+                    <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">4 Comments</a></li>
+                    <li itemprop="interactionCount"><i class="icon-tv"></i>35</li>
+                    <li itemprop="interactionCount"><i class="icon-heart"></i>100</li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+        </header>
+
+        <div style="padding-bottom:10px;" class="post-entry" itemprop="articleBody">
+            <table class="table table-bordered table-condensed table-hover table-striped">
+                <thead>
+                    @if (Model != null)
+                    {
+                        <tr id="t01"><th>தொடரின் பெயர்</th><th>எழுத்தாளர்</th><th>இதழ்</th><th>ஆரம்பம்</th><th>முடிவு</th><th>கிழமை</th></tr>
+                    }
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var authorSeries in Model)
+                        {
+                            <tr>
+                                <th>@authorSeries.SeriesName - @authorSeries.SeriesType.SeriesType</th>
+                                <th>@Html.ActionLink((string)authorSeries.Author.UserName, "AuthorDetails", "Author", new { Name = authorSeries.Author.UserName.Replace(" ", "-"), UserID = authorSeries.Author.UserID }, new { @class = "link", target = "_blank" })</th>
+                                <th>@authorSeries.Magazine.Magazine</th>
+                                <th>@authorSeries.StartDate.ToShortDateString()</th>
+                                @if (authorSeries.EndDate != null && authorSeries.EndDate != DateTime.MinValue)
+                                {
+                                    <th>@authorSeries.EndDate.Value.ToString("dd-MM-yyyy")</th>
+}
+                                else
+                                {
+                                    <th style="text-align:center;"> ---</th>
+}
+
+                                <th>@authorSeries.WeekDay.WeekDay</th>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <div id="divAuthorSeries"></div>
+
+            @if (Model != null && Model.Count > 0)
+            {
+                <div class="pagination" id="contentPager">
+
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("AuthorSeries",
+                        new { Page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly,
+                        new AjaxOptions
+                        {
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "Get",
+                            UpdateTargetId = "divAuthorSeries"
+                        }))
+                </div>
+            }
+        </div>
+    </div>
+</article>

@@ -1,0 +1,29 @@
+﻿body { }
+/* Set padding to keep content from hitting the edges */
+.body-content {padding-left: 15px;padding-right: 15px;}
+/* Override the default bootstrap behavior where horizontal description lists will truncate terms that are too long to fit in the left column */
+.dl-horizontal dt {white-space: normal;}
+/* Set width on the form input elements since they're 100% wide by default */
+/*textarea is removed due to ckeditor source mode issue*/
+input,select {max-width: 280px;}
+/*input,select,textarea {max-width: 280px;}*/
+.textareaMax {max-width: 750px;}
+#pattern-style-b{font-family:"Lucida Sans Unicode", "Lucida Grande", Sans-Serif;font-size:12px;width:95%;text-align:left;border-collapse:collapse;background:url("../Images/patternb.png");margin:10px;}
+#pattern-style-b thead tr{background:url("../Images/patternb-head.png");}
+#pattern-style-b th{font-size:13px;font-weight:normal;border-bottom:1px solid #fff;color:#039;padding:8px;}
+#pattern-style-b td{border-bottom:1px solid #fff;color:#669;border-top:1px solid transparent;padding:8px;}
+#pattern-style-b tbody tr:hover td{color:#339;background:#cdcdee;}
+.errormsg {color:red;}
+.bookDesc {width:68%;min-width:68%;height:80px;text-wrap:none;}
+.contentDiv{width:330px;float:left;}
+.contentRightDiv{width:330px;float:left;}
+.toProperCase {text-transform:capitalize;}
+.toLowerCase {text-transform:lowercase;}
+/*Refresh button*/
+.refresh {float:right;padding-right:10px;}
+.pageheader {padding-left:20px;}
+.txtAreaCtrl {resize:none;position: relative;width:73%;min-width:73%;margin-left: 26px;}
+.open>.dropdown-menu{width: 350px;min-width: 350px;}
+.columnMagRev { float: left; width: 49%; margin-left:1%;}
+/* Clear floats after the columns */
+.rowMagRev:after { content: ""; display: table; clear: both; }

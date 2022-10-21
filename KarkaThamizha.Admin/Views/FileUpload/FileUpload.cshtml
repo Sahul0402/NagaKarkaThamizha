@@ -1,0 +1,180 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.BooksModels>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "File Upload";
+}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+@using (Html.BeginForm("FileUpload", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Upload Books & Details </h3>
+                        <div style="float:right;">@Html.ActionLink("Books List", "Books")</div>
+                    </div>
+
+                    <div style="margin-left:25px;margin-top:10px;">
+                        <text>
+                            @Html.RadioButton("Upload", "Books", true) Books
+                            @Html.RadioButton("Upload", "BookAuthor")  Book Authors
+                            @Html.RadioButton("Upload", "BookCategory")  Book Category
+                            @Html.RadioButton("Upload", "BookDetails")  Book Details
+                        </text>
+                    </div>
+
+                    <div style="float:left;width:100%;padding-top:2%;">
+                        <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                            <span style="float:left;width:33%;text-align:left;padding-right:1%;">Select File</span>
+                            <input type="file" name="xlfile" id="xlfile" />
+                        </div>
+                    </div><br />
+                    <div class="box-footer">
+                        <button type="submit" name="submit" id="fileUpload" class="btn btn-primary">Upload</button>
+                    </div>
+
+                </div>
+                <!-- /.box -->
+            </div>
+            <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+    <div id="divBooksDetails">
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="box box-primary">
+                        <div id="divBookPrint">
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <div class="box-body">
+                                @if (Model != null)
+                                {
+                                    if (Model.Where(x => x.FileUploadType == "Books").Any())
+                                    {
+                                        <table id="pattern-style-b">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">BookID</th>
+                                                    <th scope="col">Book Name</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Tanglish</th>
+                                                    <th scope="col">Book Description</th>
+                                                    <th scope="col">Book Status</th>
+                                                    <th scope="col">Status</th>
+                                                </tr>
+                                            </thead>
+                                            @if (Model != null)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.BookID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Book)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Tanglish)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.BookDescription)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                                            <td style="width:277px;">
+                                                                @Html.ActionLink("Edit", "UpdateBook", new { bookID = item.BookID }) |
+                                                                @Html.ActionLink("Delete", "DeleteBook", new { bookID = item.BookID }, new { onclick = "return confirm('Are sure wants to delete?');" })
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                }
+                                            }
+                                        </table>
+                                        if (Model != null)
+                                        {
+                                            <div class="box-header" id="contentPager">
+                                                @Html.PagedListPager(Model, page => Url.Action("FileUpload", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                                                <span style="float:right">
+                                                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                                                </span>
+                                            </div>
+                                        }
+                                    }
+                                    else if (Model.Where(x => x.FileUploadType == "BookAuthor").Any())
+                                    {
+                                        <table id="pattern-style-b">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">BookID</th>
+                                                    <th scope="col">AuthorID</th>
+                                                    <th scope="col">UserTypeID</th>
+                                                </tr>
+                                            </thead>
+                                            @if (Model != null)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.BookID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Users.AuthorID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Users.UserType.UserTypeID)</td>
+                                                        </tr>
+                                                    </tbody>
+                                                }
+                                            }
+                                        </table>
+                                    }
+                                    else if (Model.Where(x => x.FileUploadType == "BookCategory").Any())
+                                    {
+                                        <table id="pattern-style-b">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">BookID</th>
+                                                    <th scope="col">CategoryID</th>
+                                                </tr>
+                                            </thead>
+                                            @if (Model != null)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.BookID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Category.CategoryID)</td>
+                                                        </tr>
+                                                    </tbody>
+                                                }
+                                            }
+                                        </table>
+                                    }
+                                }
+                                <div class="box-footer">
+                                    <button type="submit" name="submit" value="BulkInsert" class="btn btn-primary">Bulk Insert</button>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!--/.col (left) -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <div id="dialog" style="display: none"></div>
+}
+@{
+    @section Scripts{
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="~/JavaScript/FileUpload.js"></script>
+    }
+}

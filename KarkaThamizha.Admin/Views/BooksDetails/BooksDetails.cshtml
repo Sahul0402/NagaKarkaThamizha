@@ -1,0 +1,92 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.BooksDetailsModels>
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility;
+@{
+    ViewBag.Title = "BooksDetails";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">@*  *@
+                    <h3 class="box-title">Book Details</h3>
+                    <h3 class="box-title">
+                        @Html.DropDownList("ddListChange", new[]{
+                                            new SelectListItem { Text = "Unmatched with Books", Value = "0" },
+                                            new SelectListItem { Text="Matched with Books",Value="1" }
+                                        }, new { onchange = "ddListChange(Value)" })
+                    </h3>
+
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                @*<form role="form" method="post" id="PostBookDetails" action="~/Books/Books">*@
+                @using (Html.BeginForm("BooksDetails", "BooksDetails", FormMethod.Post, new { id = "PostBookDetails", name = "PostBookDetails" }))
+                {
+                    <div class="box-body">
+                        <table id="pattern-style-b">
+                            <thead>
+                                <tr>
+                                    <th scope="col">BookID</th>
+                                    <th scope="col">DetailsID</th>
+                                    <th scope="col">@Html.ActionLink("Book Name", "Book", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                                    <th scope="col">Price</th>
+                                    @*<th scope="col">Publiser</th>*@
+                                    <th scope="col">NoofCopy</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Books.BookID) @Html.HiddenFor(modelitem => item.Books.BookID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.BookDetailsID)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Books.Book)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                                        @*<td>@Html.DisplayFor(modelItem => item.PublisherName)</td>*@
+                                        <td>@Html.DisplayFor(modelItem => item.NoofCopy)</td>
+                                        <td @*style="width:175px;"*@>
+                                            @Html.ActionLink("Add BooksDetails", "AddBooksDetails", "BooksDetails", new { bookID = item.Books.BookID }, new { @title = "Add another Publisher for this book." }) |
+                                            @Html.ActionLink("Add BooksReview", "AddBooksReview", "BooksReview", new { bookDetailsID = item.BookDetailsID }, null) |
+                                            @*@Html.ActionLink("Best Books", "AddBestBooks", "BestBooks", new { id = item.BookDetailsID }, null) |*@
+                                            @Html.ActionLink("Edit", "UpdateBooksDetails", new { bookDetailsId = item.BookDetailsID }) |
+                                            @Html.ActionLink("Delete", "Delete", new { bookDetailsId = item.BookDetailsID }, new { onclick = "return confirm('Are sure wants to delete?');" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                        <br />
+                        <div style="padding:0 5px;">
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                            @Html.PagedListPager(Model, page => Url.Action("BooksDetails", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        </div>
+                        <div id="location"></div>
+                    </div>
+                }
+                <!-- /.box-body -->
+                @*</form>*@
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+<script type="text/javascript">
+
+    function ddListChange() {
+        var value = $('#ddListChange').val();
+        alert(value);
+        document.PostBookDetails.submit(value);
+    }
+
+</script>

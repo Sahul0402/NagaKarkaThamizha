@@ -1,0 +1,176 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility;
+@model PagedList.IPagedList<KarkaThamizha.Object.Models.UserModels>
+<style>
+    .list-group-item {
+        border: 0px;
+        width: 45px;
+        height: 33px;
+    }
+</style>
+<div id="searchString" class="">
+    <ul class="list-group searchpagination">
+        <li>@Html.ActionLink("அ", "Authors", "Author", new { Search = "அ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஆ", "Authors", "Author", new { Search = "ஆ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("இ", "Authors", "Author", new { Search = "இ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஈ", "Authors", "Author", new { Search = "ஈ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("உ", "Authors", "Author", new { Search = "உ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஊ", "Authors", "Author", new { Search = "ஊ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("எ", "Authors", "Author", new { Search = "எ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஏ", "Authors", "Author", new { Search = "ஏ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஐ", "Authors", "Author", new { Search = "ஐ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஒ", "Authors", "Author", new { Search = "ஒ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஓ", "Authors", "Author", new { Search = "ஓ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஔ", "Authors", "Author", new { Search = "ஔ" }, new { @class = "list-group-item" })</li>
+        <br />
+
+        <li>@Html.ActionLink("க", "Authors", "Author", new { Search = "க" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ங", "Authors", "Author", new { Search = "ங" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ச", "Authors", "Author", new { Search = "ச" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஞ", "Authors", "Author", new { Search = "ஞ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ட", "Authors", "Author", new { Search = "ட" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("த", "Authors", "Author", new { Search = "த" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ந", "Authors", "Author", new { Search = "ந" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ப", "Authors", "Author", new { Search = "ப" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ம", "Authors", "Author", new { Search = "ம" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ய", "Authors", "Author", new { Search = "ய" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ர", "Authors", "Author", new { Search = "ர" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ல", "Authors", "Author", new { Search = "ல" }, new { @class = "list-group-item" })</li>
+        <br />
+
+        <li>@Html.ActionLink("வ", "Authors", "Author", new { Search = "வ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ற", "Authors", "Author", new { Search = "ற" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஜ", "Authors", "Author", new { Search = "ஜ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஷ", "Authors", "Author", new { Search = "ஷ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஸ", "Authors", "Author", new { Search = "ஸ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஹ", "Authors", "Author", new { Search = "ஹ" }, new { @class = "list-group-item" })</li>
+        <li>@Html.ActionLink("ஸ்ரீ", "Authors", "Author", new { Search = "ஸ்ரீ" }, new { @class = "list-group-item" })</li>
+        <li style="float:right;">@Html.ActionLink("All", "Authors", "Author", new { Search = "" }, null)</li>
+    </ul>
+</div>
+
+<footer class="blog-pagination">
+    <!-- pager -->
+    <div id="contentPager" style="padding:0 5px;">
+        @Html.PagedListPager(Model, page => Url.Action("GetAllAuthor", new { page }))
+    </div>
+</footer>
+<div class="authors">
+    @if (Model != null)
+    {
+        foreach (var userProfile in Model)
+        {
+            <ul class="list-unstyled">
+
+                <li class="post-item" data-showonscroll="true" data-animation="fadeIn">
+                    <aside class="author-box clearfix" itemprop="author" itemscope="" itemtype="http://schema.org/Person" data-showonscroll="true" data-animation="fadeIn">
+                        <div class="box-title">
+                            <h3 class="hidden">Written By:</h3>
+                            <div itemprop="image">
+                                <img title=@userProfile.UserName alt=@userProfile.UserName src="@Url.Content("~/Images-Author/" + userProfile.UserDetail.ImgComments)" data-src=@userProfile.UserName onerror="this.onerror = null; this.src = 'http://www.karkathamizha.com/Images-Author/Author1.jpg'" class="avatar">
+                            </div>
+                        </div>
+
+                        <div class="box-content clearfix">
+                            <h4 class="name">
+                                @Html.ActionLink(userProfile.UserName, "AuthorDetails", "Author", new { Name = userProfile.UserName.Replace(" ", "-"), UserID = userProfile.UserID }, new { @class = "", target = "_blank" })
+                                <input id="hdnUserID" type="hidden" value="@userProfile.UserID" />
+                            </h4>
+
+                            <div itemprop="description">
+                                <p style="text-align:justify;margin-right:5px;">
+                                    @Html.Raw(userProfile.UserDetail.Profile.ToString().Replace("\r\n", "<br />").ToString().Chop(193))
+                                    <div style="float:right;">
+                                        @Html.ActionLink("மேலும்...", "AuthorDetails", "Author", new { Name = userProfile.UserName.Replace(" ", "-"), UserID = userProfile.UserID }, new { @class = "", target = "_blank" })
+                                    </div>
+                            </div>
+
+                            <div class="social-icons">
+                                <ul class="clearfix">
+                                    <li class="tooltip_item fb-metro-but-16" data-toggle="tooltip" data-placement="top" data-original-title="facebook">
+                                        <div class="mask-background animated lightSpeedIn"></div>
+                                        <a href="@Url.Content(Convert.ToString(userProfile.UserDetail.FaceBook) !=null ? "https://www.facebook.com/" + userProfile.UserDetail.FaceBook : "https://www.facebook.com/karkathamizha")" title="Facebook" target="_blank"><i class="zoc-facebook"></i></a>
+                                    </li>
+
+                                    <li class="tooltip_item twitter-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="twitter">
+                                        <div class="mask-background animated lightSpeedIn"></div>
+                                        <a href="@Url.Content("https://twitter.com/" + userProfile.UserDetail.Twitter)" title="Twitter" target="_blank"><i class="zoc-twitter"></i></a>
+                                    </li>
+
+                                    <li class="tooltip_item googleplus-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="google+">
+                                        <div class="mask-background animated lightSpeedIn"></div>
+                                        <a href="#" title="GooglePlus" target="_blank"><i class="zoc-gplus"></i></a>
+                                    </li>
+
+                                    <li class="tooltip_item pinterest-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="pinterest">
+                                        <div class="mask-background animated lightSpeedIn"></div>
+                                        <a href="#" title="Pinterest" target="_blank"><i class="zoc-pinterest"></i></a>
+                                    </li>
+
+                                    <li class="tooltip_item youtube-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="youtube">
+                                        <div class="mask-background animated lightSpeedIn"></div>
+                                        <a href="@Url.Content("https://www.youtube.com//" + userProfile.UserDetail.YouTube)" title="YouTube" target="_blank"><i class="zoc-youtube"></i></a>
+                                    </li>
+
+                                    <li class="tooltip_item wikipedia-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="wikipedia">
+                                        <div class="mask-background animated lightSpeedIn"></div>
+                                        <a href="@Url.Content("https://ta.wikipedia.org/wiki/" + userProfile.UserDetail.Wikipedia)" title="Wikipedia" target="_blank"><i class="zoc-wikipedia"></i></a>
+                                    </li>
+
+                                    <li class="tooltip_item flickr-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="flickr">
+                                        <div class="mask-background animated lightSpeedIn"></div>
+                                        <a href="#" title="Flickr" target="_blank"><i class="zoc-flickr"></i></a>
+                                    </li>
+
+                                    <li class="tooltip_item email-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="send an email">
+                                        <div class="mask-background animated lightSpeedIn"></div>
+                                        <a href="mailto:" title="Email" target="_blank"><i class="zoc-email"></i></a>
+                                    </li>
+
+                                    @if (userProfile.UserDetail.BlogType == "W")
+                                    {
+                                        <li class="tooltip_item wordpress-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="wordpress">
+                                            <div class="mask-background animated lightSpeedIn"></div>
+                                            <a href="@Url.Content("https://" + userProfile.UserDetail.Blog + ".wordpress.com")" title="Wordpress" target="_blank"><i class="zoc-wordpress"></i></a>
+                                        </li>
+                                    }
+                                    else if (userProfile.UserDetail.BlogType == "B")
+                                    {
+                                        <li class="tooltip_item blogger-metro-but-16" data-toggle="tooltip" data-placement="top" title="" data-original-title="blogger">
+                                            <div class="mask-background animated lightSpeedIn"></div>
+                                            <a href="@Url.Content("http://" + userProfile.UserDetail.Blog + ".blogspot.com")" title="Blogger" target="_blank"><i class="zoc-blogger"></i></a>
+                                        </li>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(Convert.ToString(userProfile.UserDetail.Website)))
+                                    {
+                                        <li class="tooltip_item website-metro-but-16" data-toggle="tooltip" data-placement="top" title="Website" data-original-title="visit Author's website">
+                                            <div class="mask-background animated lightSpeedIn"></div>
+                                            <a href="@Url.Content(userProfile.UserDetail.Protocol.ToString() == "1" ? "http://www." : "https://www." + userProfile.UserDetail.Website)" title="Website" target="_blank"><i class="zoc-ie"></i></a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="tooltip_item website-metro-but-16" data-toggle="tooltip" data-placement="top" title="Website" data-original-title="visit Author's website">
+                                            <div class="mask-background animated lightSpeedIn"></div>
+                                            <a href="#" style="enab" title="Website" target="_blank"><i class="zoc-ie"></i></a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </aside>
+                </li>
+            </ul>
+        }
+    }
+    <footer class="blog-pagination">
+        <!-- pager -->
+        <div id="contentPager" style="padding:0 5px;">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("GetAllAuthor", new { page }))
+        </div>
+    </footer>
+</div>

@@ -1,0 +1,186 @@
+﻿@model KarkaThamizha.Object.Models.UserModels
+
+
+<style>
+    /* Post With Lightbox */
+    .nivo-lightbox-theme-default .nivo-lightbox-close {
+        background: none;
+        font-family: 'icomoon';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        vertical-align: middle;
+        margin-right: 0px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #fff;
+        font-size: 15px;
+        width: initial;
+        height: initial;
+        text-indent: initial;
+    }
+
+        .nivo-lightbox-theme-default .nivo-lightbox-close:before {
+            content: '\e6ea';
+            margin-right: 5px;
+        }
+</style>
+
+<header>
+
+    @*<div class="breadcrumb-container clearfix" itemscope itemtype="http://schema.org/WebPage">
+            <ul class="breadcrumb ltr" itemprop="breadcrumb">
+                <li><i class="icon-home3"></i><a href="#">Home</a></li>
+                <li><a href="#">Technology</a></li>
+                <li><a href="#">Smartphones</a></li>
+                <li>Bear Introduced to Snow for the First Time</li>
+            </ul>
+        </div>*@
+    @{
+        var blogType = "";
+        var dob = "";
+        var dod = "";
+    }
+
+    @if (Model != null)
+    {
+        blogType = Convert.ToString(Model.UserDetail.BlogType == "W" ? ".wordpress.com" : ".blogspot.com");
+        dob = Convert.ToString(Model.UserDetail.DOB) == "" ? Convert.ToString(Model.UserDetail.DOB) : Convert.ToString(Model.UserDetail.DOB.Value.Date.ToString("dd.MM.yyyy"));
+        dod = Convert.ToString(Model.UserDetail.DOD) == "" ? Convert.ToString(Model.UserDetail.DOD) : Convert.ToString(Model.UserDetail.DOD.Value.Date.ToString("dd.MM.yyyy"));
+    }
+    <div class="figure-container">
+        <figure class="featured-post-figure" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+            <a data-lightbox="true" href="@Url.Content("~/Images-Author/" + Model.UserDetail.ImgProfile)">
+                <img itemprop="contentURL" src="@Url.Content("~/Images-Author/" + Model.UserDetail.ImgProfile)" data-src="" alt="@Model.Name" />
+            </a>
+            <figcaption itemprop="description">
+                @Model.Name @if (!string.IsNullOrEmpty(dob))
+                {@(dob)} @if (!string.IsNullOrEmpty(dod) && !dod.Equals("01.01.1753"))
+                {@(" - " + dod)}
+            </figcaption>
+        </figure>
+    </div>
+
+    <h3 itemprop="headline">@Model.Name</h3> @Html.HiddenFor(m => m.UserID, new { Value = Model.UserID })
+
+    <div class="post-meta">
+        <ul>
+            <li><i class="icon-user3"></i><a href="#">Serpentsoft</a></li>
+            <li><i class="icon-library"></i><a href="#">World</a></li>
+
+            <li itemprop="datePublished"><i class="icon-alarm2"></i>@Model.CreatedDate.ToShortDateString() at @Model.CreatedDate.ToShortTimeString()</li>
+            <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">4 Comments</a></li>
+            <li itemprop="interactionCount"><i class="icon-tv"></i>35</li>
+            <li itemprop="interactionCount"><a href="#" id="PageLike" data-target="#loginModal" data-toggle="modal" itemprop="interactionCount"><i class="icon-heart"></i><label id="lblPageLikeCount"></label></a></li>
+        </ul>
+    </div>
+
+    <div class="divider"></div>
+
+</header>
+
+<div class="post-entry" itemprop="articleBody">
+    <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+        <div class="widget-content clearfix">
+            <div class="social-icons white">
+                <ul class="clearfix">
+                    <li style="color:#feb400;font-size:medium;"><span><b>Author in Social Media:</b></span></li>
+                    <li class="tooltip_item fb-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="facebook">
+                        <div class="mask-background animated lightSpeedIn"></div>
+                        <a href="@Url.Content(Convert.ToString(Model.UserDetail.FaceBook) != null ?  "https://www.facebook.com/" + Model.UserDetail.FaceBook : "https://www.facebook.com/karkathamizha")" target="_blank"><i class="zoc-facebook"></i></a>
+                    </li>
+
+                    <li class="tooltip_item twitter-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="twitter">
+                        <div class="mask-background animated lightSpeedIn"></div>
+                        <a href="@Url.Content("https://twitter.com/" + Convert.ToString(Model.UserDetail.Twitter))" target="_blank"><i class="zoc-twitter"></i></a>
+                    </li>
+
+                    <li class="tooltip_item youtube-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="youtube">
+                        <div class="mask-background animated lightSpeedIn"></div>
+                        <a href="@Url.Content("https://www.youtube.com//" + Model.UserDetail.YouTube)" title="YouTube" target="_blank"><i class="zoc-youtube"></i></a>
+                    </li>
+
+                    @if (string.IsNullOrEmpty(Convert.ToString(Model.UserDetail.Blog)))
+                    {
+                        <li class="tooltip_item blogger-metro-but-16" data-toggle="tooltip" data-placement="top" title="blogger" data-original-title="blogger">
+                            <div class="mask-background animated lightSpeedIn"></div>
+                            <a href="#" target="_blank"><i class="zoc-blogger"></i></a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="tooltip_item blogger-metro-but-16" data-toggle="tooltip" data-placement="top" title="blogger" data-original-title="blogger">
+                            <div class="mask-background animated lightSpeedIn"></div>
+                            <a href="@Url.Content("https://" + Model.UserDetail.Blog + blogType)" target="_blank"><i class="zoc-blogger"></i></a>
+                        </li>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Convert.ToString(Model.UserDetail.Website)))
+                    {
+                        <li class="tooltip_item website-metro-but-16" data-toggle="tooltip" data-placement="top" title="Website" data-original-title="visit Author's Website">
+                            <div class="mask-background animated lightSpeedIn"></div>
+                            <a href="@Url.Content(Convert.ToString(Model.UserDetail.Protocol) == "1" ? "http://www." : "https://www." + Model.UserDetail.Website)" target="_blank"><i class="zoc-ie"></i></a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="tooltip_item website-metro-but-16" data-toggle="tooltip" data-placement="top" title="Website" data-original-title="visit Author's website">
+                            <div class="mask-background animated lightSpeedIn"></div>
+                            <a href="#" target="_blank"><i class="zoc-ie"></i></a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <span class="drop-capital"></span>
+    @Html.Raw(Model.UserDetail.Profile.ToString().Replace("\r\n", "").ToString())
+    <div class="logmod__alter">
+        @if (string.IsNullOrWhiteSpace(dod))
+        {
+            <div class="logmod__alter-container">
+                <a href="#" class="connect facebook">
+                    <div class="connect__icon">
+                        @*<i class="fa fa-facebook"></i>*@படிப்பது
+                    </div>
+                    <div class="connect__context">
+                        @*<span>முருகன் விநாயகன் மூன்றாம் உலக அரசியல் <strong>நாவல்</strong></span>*@
+                    </div>
+                </a>
+                <a href="#" class="connect googleplus">
+                    <div class="connect__icon">
+                        <i class="fa fa-google-plus"></i>எழுதுவது
+                    </div>
+                    <div class="connect__context">
+                        @*<span>மீண்டும் <strong>புதினம்</strong></span>*@
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+@{
+    @section scripts{
+
+        <!--<script src='@Url.Content("~/framework/js/jquery-2.0.3.min.js")'></script>-->
+        <!-- Lightbox -->
+        <!--<script src="~/framework/addons/lightbox/nivo-lightbox.min.js"></script>
+        <script src="~/framework/bootstrap/js/bootstrap.min.js"></script>-->
+        <!-- Holder JS -->
+        <!--<script src="~/framework/holder.js"></script>
+        <script src="~/framework/js/serpentsoft-scripts.js"></script>-->
+
+        <script>            
+            var masterPageID =7 /* $("#hdnMainPage").val();*/
+            var childPageID = 63;
+        </script>
+        <script src="~/JavaScript/Events.js"></script>
+        <script src="~/JavaScript/KarkaCommonJS.js"></script>
+
+    }
+}
+

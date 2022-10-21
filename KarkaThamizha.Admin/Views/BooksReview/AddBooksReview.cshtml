@@ -1,0 +1,147 @@
+﻿@model KarkaThamizha.Object.Models.BooksReviewModels
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    .ui-datepicker .ui-datepicker-title select {
+        color: #000;
+    }
+</style>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-9">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add New Book Details</h3>
+
+                    <span style="float:right">
+                        @Html.ActionLink("Book Review List", "BooksReview", "BooksReview") |
+                        @Html.ActionLink("Book Detail List", "BooksDetails", "BooksDetails")
+                    </span>
+                </div>
+
+                <!-- /.box-header -->
+                <!-- form start -->
+                @using (Html.BeginForm("AddBooksReview", "BooksReview", FormMethod.Post))
+                {
+                    <div class="box-body">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.BookName) : @Html.DisplayTextFor(m => m.BookDetail.Books.Book)
+                            (@Html.DisplayTextFor(m => m.BookDetail.Books.BookID))
+                            @Html.HiddenFor(m => m.BookDetail.Books.BookID)
+                            @Html.HiddenFor(m => m.BookDetail.BookDetailsID)
+                        </div>
+
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:41%;padding-left:0px;margin-left:0px;">
+                                <span style="float:left;width:32%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.UserType)</span>
+                                <span style="float:left;">
+                                    @Html.DropDownList("UserType", new[]{
+                                            new SelectListItem { Text ="Please Select", Value = "0",Selected=true },
+                                            new SelectListItem { Text ="Author - ஆசிரியர்", Value = "1" },
+                                            new SelectListItem { Text ="Text Writer - உரையாசிரியர்", Value = "2" },
+                                            new SelectListItem { Text ="Collector - தொகுப்பாசிரியர்",Value="3" },
+                                            new SelectListItem { Text ="Publisher - பதிப்பகத்தார்",Value="4" },
+                                            new SelectListItem { Text ="Editor - பதிப்பாசிரியர்",Value="5" },
+                                            new SelectListItem { Text ="User - பயனர்",Value="6" },                                            
+                                            new SelectListItem { Text ="Translator - மொழிபெயர்ப்பாளர்",Value="7" }
+                                        }, new { @class = "form-control", @onchange = "FillUser();", style = "width:220px;min-width:220px;" })
+                                </span>
+                            </div>
+                            <div id="Users" style="float:left;width:59%;padding:0 2%;">
+                                <span style="float:left;width:20%;text-align:right;padding-right:1%;">
+                                    @Html.LabelFor(m => m.UserID)
+                                </span><span style="float:left;">
+                                    @Html.DropDownListFor(m => m.UserID, new SelectList(Enumerable.Empty<SelectListItem>(), "UserID", "User"), "Please Select", new { @class = "form-control", style = "display:inline;width:240px;min-width:240px;", tabindex = 2 })<SelectListItem>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="float:left;width:100%;padding-top:2%;">
+                            <div style="float:left;width:95%;">
+                                <span style="float:left;width:14%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Header)</span>
+                                @Html.TextAreaFor(m => m.Header, new { rows = "1", style = "resize:none;position: relative;width:72%;min-width:72%;text-align: justify;", tabindex = 3 })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtTamEng">BookDescription</label>
+                            @Html.TextAreaFor(m => m.Description, new { @class = "ckeditor", @id = "Description" })
+                        </div>
+                        <div class="form-group">
+                            <span style="width:39%;float:left;">
+                                <span style="width:25%;float:left;">@Html.LabelFor(m => m.SourceDate, htmlAttributes: new { @class = "control-label col-md-1" })</span>
+                                @Html.EditorFor(m => m.SourceDate, new { htmlAttributes = new { @class = "" } })
+                            </span>
+                            <div id="magazine">
+                                <span style="width:59%;float:left;">
+                                    <span style="width:25%;float:left;">
+                                        @Html.LabelFor(m => m.MagazineID, htmlAttributes: new { @class = "control-label col-md-1" })
+                                    </span>
+                                    @Html.DropDownListFor(m => m.MagazineID, new SelectList(Model.LstMagazine, "Value", "Text"), "Select Magazine", new { @class = "form-control", style = "display:inline;" })
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+
+                    <div id="divBooksReview" class="box-header with-border">
+                        <h3 class="box-title">Other Reivew(s)</h3>
+                        <div class="box-body">
+                            <table id="pattern-style-b" class="tblBooksReview">
+                                <tbody>
+                                    <tr>
+                                        <td>Book ID</td>
+                                        <td>Book DetailsID</td>
+                                        <td>Header</td>
+                                        <td>User Name</td>
+                                        <td>Created Date</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/JavaScript/BooksReview.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace('Description', {
+            editor: extraAllowedContent = '*(*);*{*}'
+        });
+    </script>
+    <script>
+        $.validator.addMethod('date',
+            function (value, element) {
+                if (this.optional(element)) {
+                    return true;
+                }
+                var valid = true;
+                try {
+                    $.datepicker.parseDate('dd-mm-yy', value);
+                }
+                catch (err) {
+                    valid = false;
+                }
+                return valid;
+            });
+    </script>
+}

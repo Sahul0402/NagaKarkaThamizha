@@ -1,0 +1,36 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">404 Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+<link href="~/Content/style.css" rel="stylesheet" />
+
+<!-- Start Main Content Holder -->
+<article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
+    <div class="article-content clearfix">
+        @{
+            if (Request.IsLocal)
+            {
+                if (Model != null && Model.Exception != null)
+                {
+                    <p class="errormsg">
+                    <p>Controller Name: @Model.ControllerName</p>
+                    <p>Action Name: @Model.ActionName</p>
+                    <p>Exception was: @Model.Exception.Message;</p>
+                    <p>Stack Trace: @Model.Exception.StackTrace;</p>
+                    </p>
+                }
+            }
+            else
+            {
+                <h4>The error has been reported to Administrator.</h4>
+                <a href="http://www.karkathamizha.com" title="KarkaThamizhza">
+                    <img src="../Images-Website/404-Page.png" alt="Error" />
+                </a>
+            }
+        }
+        <!-- End Main Content Holder -->
+    </div>
+</article>

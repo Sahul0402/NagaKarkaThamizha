@@ -1,0 +1,31 @@
+﻿
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+@{
+    if (Request.IsLocal)
+    {
+        if (Model != null && Model.Exception != null)
+        {
+            <h3>Exception was:@Model.Exception.Message</h3>
+            <h3>Controller: @Model.ControllerName<br /></h3>
+            <h3>Controller: @Model.ActionName<br /></h3>
+            <h4>Stack Trace:@Model.Exception.StackTrace</h4>
+            @*<h6>@Html.ActionLink("Go Back To Home Page", "Index", "Home")</h6>*@
+        }
+        else
+        {
+            <h3>Exceptoin is null</h3>
+        }
+    }
+    else
+    {
+        <h4>The error has been reported to Administrator.</h4>
+        @*<h6>@Html.ActionLink("Go Back To Home Page", "Index", "Home")</h6>*@
+    }
+}
+

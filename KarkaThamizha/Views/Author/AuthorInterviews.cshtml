@@ -1,0 +1,60 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.ArticleModels>
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility
+
+@{
+    ViewBag.Title = "நேர்காணல்கள்";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>எழுத்தாளர்களின் நேர்காணல்கள்</h2>
+<!-- main Model -->
+<article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
+
+    <div class="article-content clearfix">
+
+        <!-- main content -->
+        <div id="Interviews"></div>
+
+        <footer class="article-boxes clearfix">
+
+            <div id="TaggedWith"></div>
+
+            <div id="ShareOn"></div>
+
+            <!-- Comments Box -->
+            <div class="widget-content color-theme clearfix">
+                <div class="comments">
+                    @*@{ Html.RenderPartial("_Comments");}
+                        @{ Html.RenderPartial("_FeedBack");}*@
+
+                    <div id="divComments"></div>
+                    @*<div id="divFeedBack"></div>*@
+                </div>
+            </div>
+
+        </footer>
+    </div>
+
+</article>
+
+@section scripts{
+    <script>
+        var hdnPage = "";
+        var masterPageID = @((int)EnumCode.Pages.AuthorInterview);
+        var childPageID=0;
+        $(document).ready(function () {
+            LoadInterviews(1);
+            LoadTaggedWith();
+            LoadShareOn();
+            //LoadComments();
+        });
+
+        $(document).on("click", "#contentPager a[href]", function (e) {
+            e.preventDefault();
+            LoadInterviews($(e.target).text());
+        });
+    </script>
+    <script src="~/JavaScript/Interviews.js"></script>
+    <script src="~/JavaScript/KarkaCommonJS.js"></script>
+}

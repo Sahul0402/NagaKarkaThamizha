@@ -1,0 +1,51 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility;
+@model PagedList.IPagedList<KarkaThamizha.Object.Models.EventsModels>
+
+<table class="table table-bordered table-condensed table-hover table-striped">
+    <thead>
+        @if (Model != null)
+        {
+            <tr id="t01">
+                <th>தலைப்பு</th>
+                <th>நிகழ்ச்சி நாள்</th>
+                <th>கடைசி நாள்</th>
+            </tr>
+        }
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var bookfair in Model)
+            {
+                <tr>
+                    <th>@bookfair.Header</th>
+                    <th>@bookfair.EventsDate?.ToShortDateString()</th>
+                    @if (bookfair.EventsTypeID.Equals(Convert.ToInt16(EnumCode.EventsType.BookFair)))
+                    {
+                        <th>@bookfair.EndDate</th>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div id="divBooksFair"></div>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="pagination" id="contentPager">
+
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Events",
+                            new { Page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly,
+                            new AjaxOptions
+                            {
+                                InsertionMode = InsertionMode.Replace,
+                                HttpMethod = "Get",
+                                UpdateTargetId = "divBooksFair"
+                            }))
+    </div>
+}

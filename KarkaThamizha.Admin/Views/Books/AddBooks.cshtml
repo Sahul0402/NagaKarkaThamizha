@@ -1,0 +1,257 @@
+﻿@model KarkaThamizha.Object.Models.BooksModels
+@using KarkaThamizha.Common.Utility;
+@{
+    ViewBag.Title = "AddBooks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+    .multiselect-container {
+        height: 180px;
+        min-height: 180px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        width: 250px;
+        min-width: 250px;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .chkCategory {
+        -webkit-columns: 220px 3; /* Chrome, Safari, Opera */
+        -moz-columns: 220px 3; /* Firefox */
+        columns: 220px 3;
+        word-wrap: normal;
+    }
+</style>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div id="divBookAdd">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Add New Books</h3>
+                        <div style="float:right;">@Html.ActionLink("Books List", "Books")</div>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    @using (Html.BeginForm("AddBooks", "Books", FormMethod.Post, new { @name = "frmBookAdd" }))
+                    {
+                        @Html.Hidden("hdnBookAddUserID");
+                        <div class="box-body">
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:45%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Book)</span>
+                                    <span style="float:left;">
+                                        @Html.TextBoxFor(m => m.Book, new { @maxlength = "100", @class = "", style = "width:175%;min-width:175%;", tabindex = 1, onblur = "CheckBook();" })
+                                        <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.Book, "", new { @class = "text-danger" })</span>
+                                    </span>
+                                </div>
+                                <div style="float:left;width:50%;padding:0 2%;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                        @Html.LabelFor(m => m.Name)
+                                    </span>
+                                    @Html.TextBoxFor(m => m.Name, new { @maxlength = "60", @class = "", style = "width:55%;min-width:55%;", tabindex = 2 })
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:45%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Tanglish)</span>
+                                    <span style="float:left;">
+                                        @Html.TextBoxFor(m => m.Tanglish, new { @maxlength = "60", @class = "toProperCase", style = "width:175%;min-width:175%;", tabindex = 3 })
+                                    </span>
+                                </div>
+
+                                <div style="float:left;width:50%;padding:0 2%;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                        @Html.LabelFor(m => m.Users.AuthorIds)<small>(ஆசிரியர்)</small>
+                                    </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.AuthorIds, this.ViewBag.AuthorList as SelectList, new { id = "AuthorList", @class = "selectAuthor show-tick form-control input-md", tabindex = 4 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:45%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Users.TranslatorAuthorId)<small>(மொழிபெயர்ப்பாளர்)</small></span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.TranslatorAuthorId, this.ViewBag.AuthorList as SelectList, new { id = "TransAuthorList", @class = "selectAuthor show-tick form-control input-md", tabindex = 5 })
+                                    </div>
+                                </div>
+                                <div style="float:left;width:50%;padding:0 2%;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                        @Html.LabelFor(m => m.Users.TextWriterAuthorId)<br /><small>(உரையாசிரியர்)</small>
+                                    </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.TextWriterAuthorId, this.ViewBag.AuthorList as SelectList, new { id = "WtrAuthorList", @class = "selectAuthor show-tick form-control input-md" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:45%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Users.CollectAuthorId)<small>(தொகுப்பாளர்)</small></span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.CollectAuthorId, this.ViewBag.AuthorList as SelectList, new { id = "ColAuthorList", @class = "selectAuthor show-tick form-control input-md" })
+                                    </div>
+                                </div>
+                                <div style="float:left;width:50%;padding:0 2%;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Users.EditorAuthorId)<small>(பதிப்பாசிரியர்)</small></span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.EditorAuthorId, this.ViewBag.AuthorList as SelectList, new { id = "EdrAuthorList", @class = "selectAuthor show-tick form-control input-md" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:45%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">Category</span>
+                                    <span style="float:left;">
+                                        @Html.DropDownListFor(m => m.Category.CategoryID, Model.Category.sliCategory, "Please select", new { @id = "BookAdd", tabindex = 6 })
+                                    </span>
+                                    <span class="reqSpanleft">@Html.ValidationMessageFor(m => m.Category.CategoryID, "", new { @class = "text-danger" })</span>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:100%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">Sub Category</span>
+                                    <span style="float:left;">
+                                        <div class="chkCategory">
+                                            @if (Model != null && Model.lstSubCategories != null && Model.lstSubCategories.Count > 0)
+                                            {
+                                                for (int i = 0; i < Model.lstSubCategories.Count; i++)
+                                                {
+                                                    <div>
+                                                        @Html.CheckBoxFor(m => Model.lstSubCategories[i].IsChecked)
+                                                        @Html.Label("lblname", Model.lstSubCategories[i].Category)
+                                                        @Html.HiddenFor(m => Model.lstSubCategories[i].CategoryID)
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:95%;">
+                                    <span style="float:left;width:16%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.BookDescription)</span>
+                                    @Html.TextAreaFor(m => m.BookDescription, new { @maxlength = "1000", rows = "5", style = "resize:none;position: relative;width:72%;min-width:72%;text-align: justify;", tabindex = 7 })
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:45%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">Status</span>
+                                    <span style="float:left;">
+                                        @Html.DropDownList("Status", new[]{
+                                            new SelectListItem { Text = "Active", Value = "A",Selected=true },
+                                            new SelectListItem { Text = "Future", Value = "F" },
+                                            new SelectListItem { Text="InActive",Value="I" },
+                                            new SelectListItem { Text="Pending",Value="P" }
+                   })
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" id="btnAddBook" class="btn btn-primary">Add Book</button>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    }
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@{
+    @section Scripts{
+        <script type="text/javascript">
+            $(function () {
+                $('.listbox').multiselect({
+                    includeSelectAllOption: true
+                });
+            });
+
+            $(document).ready(function () {
+                // Enable Live Search.
+                $('#AuthorList').attr('data-live-search', true);
+                $('#EdrAuthorList').attr('data-live-search', true);
+                $('#TransAuthorList').attr('data-live-search', true);
+                $('#WtrAuthorList').attr('data-live-search', true);
+                $('#ColAuthorList').attr('data-live-search', true);
+
+                //// Enable multiple select.
+                $('#AuthorList').attr('multiple', true);
+                $('#AuthorList').attr('data-selected-text-format', 'count');
+
+                $('#EdrAuthorList').attr('multiple', true);
+                $('#EdrAuthorList').attr('data-selected-text-format', 'count');
+
+                $('#TransAuthorList').attr('multiple', true);
+                $('#TransAuthorList').attr('data-selected-text-format', 'count');
+
+                $('#WtrAuthorList').attr('multiple', true);
+                $('#WtrAuthorList').attr('data-selected-text-format', 'count');
+
+                $('#ColAuthorList').attr('multiple', true);
+                $('#ColAuthorList').attr('data-selected-text-format', 'count');
+
+                $('.selectAuthor').selectpicker(
+                {
+                    width: '80%',
+                    title: '- [Choose Multiple Author] -',
+                    style: 'btn-warning',
+                    size: 6,
+                    iconBase: 'fa',
+                    tickIcon: 'fa-check'
+                });
+            });
+
+            $("#BookAdd").change(function () {
+                document.getElementById("hdnBookAddUserID").value = "BookAdd";
+                document.forms["frmBookAdd"].submit();
+            });
+
+            function CheckBook() {
+                var bookname = $("#Book").val();
+                if (bookname == null || bookname == "")
+                    return;
+
+                $.ajax({
+                    url: '@Url.Action("CheckBookExist", "Books")',
+                    data: '{bookname: "' + bookname + '" }',
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response) {
+                            alert('Book Exists');
+                        }
+                        else { }
+                    },
+                });
+            }
+        </script>
+    }
+}

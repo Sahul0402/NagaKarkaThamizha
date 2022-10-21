@@ -1,0 +1,68 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.MasterModels.CacheModels>
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility;
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box box-primary">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">Cache Details</h3>
+                    <span style="float:right">
+                        @Html.ActionLink("Add New Book", "AddBooks", "Books") |
+                        @Html.ActionLink("Add New User", "AddUser", "User") |
+                        @Html.ActionLink("User List", "User", "User")
+                    </span>
+                </div>
+
+                <div id="divBookPrint">
+                    <!-- /.box-header -->
+                    <!-- form start -->
+
+                    <div class="box-body">
+                        <table id="pattern-style-b">
+                            <thead>
+                                <tr>
+                                    <th scope="col">CacheID</th>
+                                    <th scope="col" style="display:none">Code</th>
+                                    <th scope="col">CacheName</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.CacheID)</td>
+                                            <td style="display:none">@Html.DisplayFor(modelItem => item.Code)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.CacheName)</td>
+                                            <td>@Html.ActionLink("Clear", "ClearCache", new { cacheName = @item.Code })</td>
+                                        </tr>
+                                    </tbody>
+                                }
+                            }
+                        </table>
+                        <div class="box-header" id="contentPager">
+                            @Html.PagedListPager(Model, page => Url.Action("GetAllCacheDetails", new { page }))
+                            <span style="float:right">
+                                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                            </span>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->

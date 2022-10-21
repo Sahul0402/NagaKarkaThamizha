@@ -1,0 +1,176 @@
+﻿
+
+@{
+    ViewBag.Title = "UploadBookAndDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    /* Create three equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        margin-left: 15px;
+    }
+</style>
+<div id="wait" class="loaderDiv"><img src='~/Images/ajax-loader.gif' /><br>Loading..</div>
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Upload Books & Details </h3>
+                    <div style="float:right;">@Html.ActionLink("Books List", "Books")</div>
+                </div>
+
+                @*@using (Html.BeginForm("UploadBookAndDetails", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
+
+                <div style="margin-left:25px;margin-top:10px;">
+                    <text>
+                        @Html.RadioButton("Upload", "Books", true) Books
+                        @Html.RadioButton("Upload", "BookAuthor")  Book Authors
+                        @Html.RadioButton("Upload", "BookCategory")  Book Category
+                        @Html.RadioButton("Upload", "BookDetails")  Book Details
+                    </text>
+                </div>
+
+                <div style="float:left;width:100%;padding-top:2%;">
+                    <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                        <span style="float:left;width:33%;text-align:left;padding-right:1%;">Select File</span>
+                        <input type="file" name="file" id="file" />
+                    </div>
+                </div><br />
+                <div class="box-footer">
+                    <button type="submit" id="fileUpload" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+
+@{
+    @section Scripts{
+        <script>
+            $(document).ready(function () { $("#wait").css("display", "none"); });
+            $(document).ajaxStart(function () {
+                $("#wait").css("display", "block");
+            });
+            $(document).ajaxComplete(function () {
+                $("#wait").css("display", "none");
+            });
+
+            $("input[type='radio']").click(function () {
+                $("#file").val('');
+            });
+
+            $("#fileUpload").click(function () {
+                debugger;
+                if ($("#file").val() != "") {
+                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xlsx|.xls)$/;
+                    /*Checks whether the file is a valid excel file*/
+                    if (!regex.test($("#file").val().toLowerCase())) {
+                        alert("Please upload a valid Excel file!");
+                        return false;
+                    }
+                    else {
+                        //UploadSelectedExcelsheet();
+                        UploadBookAndDetails();
+                    }
+                }
+                else {
+                    alert("Please upload a Excel file!");
+                    return false;
+                }
+            });
+
+            function UploadBookAndDetails() {
+                var targetControl = "#divBooksDetails";
+                var selectedValue = $('input:radio:checked').val();
+                var formdata = new FormData();
+                var i = 0;
+                var fl = $("#file").get(0).files[0];
+                if (fl != undefined) {
+                    formdata.append("file", fl);
+                }
+
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/FileUpload/UploadBookAndDetails?selection=" + selectedValue,
+                    data: { formdata },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (result) {
+                        debugger;
+                        $("#file").val('');
+                        alert(result);
+                        $(targetControl).html(result);
+                    },
+                    error: function (xhr, status, p3, p4) {
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).Message;
+                        else if (xhr.responseText) {
+                            err = "xhrResponse: " + xhr.responseText;
+                        }
+                        else
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+
+                        alert(err);
+                        return false;
+                    }
+                });
+            }
+
+            function UploadSelectedExcelsheet() {
+                var selectedValue = $('input:radio:checked').val();
+                var data = new FormData();
+                var i = 0;
+                var fl = $("#file").get(0).files[0];
+                if (fl != undefined) {
+                    data.append("file", fl);
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/FileUpload/UploadBookAndDetailsUsingOLEDB?selection=" + selectedValue,
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    success: function (result) {
+                        $("#file").val('');
+                        alert(result.Message);
+                    },
+                    error: function (xhr, status, p3, p4) {
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).Message;
+                        else if (xhr.responseText) {
+                            err = "xhrResponse: " + xhr.responseText;
+                        }
+                        else
+                            var err = "Error " + " " + status + " " + p3 + " " + p4;
+
+                        alert(err);
+                        return false;
+                    }
+                });
+            }
+        </script>
+    }
+}

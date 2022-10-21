@@ -1,0 +1,288 @@
+﻿@model KarkaThamizha.Object.Models.BooksModels
+@using KarkaThamizha.Common.Utility;
+@{
+    ViewBag.Title = "UpdateBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+    .multiselect-container {
+        height: 180px;
+        min-height: 180px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        width: 250px;
+        min-width: 250px;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .chkCategory {
+        -webkit-columns: 220px 3; /* Chrome, Safari, Opera */
+        -moz-columns: 220px 3; /* Firefox */
+        columns: 220px 3;
+    }
+</style>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Update Book</h3>
+                    <div style="float:right;">@Html.ActionLink("Books List", "Books")</div>
+                </div>
+
+                <div id="divBookUpdate">
+                    @using (Html.BeginForm("UpdateBook", "Books", FormMethod.Post, new { @name = "frmBookAdd" }))
+                    {
+                        @Html.Hidden("hdnBookAddUserID");
+                        <div class="box-body">
+                            <div style="float:left;width:100%;padding-top:1%;">
+                                <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.BookID)</span>
+                                    @Html.TextBoxFor(m => m.BookID, new { @readonly = "readonly", style = "width:20%;min-width:20%;" })
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Book)</span>
+                                    @Html.TextBoxFor(m => m.Book, new { @maxlength = "100", @class = "", style = "width:55%;min-width:55%;", tabindex = 1 })@Html.ValidationMessageFor(m => m.Book, "", new { @class = "error" })
+                                </div>
+                                <div style="float:left;width:45%;padding:0 2%;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                        @Html.LabelFor(m => m.Name)
+                                    </span>
+                                    @Html.TextBoxFor(m => m.Name, new { @maxlength = "60", @class = "toProperCase", style = "width:55%;min-width:55%;", tabindex = 2 })
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Tanglish)</span>
+                                    @Html.TextBoxFor(m => m.Tanglish, new { @maxlength = "60", @class = "toProperCase", style = "width:55%;min-width:55%;", tabindex = 3, onblur = "RemoveSpecialChar(this);" })
+                                </div>
+
+                                <div style="float:left;width:45%;padding:0 2%;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                        @Html.LabelFor(m => m.Users.AuthorIds)
+                                    </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.AuthorIds, this.ViewBag.AuthorList as MultiSelectList, new { id = "AuthorList", @class = "selectAuthor show-tick form-control input-md", tabindex = 4 })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Users.TranslatorAuthorId)</span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.TranslatorAuthorId, this.ViewBag.TranslatorList as SelectList, new { id = "TransAuthorList", @class = "selectAuthor show-tick form-control input-md", tabindex = 5 })
+                                    </div>
+                                </div>
+                                <div style="float:left;width:45%;padding:0 2%;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">
+                                        @Html.LabelFor(m => m.Users.TextWriterAuthorId)
+                                    </span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.TextWriterAuthorId, this.ViewBag.WritersList as SelectList, new { id = "WtrAuthorList", @class = "selectAuthor show-tick form-control input-md" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:48%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Users.CollectAuthorId)</span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.CollectAuthorId, this.ViewBag.CollectorsList as SelectList, new { id = "ColAuthorList", @class = "selectAuthor show-tick form-control input-md" })
+                                    </div>
+                                </div>
+                                <div style="float:left;width:45%;padding:0 2%;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.Users.EditorAuthorId)</span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon icon-custom"><i class="fa fa-user"></i></span>
+                                        @Html.ListBoxFor(m => m.Users.EditorAuthorId, this.ViewBag.EditorsList as SelectList, new { id = "EdrAuthorList", @class = "selectAuthor show-tick form-control input-md" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:2%;">
+                                <div style="float:left;width:45%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">Category</span>
+                                    <span style="float:left;">
+                                        @if (Model.Category != null && Model.Category.CategoryID > 0)
+                                        {
+                                            @Html.DropDownListFor(m => m.Category.CategoryID, new SelectList(Model.Category.sliCategory.OrderBy(s => s.Text), "Value", "Text", Model.Category.CategoryID), "-- Select Category --", new { @class = "", style = "width:80%;min-width:80%;", @id = "BookAdd", tabindex = 6 })
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(m => m.Category.CategoryID, new SelectList(Model.Category.sliCategory.OrderBy(s => s.Text), "Value", "Text"), "-- Select Category --", new { @class = "", style = "width:80%;min-width:80%;", @id = "BookAdd", tabindex = 6 })
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:1%;">
+                                <div style="float:left;width:100%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">Sub Category</span>
+                                    <span style="float:left;">
+                                        <div class="chkCategory">
+                                            @if (Model != null && Model.lstSubCategories != null && Model.lstSubCategories.Count > 0)
+                                            {
+                                                for (int i = 0; i < Model.lstSubCategories.Count; i++)
+                                                {
+                                                    <div>
+                                                        @Html.CheckBoxFor(m => Model.lstSubCategories[i].IsChecked)
+                                                        @Html.Label("lblname", Model.lstSubCategories[i].Category)
+                                                        @Html.HiddenFor(m => Model.lstSubCategories[i].CategoryID, new { @Value = Model.lstSubCategories[i].CategoryID })
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div style="float:left;width:100%;padding-top:1%;">
+                                <div style="float:left;width:95%;">
+                                    <span style="float:left;width:16%;text-align:left;padding-right:1%;">@Html.LabelFor(m => m.BookDescription)</span>
+                                    @Html.TextAreaFor(m => m.BookDescription, new { @maxlength = "1000", rows = "5", style = "resize:none;position: relative;width:72%;min-width:72%;text-align: justify;", tabindex = 7 })
+                                </div>
+                            </div>
+
+                            <div style="float:left;width:100%;padding-top:1%;">
+                                <div style="float:left;width:45%;padding-left:0px;margin-left:0px;">
+                                    <span style="float:left;width:33%;text-align:left;padding-right:1%;">Status</span>
+                                    <span style="float:left;">
+                                        @Html.DropDownList("Status", new[]{
+                                            new SelectListItem { Text = "Active", Value = "A",Selected=true },
+                                            new SelectListItem { Text = "Future", Value = "F" },
+                                            new SelectListItem { Text="InActive",Value="I" },
+                                            new SelectListItem { Text="Pending",Value="P" }
+                   })
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            @*<button type="submit" class="btn btn-primary">Submit</button>*@
+                            <input type="submit" name="save" value="Save" />
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+
+@{
+    @section Scripts{
+        <script type="text/javascript">
+    $(function () {
+        $('.listbox').multiselect({
+            includeSelectAllOption: true
+        });
+
+    });
+
+    $(document).ready(function () {
+        // Enable Live Search.
+        $('#AuthorList').attr('data-live-search', true);
+        $('#EdrAuthorList').attr('data-live-search', true);
+        $('#TransAuthorList').attr('data-live-search', true);
+        $('#WtrAuthorList').attr('data-live-search', true);
+        $('#ColAuthorList').attr('data-live-search', true);
+
+        //// Enable multiple select.
+        $('#AuthorList').attr('multiple', true);
+        $('#AuthorList').attr('data-selected-text-format', 'count');
+
+        $('#EdrAuthorList').attr('multiple', true);
+        $('#EdrAuthorList').attr('data-selected-text-format', 'count');
+
+        $('#TransAuthorList').attr('multiple', true);
+        $('#TransAuthorList').attr('data-selected-text-format', 'count');
+
+        $('#WtrAuthorList').attr('multiple', true);
+        $('#WtrAuthorList').attr('data-selected-text-format', 'count');
+
+        $('#ColAuthorList').attr('multiple', true);
+        $('#ColAuthorList').attr('data-selected-text-format', 'count');
+
+        $('.selectAuthor').selectpicker(
+        {
+            width: '80%',
+            title: '- [Choose Multiple Author] -',
+            style: 'btn-warning',
+            size: 6,
+            iconBase: 'fa',
+            tickIcon: 'fa-check'
+        });
+    });
+
+    function RemoveSpecialChar(source) {
+        //This will strip out all non-numeric values
+        source.value = source.value.replace(/[^\w\s!]/gi ,' ');
+    }
+
+    function toTitleCase(str) {
+        var lcStr = str.toLowerCase();
+        return lcStr.replace(/(?:^|\s)\w/g, function (match) {
+            return match.toUpperCase();
+        });
+    }
+        </script>
+
+        <script type="text/javascript">
+    var value = 0;
+    $(document).ready(function () {
+        value = value + 1;
+    });
+
+    $("#BookAdd").change(function () {
+        value = value + 1;
+        document.getElementById("hdnBookAddUserID").value = "BookAdd";
+        //alert("Change Event fire: " + value);
+        if (value != 1)
+            document.forms["frmBookAdd"].submit();
+    }).change();
+
+    function AjaxFailed(result) {
+        alert(result.d);
+        alert('Failed to load checkbox list:'+ result);
+    }
+
+    $('.chkBoxSelect').click(function () {
+        if ($(this).is(':checked')) {
+            var theId = $(this).attr('id'); // The id of the checkbox
+            alert("ID:" + theId);
+            $(this).prop("checked", true);
+            $(this).attr("checked", true);
+            //var theValue = $(this).val(); // The value field of the checkbox
+        }
+    });
+
+        </script>
+
+    }
+}

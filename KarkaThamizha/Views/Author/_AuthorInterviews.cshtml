@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<KarkaThamizha.Object.Models.ArticleModels>
+@using PagedList.Mvc;
+@using KarkaThamizha.Common.Utility
+
+<article class="article-container" itemscope itemtype="http://schema.org/Article">
+    <div class="article-content timeline-page">
+        <header>
+            <div class="post-meta">
+                <ul>
+                    <li title="Post Author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></li>
+                    <li><i class="icon-library"></i><a href="#" title="">World</a></li>
+                    <li itemprop="datePublished"><i class="icon-alarm2"></i>14 Aug, 2013 at 06:15 AM</li>
+                    <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">12</a></li>
+                    <li itemprop="interactionCount"><i class="icon-tv"></i>35</li>
+                    <li itemprop="interactionCount"><i class="icon-heart"></i>120</li>
+                </ul>
+            </div>
+            <div class="divider"></div>
+        </header>
+
+        <div class="post-entry" itemprop="articleBody"></div>
+
+        <div class="items">
+            @if (Model != null)
+            {
+                foreach (var interviews in Model)
+                {
+                    <ul class="cbp_tmtimeline">
+                        <li class="post-item" data-showonscroll="true" data-animation="fadeIn">
+                            <time class="cbp_tmtime" datetime="2013-04-10"><span>@interviews.MagazineName.Name</span> <span>@interviews.SourceDate.Value.ToShortDateString()</span></time>
+                            <div class="cbp_tmicon">
+                                <img alt="Karka Thamizha" src="~/Images-Website/KarkaThamizhaImage.jpg" />
+                            </div>
+                            <div class="cbp_tmlabel">
+                                <h5>@Html.ActionLink(@interviews.Header, "Interview", "Article", new { id = interviews.ArticleID }, new { target = "_blank" })</h5>
+                                <p style="text-align:justify;">@Html.Raw(Server.HtmlDecode(@interviews.Description).ToString().Chop(200))</p>
+                            </div>
+                        </li>
+                    </ul>
+                }
+            }
+            <footer class="blog-pagination">
+                <div id="contentPager" style="padding:0 5px;">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Interviews", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                </div>
+            </footer>
+
+        </div>
+
+    </div>
+</article>

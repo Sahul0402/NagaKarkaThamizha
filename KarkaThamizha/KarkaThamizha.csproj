@@ -1,0 +1,561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{250C80BF-F5AB-49DD-A941-F1196B593CF9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KarkaThamizha</RootNamespace>
+    <AssemblyName>KarkaThamizha</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44336</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.18.0.315, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.DependencyCollector.2.18.0\lib\net452\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.18.0.315, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.18.0\lib\net452\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.18.0.315, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.18.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.18.0.315, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.Web.2.18.0\lib\net452\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.18.0.315, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.2.18.0\lib\net452\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.18.0.315, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.2.18.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.TelemetryCorrelation.1.0.8\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\BookPreReleaseController.cs" />
+    <Compile Include="Controllers\BooksReviewController.cs" />
+    <Compile Include="Controllers\ContactUsController.cs" />
+    <Compile Include="Controllers\CustomErrorAttribute.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UserRatingController.cs" />
+    <Compile Include="Controllers\UserTrackingController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\firefox.css" />
+    <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\Karkastyle.css" />
+    <Content Include="Content\Magazinestyle.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\responsive.css" />
+    <Content Include="Content\social-icons.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\theme-color.css" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="framework\addons\animate.css" />
+    <Content Include="framework\addons\animate.min.css" />
+    <Content Include="framework\addons\breaking-news-ticker\images\controls.png" />
+    <Content Include="framework\addons\breaking-news-ticker\images\dl-arr.png" />
+    <Content Include="framework\addons\breaking-news-ticker\images\down-arr.gif" />
+    <Content Include="framework\addons\breaking-news-ticker\images\forkme.png" />
+    <Content Include="framework\addons\breaking-news-ticker\images\main-red-bg.gif" />
+    <Content Include="framework\addons\breaking-news-ticker\jquery.ticker.js" />
+    <Content Include="framework\addons\breaking-news-ticker\ticker-style.css" />
+    <Content Include="framework\addons\camera\css\camera.css" />
+    <Content Include="framework\addons\camera\images\blank.gif" />
+    <Content Include="framework\addons\camera\images\camera-loader.gif" />
+    <Content Include="framework\addons\camera\images\camera_skins.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay1.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay10.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay2.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay3.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay4.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay5.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay6.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay7.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay8.png" />
+    <Content Include="framework\addons\camera\images\patterns\overlay9.png" />
+    <Content Include="framework\addons\camera\js\camera.js" />
+    <Content Include="framework\addons\camera\js\camera.min.js" />
+    <Content Include="framework\addons\camera\js\jquery.mobile.customized.min.js" />
+    <Content Include="framework\addons\fit-vids\jquery.fitvids.js" />
+    <Content Include="framework\addons\font-vectors\icon-moon\fonts\icomoon.svg" />
+    <Content Include="framework\addons\font-vectors\icon-moon\style.css" />
+    <Content Include="framework\addons\font-vectors\zocial\fontellozocial-codes.css" />
+    <Content Include="framework\addons\font-vectors\zocial\fontellozocial-embedded.css" />
+    <Content Include="framework\addons\font-vectors\zocial\fontellozocial-ie7-codes.css" />
+    <Content Include="framework\addons\font-vectors\zocial\fontellozocial-ie7.css" />
+    <Content Include="framework\addons\font-vectors\zocial\fontellozocial.css" />
+    <Content Include="framework\addons\font-vectors\zocial\font\fontellozocial.svg" />
+    <Content Include="framework\addons\img-liquid\imgLiquid-min.js" />
+    <Content Include="framework\addons\img-liquid\imgLiquid.js" />
+    <Content Include="framework\addons\lightbox\close%402x.png" />
+    <Content Include="framework\addons\lightbox\close.png" />
+    <Content Include="framework\addons\lightbox\license.txt" />
+    <Content Include="framework\addons\lightbox\loading%402x.gif" />
+    <Content Include="framework\addons\lightbox\loading.gif" />
+    <Content Include="framework\addons\lightbox\next%402x.png" />
+    <Content Include="framework\addons\lightbox\next.png" />
+    <Content Include="framework\addons\lightbox\nivo-lightbox.css" />
+    <Content Include="framework\addons\lightbox\nivo-lightbox.js" />
+    <Content Include="framework\addons\lightbox\nivo-lightbox.min.js" />
+    <Content Include="framework\addons\lightbox\prev%402x.png" />
+    <Content Include="framework\addons\lightbox\prev.png" />
+    <Content Include="framework\addons\lightbox\themes\default.css" />
+    <Content Include="framework\addons\mobile-menu\pushy.css" />
+    <Content Include="framework\addons\mobile-menu\pushy.js" />
+    <Content Include="framework\addons\owl\AjaxLoader.gif" />
+    <Content Include="framework\addons\owl\grabbing.png" />
+    <Content Include="framework\addons\owl\owl.carousel.css" />
+    <Content Include="framework\addons\owl\owl.carousel.js" />
+    <Content Include="framework\addons\owl\owl.carousel.min.js" />
+    <Content Include="framework\addons\owl\owl.transitions.css" />
+    <Content Include="framework\addons\show-on-scroll\jquery.appear.js" />
+    <Content Include="framework\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="framework\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="framework\bootstrap\css\bootstrap.css" />
+    <Content Include="framework\bootstrap\css\bootstrap.min.css" />
+    <Content Include="framework\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="framework\bootstrap\js\bootstrap.js" />
+    <Content Include="framework\bootstrap\js\bootstrap.min.js" />
+    <Content Include="framework\filters.svg" />
+    <Content Include="framework\holder.js" />
+    <Content Include="framework\js\html5shiv.js" />
+    <Content Include="framework\js\jquery-2.0.3.min.js" />
+    <Content Include="framework\js\jquery-migrate-1.2.1.min.js" />
+    <Content Include="framework\js\jquery.easing.1.3.js" />
+    <Content Include="framework\js\jquery.expander.min.js" />
+    <Content Include="framework\js\modernizr.js" />
+    <Content Include="framework\js\respond.min.js" />
+    <Content Include="framework\js\serpentsoft-scripts.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images-Author\29133751_2033921903542157_8990331380571308032_o.jpg" />
+    <Content Include="Images-Author\Author - Copy.jpg" />
+    <Content Include="Images-Author\Author.jpg" />
+    <Content Include="Images-Author\Author1.jpg" />
+    <Content Include="Images-Author\PI_Ashokamitran.jpg" />
+    <Content Include="Images-Author\PI_Ba.Venkatesan.jpeg" />
+    <Content Include="Images-Author\PI_C.M.Muthu.jpg" />
+    <Content Include="Images-Author\PI_Imayam.jpeg" />
+    <Content Include="Images-Author\PI_Indran Rajendran.jpg" />
+    <Content Include="Images-Author\PI_IraiAnbu.jpg" />
+    <Content Include="Images-Website\1045x500.png" />
+    <Content Include="Images-Website\2-md.jpg" />
+    <Content Include="Images-Website\2.jpg" />
+    <Content Include="Images-Website\2.png" />
+    <Content Include="Images-Website\2MainBackground.jpg" />
+    <Content Include="Images-Website\3-md.jpg" />
+    <Content Include="Images-Website\3.png" />
+    <Content Include="Images-Website\4-md.jpg" />
+    <Content Include="Images-Website\4.png" />
+    <Content Include="Images-Website\404-Page.png" />
+    <Content Include="Images-Website\5.jpg" />
+    <Content Include="Images-Website\5N.jpg" />
+    <Content Include="Images-Website\5New.png" />
+    <Content Include="Images-Website\5New2.png" />
+    <Content Include="Images-Website\5Orig.png" />
+    <Content Include="Images-Website\6-md.jpg" />
+    <Content Include="Images-Website\7.jpg" />
+    <Content Include="Images-Website\7.png" />
+    <Content Include="Images-Website\790x90.png" />
+    <Content Include="Images-Website\8.png" />
+    <Content Include="Images-Website\9.png" />
+    <Content Include="Images-Website\ajax-loader.gif" />
+    <Content Include="Images-Website\Author.jpg" />
+    <Content Include="Images-Website\calendar.gif" />
+    <Content Include="Images-Website\details_close.png" />
+    <Content Include="Images-Website\details_open.png" />
+    <Content Include="Images-Website\dot.png" />
+    <Content Include="Images-Website\index.png" />
+    <Content Include="Images-Website\karkathamizha.png" />
+    <Content Include="Images-Website\karkathamizha.svg" />
+    <Content Include="Images-Website\KarkaThamizhaImage.jpg" />
+    <Content Include="Images-Website\logo-black-retina.png" />
+    <Content Include="Images-Website\MainBackground.jpg" />
+    <Content Include="Images-Website\map.png" />
+    <Content Include="Images-Website\Original -790x90.png" />
+    <Content Include="Images-Website\sep-widget-karka.png" />
+    <Content Include="Images-Website\sep-widget-retina.png" />
+    <Content Include="Images-Website\sep-widget.png" />
+    <Content Include="JavaScript\Authors.js" />
+    <Content Include="JavaScript\BookPreRelease.js" />
+    <Content Include="JavaScript\BooksReviews.js" />
+    <Content Include="JavaScript\Events.js" />
+    <Content Include="JavaScript\Interviews.js" />
+    <Content Include="JavaScript\KarkaCommonJS.js" />
+    <Content Include="JavaScript\Offer.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config" />
+    <Content Include="Images-Website\Novel.webp" />
+    <Content Include="framework\addons\breaking-news-ticker\images\Thumbs.db" />
+    <Content Include="framework\addons\font-vectors\icon-moon\fonts\icomoon.eot" />
+    <Content Include="framework\addons\font-vectors\icon-moon\fonts\icomoon.ttf" />
+    <Content Include="framework\addons\font-vectors\icon-moon\fonts\icomoon.woff" />
+    <Content Include="framework\addons\font-vectors\zocial\font\fontellozocial.eot" />
+    <Content Include="framework\addons\font-vectors\zocial\font\fontellozocial.ttf" />
+    <Content Include="framework\addons\font-vectors\zocial\font\fontellozocial.woff" />
+    <Content Include="framework\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="framework\bootstrap\css\bootstrap.css.map" />
+    <Content Include="framework\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="framework\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="framework\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="framework\js\jquery-2.0.3.min.map" />
+    <Content Include="Content\fonts\icomoon.ttf" />
+    <Content Include="Content\font\fontellozocial.ttf" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Interviews.cshtml" />
+    <Content Include="Views\Shared\_GeneralArticles.cshtml" />
+    <Content Include="Views\Shared\_Articles.cshtml" />
+    <Content Include="Views\ContactUs\ContactUs.cshtml" />
+    <Content Include="Views\ContactUs\Feedback.cshtml" />
+    <Content Include="Views\Events\Events.cshtml" />
+    <Content Include="Views\Events\EventsCalendar.cshtml" />
+    <Content Include="Views\Events\_Events.cshtml" />
+    <Content Include="Views\Events\_AllBookFair.cshtml" />
+    <Content Include="Views\Events\ShowEvents.cshtml" />
+    <Content Include="Views\BookPreRelease\BookPreRelease.cshtml" />
+    <Content Include="Views\BookPreRelease\_BookPreRelease.cshtml" />
+    <Content Include="Views\BookPreRelease\PreRelease.cshtml" />
+    <Content Include="Views\Author\Authors.cshtml" />
+    <Content Include="Views\Author\_Authors.cshtml" />
+    <Content Include="Views\Author\_AuthorInfo.cshtml" />
+    <Content Include="Views\Author\_AuthorBooks.cshtml" />
+    <Content Include="Views\Shared\_SocialMedia.cshtml" />
+    <Content Include="Views\Author\AuthorSeries.cshtml" />
+    <Content Include="Views\Author\_AuthorSeries.cshtml" />
+    <Content Include="Views\Author\AuthorDetails.cshtml" />
+    <Content Include="Views\Author\AuthorInterviews.cshtml" />
+    <Content Include="Views\Author\AuthorInterview.cshtml" />
+    <Content Include="Views\Author\_AuthorInterviews.cshtml" />
+    <Content Include="Views\Shared\_TaggedWith.cshtml" />
+    <Content Include="Views\Shared\_ShareOn.cshtml" />
+    <Content Include="Views\BooksReview\BooksReview.cshtml" />
+    <Content Include="Views\BooksReview\BooksReviewBy.cshtml" />
+    <Content Include="Views\BooksReview\_BookReviewByUser.cshtml" />
+    <Content Include="Views\BooksReview\_BookReviewByWriter.cshtml" />
+    <Content Include="Views\BookPreRelease\Offer.cshtml" />
+    <Content Include="Views\BookPreRelease\_Offer.cshtml" />
+    <Content Include="Views\BookPreRelease\OfferBook.cshtml" />
+    <Content Include="Views\Home\AllReview.cshtml" />
+    <Content Include="Views\Home\BooksReview.cshtml" />
+    <Content Include="Views\Login\UserProfile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Images-Articles\" />
+    <Folder Include="Images-Books\" />
+    <Folder Include="Images-Events\" />
+    <Folder Include="Images-Magazine\" />
+    <Folder Include="Images-Publisher\" />
+    <Folder Include="Images-Users\" />
+    <Folder Include="Views\Feedback\" />
+    <Folder Include="Views\UserRating\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KarkaThamizha.Common\KarkaThamizha.Common.csproj">
+      <Project>{152df0c5-7e35-4e71-95d2-7ecc08b5fb7a}</Project>
+      <Name>KarkaThamizha.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KarkaThamizha.Object\KarkaThamizha.Object.csproj">
+      <Project>{633FA36F-114E-4812-BA56-3F7A8BD9ECA8}</Project>
+      <Name>KarkaThamizha.Object</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KarkaThamizha.Repository\KarkaThamizha.Repository.csproj">
+      <Project>{59A9E35D-A1C5-400D-8AAE-A8F60AA6BCA9}</Project>
+      <Name>KarkaThamizha.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5949</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44336/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.DependencyCollector.2.18.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.DependencyCollector.2.18.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.18.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.18.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.18.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.18.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.2.18.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.2.18.0\build\Microsoft.ApplicationInsights.WindowsServer.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.Web.2.18.0\build\Microsoft.ApplicationInsights.Web.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.Web.2.18.0\build\Microsoft.ApplicationInsights.Web.targets'))" />
+  </Target>
+  <Import Project="packages\Microsoft.ApplicationInsights.DependencyCollector.2.18.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.DependencyCollector.2.18.0\build\Microsoft.ApplicationInsights.DependencyCollector.targets')" />
+  <Import Project="packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.18.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.18.0\build\Microsoft.ApplicationInsights.PerfCounterCollector.targets')" />
+  <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.18.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.18.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.2.18.0\build\Microsoft.ApplicationInsights.WindowsServer.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.2.18.0\build\Microsoft.ApplicationInsights.WindowsServer.targets')" />
+  <Import Project="packages\Microsoft.ApplicationInsights.Web.2.18.0\build\Microsoft.ApplicationInsights.Web.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.Web.2.18.0\build\Microsoft.ApplicationInsights.Web.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
