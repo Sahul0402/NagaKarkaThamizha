@@ -23,7 +23,7 @@ namespace KarkaThamizha.Controllers
             {
                 repoLogin = new LoginRepository();
                 mdlUser = repoLogin.UserLogin(email, password);
-                if (mdlUser !=null)
+                if (mdlUser != null && !string.IsNullOrEmpty(mdlUser.LoginID.ToString()) && !string.IsNullOrEmpty(mdlUser.Name))
                 {
                     Session["UserID"] = mdlUser.LoginID;
                     Session["Name"] = mdlUser.Name;
@@ -33,19 +33,16 @@ namespace KarkaThamizha.Controllers
             {
                 throw ex;
             }
-            return Json(mdlUser.LoginID, JsonRequestBehavior.AllowGet);
-            //return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+            return Json(Session["UserID"], JsonRequestBehavior.AllowGet);
         }
 
-        public void Logout()
+        public ActionResult Logout()
         {
-            // Clear all session variables.
-            //HttpContext.Current.Session.Clear();
-            //HttpContext.Current.Session.Abandon();
-
-            //contextInfo.CurrentUser = null;
-            //UserState userState = new UserState();
-            //userState.Logout();
+            //Clear all session variables.
+            Session.Remove("UserID");
+            Session.Remove("Name");
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
         }
 
 

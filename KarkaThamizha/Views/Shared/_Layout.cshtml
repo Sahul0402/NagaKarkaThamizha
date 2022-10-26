@@ -66,7 +66,7 @@
                                         </li>*@
                                     <li>@Html.ActionLink("My Profile", "UserProfile", "Login", new { id = Session["UserID"] }, new { @class = "link", target = "_blank" })</li>
                                     <li><a href="#">Change Password</a></li>
-                                    <li><a href="#">Log Out</a></li>
+                                    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Session["UserID"] }, new { @class = "link", target = "" })</li>
                                 </ul>
                             </li>
                         }
@@ -686,18 +686,18 @@
                                         <form role="form" class="form-horizontal">
                                             <div class="form-group">
                                                 <label for="loginemail" class="col-sm-2 control-label">Email</label>
-                                                <div class="col-sm-10"><input type="text" value="support@karkathamizha.com" class="form-control toLowerCase" id="loginemail" placeholder="Email" maxlength="40" required /></div>
+                                                <div class="col-sm-10"><input type="text" class="form-control toLowerCase" id="loginemail" placeholder="Email" maxlength="40" required /></div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="loginPassword" class="col-sm-2 control-label">Password</label>
                                                 <div class="col-sm-10">
-                                                    <input type="password" value="Karka@2021" class="form-control" id="loginPassword" placeholder="Password" maxlength="12" minlength="8" required />
+                                                    <input type="password" class="form-control" id="loginPassword" placeholder="Password" maxlength="12" minlength="8" required />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-2"></div>
                                                 <div class="col-sm-10">
-                                                    <button id="Login" type="submit" class="btn btn-warning btn-sm">Login</button>
+                                                    <button id="btnLogin" type="submit" class="btn btn-warning btn-sm">Login</button>
                                                     <a href="javascript:;">Forgot your password?</a>
                                                 </div>
                                             </div>

@@ -19,9 +19,13 @@ $(document).ready(function () {
 });
 
 //#region Login & Register Popup
-$("#Login").click(function () {
+$("#btnLogin").click(function () {
     var mailid = document.getElementById("loginemail").value;
     var pwd = document.getElementById("loginPassword").value;
+    if (mailid == "" || pwd == "") {
+        alert("Please check EMail or Password");
+        return true;
+    }
     $.ajax({
         type: "GET",
         url: "/Login/UserLogin",
@@ -29,8 +33,11 @@ $("#Login").click(function () {
         dataType: "JSON",
         contentType: "application/json; charset=utf-8",
         success: function (response) {
-            //alert(response);
-            alert("User Login Successful");
+            if (response == null) {
+                alert("Please check EMail or Password");
+            }
+            else
+                alert("User Login Successful");
         },
         error: function (response) {
             alert("Error while User login " + response);
@@ -39,35 +46,12 @@ $("#Login").click(function () {
 });
 
 $("#Register").click(function () {
+    
+    $.ajax({
+        type: "Get",
+        url: "/Login/Register",
 
-    try {
-        $.ajax({
-            type: "Get",
-            url: "/Login/UserLogin",
-            //data: '{email: "' + $("#loginemail").val() + '", password: "' + $("#loginPassword").val() + '" }',
-            data: '{emailID: "test@gmai.com", password: "' + $("#loginPassword").val() + '" }',
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (res) {
-                alert(res.message);
-                if (res.message > 0) {
-                    alert("Login Successful");
-                    location.reload(true);
-                }
-                else {
-                    alert(res.responseText);
-                }
-            },
-            error: function (res) {
-                //alert(res.responseText);
-                alert("Error while inserting ToDo data" + res.message);
-            }
-        });
-    }
-    catch (e) {
-        alert(e.message);
-        //alert(e.stack);
-    }
+    });
 });
 //#endregion Login
 
