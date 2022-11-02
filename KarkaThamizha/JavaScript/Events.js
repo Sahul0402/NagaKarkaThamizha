@@ -1,6 +1,5 @@
 ﻿var gViewPageID;
 $(document).ready(function () {
-    debugger;
     gViewPageID = masterPageID;
 
     if (gViewPageID) {
@@ -15,7 +14,6 @@ $("#PageLike").click(function () {
 });
 
 function GetAllEvents(PageSize, gViewPageID) {
-    debugger;
     var targetControl = "#divEvents";
     $.ajax({
         type: "GET",

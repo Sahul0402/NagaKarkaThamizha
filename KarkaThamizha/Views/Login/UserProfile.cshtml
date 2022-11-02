@@ -1,4 +1,4 @@
-﻿
+﻿@model KarkaThamizha.Object.Models.LoginModels
 @{
     ViewBag.Title = "UserProfile";
 }
@@ -6,34 +6,35 @@
 <h2>UserProfile</h2>
 
 <div class="tab-content" style="padding-top:10px;">
+    <input type="hidden" value="@Session["Name"]" id="hdnUserName" />
     <div class="form-group">
         <label for="Name" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control toProperCase" id="Name" placeholder="Name (ex.Tamil)" maxlength="35" required />
+            @Html.TextBoxFor(m => m.Name, new { @maxlength = "35", @placeholder = "User Name", @class = "form-control toProperCase", style = "width:55%;min-width:55%;", tabindex = 1 })
         </div>
     </div>
     <div class="form-group">
         <label for="Mobile" class="col-sm-2 control-label">Mobile</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="Mobile" placeholder="Mobile" maxlength="20" required />
+            @Html.TextBoxFor(m => m.Mobile, new { @maxlength = "20", @placeholder = "Mobile", @class = "form-control toProperCase", style = "width:55%;min-width:55%;", tabindex = 2 })
         </div>
     </div>
     <div class="form-group">
         <label for="EMail" class="col-sm-2 control-label">EMail</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control toLowerCase" id="EMail" placeholder="EMail" onblur="ValidateEmail(this)" maxlength="40" required />
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">Password</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" id="Password" placeholder="Password" maxlength="12" minlength="8" required />
+            @Html.TextBoxFor(m => m.EMail, new { onblur = "ValidateEmail(this)", @maxlength = "40", @placeholder = "Mobile", @class = "form-control toLowerCase", style = "width:55%;min-width:55%;", tabindex = 3 })            
         </div>
     </div>
     <div class="form-group">
         <label for="password" class="col-sm-2 control-label">Date of Birth</label>
         <div class="col-sm-10">
-            <input type="date" class="form-control" id="dob" placeholder="MM-dd" required />
+            @Html.EditorFor(m => m.DOB, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "", onkeydown = "", onpaste = "return false" } })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="author" class="col-sm-2 control-label">Favourite Writer(s)</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="author" placeholder="ex.அகிலன், இந்திரன், தொ.பரமசிவம்" />
         </div>
     </div>
     <div class="form-group">
@@ -48,6 +49,12 @@
             <input type="file" class="form-control" name="profileImage" id="profileImage" multiple />
         </div>
     </div>
+    <div class="form-group">
+        <label for="category" class="col-sm-2 control-label">Favourite Categories</label>
+        <div class="col-sm-10">
+            <input type="checkbox" class="form-control" id="category" placeholder="ex.நாவல்,கட்டுரை, அரசியல், தன்னம்பிக்கை" />
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-2">
         </div>
@@ -58,3 +65,8 @@
     </div>
 </div>
 
+@{
+    @section Scripts{
+        <script src="~/JavaScript/UserProfile.js"></script>        
+    }
+}

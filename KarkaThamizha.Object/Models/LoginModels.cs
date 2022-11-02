@@ -35,6 +35,7 @@ namespace KarkaThamizha.Object.Models
 
         [DisplayName("Remember me")]
         public bool Rememberme { get; set; }
+        public Nullable<DateTime> DOB { get; set; }
     }
 
     public class LoginStatus

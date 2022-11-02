@@ -20,6 +20,9 @@ $(document).ready(function () {
 
 //#region Login & Register Popup
 $("#btnLogin").click(function () {
+    try {
+
+    
     var mailid = document.getElementById("loginemail").value;
     var pwd = document.getElementById("loginPassword").value;
     if (mailid == "" || pwd == "") {
@@ -33,6 +36,8 @@ $("#btnLogin").click(function () {
         dataType: "JSON",
         contentType: "application/json; charset=utf-8",
         success: function (response) {
+            debugger;
+            alert(response);
             if (response == null) {
                 alert("Please check EMail or Password");
             }
@@ -43,6 +48,9 @@ $("#btnLogin").click(function () {
             alert("Error while User login " + response);
         }
     });
+    } catch (e) {
+        alert("Error in Login: " + e);
+    }
 });
 
 $("#Register").click(function () {

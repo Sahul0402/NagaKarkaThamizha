@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace KarkaThamizha.Controllers
 {
     public class LoginController : Controller
-    {        
+    {
         public ActionResult UserLogin(string email, string password)
         {
             LoginRepository repoLogin = null;
@@ -45,15 +45,38 @@ namespace KarkaThamizha.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         public ActionResult Register()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult UserProfile()
         {
-            return View("UserProfile");
+            LoginRepository repoLogin = null;
+            LoginModels mdlUser = null;
+            int userId = Convert.ToInt16(Session["UserID"]);
+            if (userId > 0)
+            {
+                repoLogin = new LoginRepository();
+                mdlUser = new LoginModels();
+
+                mdlUser = repoLogin.GetUserProfileByUserID(userId);
+            }
+            return View("UserProfile", mdlUser);
+        }
+
+        [HttpPost]
+        public ActionResult UserProfile(UserModels mdlUsers)
+        {
+            LoginRepository repoLogin = null;
+            if (Session["UserID"] !=null)
+            {
+                repoLogin = new LoginRepository();
+
+                var returnValue = repoLogin.UpdateUserProfileByUserID(mdlUsers);
+            }
+            return RedirectToAction("UserProfile", "Login");
         }
     }
 }

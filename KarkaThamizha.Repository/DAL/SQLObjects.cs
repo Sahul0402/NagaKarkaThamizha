@@ -130,6 +130,8 @@ namespace KarkaThamizha.Repository.DAL
         public const string GetUsersDetailsByUserId = "dbo.USP_GetUsersDetailsByUserId";                    
         public const string CheckMailExists = "USP_CheckMailExists";
         public const string GetLogInUser = "USP_GetLogInUser";
+        public const string GetUserProfileByUserID = "USP_GetUserProfileByUserID";
+        public const string UpdateUserProfile = "USP_UpdateUserProfile";
 
         #region User
                 public const string GetAllUserType = "dbo.USP_GetAllUserType";

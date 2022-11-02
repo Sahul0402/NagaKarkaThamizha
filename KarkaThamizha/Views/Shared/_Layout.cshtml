@@ -55,18 +55,10 @@
                         {
                             <li class="dropdown color-theme">
                                 <a href="#" class="dropdown-toggle" data-hover="dropdown">@Session["Name"]<b class="caret"></b><span class="nav-line"></span></a>
-                                <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">
-                                    @*<li class="dropdown-submenu">
-                                            <a href="#">Sub Menu</a>
-                                            <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">
-                                                <li><a href="#">My Profile</a></li>
-                                                <li><a href="#">Change Password</a></li>
-                                                <li><a href="#">Log Out</a></li>
-                                            </ul>
-                                        </li>*@
-                                    <li>@Html.ActionLink("My Profile", "UserProfile", "Login", new { id = Session["UserID"] }, new { @class = "link", target = "_blank" })</li>
+                                <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">                                    
+                                    <li>@Html.ActionLink("My Profile", "UserProfile", "Login", new { id = @Session["UserID"] }, new { @class = "link", target = "_blank" })</li>
                                     <li><a href="#">Change Password</a></li>
-                                    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Session["UserID"] }, new { @class = "link", target = "" })</li>
+                                    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = @Session["UserID"] }, new { @class = "link", target = "" })</li>
                                 </ul>
                             </li>
                         }
@@ -300,34 +292,7 @@
                     </ul>
                 </li>
             </ul>
-            @*<ul class="menu-block">
-
-                    <li class="active color-theme">
-                        <a href="#">Home <span class="nav-line"></span></a>
-                        <ul class="dropdown-menu animated fadeInLeft">
-                            <li><a href="#">Right Sidebar (Default)</a></li>
-                            <li><a href="#">Left Sidebar</a></li>
-                            <li><a href="#">Full Width</a></li>
-                        </ul>
-                    </li>
-                    <li class="color-theme"><a href="#">Menu Item <span class="nav-line"></span></a></li>
-                    <li class="dropdown color-theme">
-                        <a href="#" class="dropdown-toggle">Dropdown Menu<span class="nav-line"></span></a>
-                        <ul class="dropdown-menu animated fadeInLeft">
-                            <li class="dropdown-submenu">
-                                <a href="#">Sub Menu</a>
-                                <ul class="dropdown-menu animated fadeInLeft">
-                                    <li><a href="#">Style 1</a></li>
-                                    <li><a href="#">Style 2</a></li>
-                                    <li><a href="#">Style 3</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">One more link</a></li>
-                        </ul>
-                    </li>
-                </ul>*@
+            
         </nav>
         <!-- Mobile-Menu (Close) Site Overlay -->
         <div class="site-overlay"></div>
@@ -380,98 +345,11 @@
                                         <span class="fans-word">Subscribers</span><span class="fans-count">0</span><a href="#" class="more"></a>
                                     </div>
                                 </li>
-                                @*<li>
-                                        <div class="dribbble">
-                                            <i class="zoc-dribbble border-radius-50-per"></i><span class="fans-word">Followers</span>
-                                            <span class="fans-count">0</span><a href="#" class="more"></a></div>
-                                    </li>
-                                    <li>
-                                        <div class="rss">
-                                            <i class="zoc-rss border-radius-50-per"></i><span class="fans-word">To RSS Feed</span><span class="fans-count">Subscribe</span><a href="#" class="more"></a>
-                                        </div>
-                                    </li>*@
                             </ul>
                         </div>
                     </div>
                 </aside>
-                @*@{ Html.RenderAction("ShowInterview", "Home");}
-                    @{ Html.RenderAction("ShowGeneralArticles", "Home");}*@
-                <!-- #region name -->
-                @*<aside id="divWidgetSlides_1" class="widget wdg-scroll-box" data-showonscroll="true" data-animation="fadeIn">
-                        <div class="widget-title clearfix">
-                            <h3>Slide Widget</h3><div class="sep-widget"></div>
-                        </div>
-                        <div class="widget-content clearfix">
-                            <div>
-                                <ul class="nav-arrows list-inline">
-                                    <li><a href="#" class="backward"><i class="icon-arrow-left6"></i></a></li>
-                                    <li><a href="#" class="forward"><i class="icon-arrow-right6"></i></a></li>
-                                </ul>
-                                <div class="scroll-box color-theme">
-                                    <div class="post-item">
-                                        <article class="post-box clearfix">
-                                            <a class="post-thumbnail"><img src="" data-src="holder.js/308x210/sky" /></a>
-                                            <div class="title-bar"><h4 class="post-title"><a href="#">Post With Featured Image</a></h4></div>
-                                            <div class="bottom-bar">
-                                                <span class="btn-srp"><a href="#">Read More...</a></span>
-                                                <div class="rating">
-                                                    <div class="stars retina x-2">
-                                                        <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
-                                                        <div class="fill" style="width: 90%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="post-item">
-                                        <article class="post-box clearfix">
-                                            <a class="post-thumbnail"><img src="" data-src="holder.js/308x210/sky" /></a>
-                                            <div class="title-bar"><h4 class="post-title"><a href="#">Post With Featured Image And Lightbox</a></h4></div>
-                                            <div class="bottom-bar">
-                                                <span class="btn-srp"><a href="#">Read More...</a></span>
-                                                <div class="rating">
-                                                    <div class="stars retina x-2">
-                                                        <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
-                                                        <div class="fill" style="width: 60%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="post-item">
-                                        <article class="post-box clearfix">
-                                            <a class="post-thumbnail"><img src="" data-src="holder.js/308x210/sky" /></a>
-
-                                            <div class="title-bar"><h4 class="post-title"><a href="#">Post With Youtube Video</a></h4></div>
-                                            <div class="bottom-bar">
-                                                <span class="btn-srp"><a href="#">Read More...</a></span>
-                                                <div class="rating">
-                                                    <div class="stars retina x-2"><div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
-                                                        <div class="fill" style="width: 20%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="post-item">
-                                        <article class="post-box clearfix">
-                                            <a class="post-thumbnail"><img src="" data-src="holder.js/308x210/sky" /></a>
-                                            <div class="title-bar"><h4 class="post-title"><a href="#">Post With Sound Cloud</a></h4></div>
-                                            <div class="bottom-bar">
-                                                <span class="btn-srp"><a href="#">Read More...</a></span>
-                                                <div class="rating">
-                                                    <div class="stars retina x-2">
-                                                        <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
-                                                        <div class="fill" style="width: 50%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </aside>*@
+                
                 <!-- #endregion -->
                 <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
                     <div class="widget-title clearfix"><h3>காணொளி</h3><div class="sep-widget"></div></div>
