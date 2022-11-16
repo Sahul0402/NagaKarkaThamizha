@@ -1,0 +1,474 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="background-main no-js">
+<head>
+    <title>Karka Thamizha</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link href="~/framework/addons/camera/css/camera.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="framework/js/html5shiv.js"></script>
+        <script src="framework/js/respond.min.js"></script>
+    <![endif]-->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js?version=26.10.2020', 'ga');
+        ga('create', 'UA-82860713-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    @RenderSection("metatags", required: false)
+
+</head>
+
+
+<body>
+    <!--<canvas id="snowfall"></canvas>-->
+
+    <a class="sr-only" href="#content"></a>
+
+    <div class="header-background">
+
+        <div class="btn-mobile-menu visible-sm visible-xs">
+            <button type="button" class="menu-btn">
+                <i class="icon-menu"></i>
+                <span>Menu</span>
+            </button>
+        </div>
+
+        <!-- Top Menu -->
+        <nav class="social-menu navbar">
+            <h2 class="hidden">Top Navigation</h2>
+            <div class="container">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div id="social-menu-navbar-collapse" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-left visible-lg visible-md">
+                        @if (Session["UserID"] == null)
+                        {
+                            <li class="color-theme"><a href="#" id="login" data-target="#loginModal" data-toggle="modal">Login / Register<span class="nav-line"></span></a></li>
+                        }
+                        else
+                        {
+                            <li class="dropdown color-theme">
+                                <a class="dropdown-toggle" data-hover="dropdown">@Session["Name"]<b class="caret"></b><span class="nav-line"></span></a>
+                                <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">
+                                    <li>@Html.ActionLink("My Profile", "UserProfile", "User", new { id = Session["UserID"], @class = "link" }, null)</li>
+                                    <li>@Html.ActionLink("Change Password", "ChangePassword", "Login", new { id = Session["UserID"] }, new { @class = "link" })</li>
+                                    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Session["UserID"] }, new { @class = "link", target = "" })</li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right visible-lg visible-md visible-sm">
+                        <li class="search dropdown">
+                            <div class="mask-background animated lightSpeedIn"></div>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-search"></i></a>
+                            <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">
+                                <li>
+                                    <form class="navbar-form navbar-right" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search" required="required" />
+                                            <button type="submit" class="btn-search"><i class="icon-search"></i></button>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="social-icons">
+                            <ul class="list-inline clearfix">
+                                @{Html.RenderPartial("_SocialMedia", new KarkaThamizha.Object.Models.UserModels()); }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <!-- Breaking News -->
+        <section class="tkr-breaking-news hidden-xs">
+            @*@{ Html.RenderAction("GetLatestNews", "Master");}*@
+        </section>
+
+        <!-- Site Logo -->
+        <header class="container header-logo">
+            <div class="logo" itemscope itemtype="http://schema.org/Brand">
+                <h1 class="hidden" itemprop="name">கற்க தமிழா</h1>
+                <a href="@Url.Action("Index", "Home")" target="_blank" title="Book Review"><img itemprop="logo" class="site-logo" style="width:300px;" src="~/Images-Website/KarkaThamizha.svg" data-src="" title="Karka Thamizha" alt="Karka Thamizha" /></a>
+            </div>
+            <div class="advertise-790 visible-lg">
+                <a href="#" title="Tamil Book" target="_blank">
+                    @*<img title="Karka Thamizha" alt="Karka Thamizha" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAxYAAABaCAYAAAAlzMAtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpBOUFDMTM0Nzk5NUFFMzExOTlGMTkzQ0M2MkE1QkI4NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFMDRCOTQ1OEFFREExMUUzQTBFRDlBRDAxRTI2NDRCRiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFMDRCOTQ1N0FFREExMUUzQTBFRDlBRDAxRTI2NDRCRiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjcxNTdBMEY0OThBQUUzMTFCNUM1Qzc5Qjk1RUFGNjJDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkE5QUMxMzQ3OTk1QUUzMTE5OUYxOTNDQzYyQTVCQjg3Ii8+IDwvcmRmOkRlc2NyaXB0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" />*@
+                    <img title="Karka Thamizha" alt="Karka Thamizha" src="~/Images-Website/790x90.png" />
+                </a>
+            </div>
+        </header>
+        <div>@RenderSection("MainScroll", required: false)</div>
+
+        <!-- Main Menu -->
+        <nav class="main-menu navbar visible-lg visible-md" data-sticky-header="true">
+            <h2 class="hidden">Main Navigation</h2>
+            <div class="container">
+                <div class="row">
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div id="main-menu-navbar-collapse" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="dropdown color-theme active">
+                                <a href="@Url.Action("Index", "Home")" class="dropdown-toggle" data-hover="dropdown">முகப்பு<span class="nav-line"></span></a>
+                                <ul class="dropdown-menu animated fadeInLeft">
+                                    <li>@Html.ActionLink("புத்தகங்கள் மதிப்புரை", "Index", "Home", null, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("இதழ்கள் மதிப்புரை", "Magazines", "MagazineReview", null, new { target = "_blank" })</li>
+                                    <li class="dropdown-submenu">
+                                        <a href="#">சிறப்பு மலர்</a>
+                                        <ul class="dropdown-menu animated fadeInLeft"><li><a href="#">பொங்கல் மலர்</a></li><li><a href="#">தீபாவளி மலர்</a></li></ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown color-2">
+                                <a href="#" class="dropdown-toggle" data-hover="dropdown">மதிப்புரை<span class="nav-line"></span></a>
+                                <ul class="dropdown-menu animated fadeInLeft">
+                                    <li class="dropdown-submenu">
+                                        <a href="#">புத்தகங்கள்</a>
+                                        <ul class="dropdown-menu animated fadeInLeft">
+                                            <li>@Html.ActionLink("எழுத்தாளர்கள்", "BooksReviewBy", "BooksReview", new { reviewBy = "Writer" }, new { target = "_blank" })</li>
+                                            <li>@Html.ActionLink("வாசகர்கள்", "BooksReviewBy", "BooksReview", new { reviewBy = "User" }, new { target = "_blank" })</li>
+                                        </ul>
+                                    </li>
+                                    <li>@Html.ActionLink("பத்திரிக்கைகள்", "Magazines", "MagazineReview", null, new { target = "_blank" })</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown color-3">
+                                <a href="#" class="dropdown-toggle" data-hover="dropdown">எழுத்தாளர்கள்<span class="nav-line"></span></a>
+                                <ul class="dropdown-menu animated fadeInLeft">
+                                    <li>@Html.ActionLink("எழுத்தாளர் பட்டியல்", "Authors", "Author", null, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("தொடர்கள்", "AuthorSeries", "Author", null, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("பேட்டிகள்", "Interviews", "Author", null, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("கட்டுரைகள் & மற்றவை", "Articles", "Author", null, new { target = "_blank" })</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown color-theme">
+                                <a href="#" class="dropdown-toggle" data-hover="dropdown">வெளியீடு<span class="nav-line"></span></a>
+                                <ul class="dropdown-menu animated fadeInLeft">
+                                    <li>@Html.ActionLink("முன் வெளியீட்டுத் திட்டம்", "BookPreRelease", "BookPreRelease", null, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("சிறப்புத் தள்ளுபடி", "Offer", "BookPreRelease", null, new { target = "_blank" })</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown color-2">
+                                <a href="#" class="dropdown-toggle" data-hover="dropdown">நிகழ்வுகள்<span class="nav-line"></span></a>
+                                <ul class="dropdown-menu animated fadeInLeft">
+                                    <li>@Html.ActionLink("புத்தகக் கண்காட்சி", "Events", "Events", new { Page = "BookFair" }, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("நூல் வெளியீட்டு விழா", "Events", "Events", new { Page = "BookRelease" }, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("விருது வழங்கும் விழா", "Events", "Events", new { Page = "Award" }, new { target = "_blank" })</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown color-3">
+                                <a href="#" class="dropdown-toggle" data-hover="dropdown">மற்றவை<span class="nav-line"></span></a>
+                                <ul class="dropdown-menu animated fadeInLeft">
+                                    <li><a href="http://www.karkathamizha.com/">எங்களைப் பற்றி</a></li>
+                                    <li>@Html.ActionLink("தொடர்புக்கு", "ContactUs", "ContactUs", null, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("உங்கள் கருத்து", "Comments", "ContactUs", null, new { target = "_blank" })</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right"><li class="color-theme"><a href="#"><i class="icon-shuffle"></i><span class="nav-line"></span></a></li></ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (Pushy Menu) -->
+        <nav class="mobile-menu pushy pushy-left  animated fadeInLeft">
+            <h2 class="hidden">Mobile Navigation</h2>
+            <div class="close-button"><i class="icon-close"></i>Close</div>
+            <ul class="menu-block">
+                <li class="dropdown color-theme active">
+                    <a href="@Url.Action("Index", "Home")" class="dropdown-toggle">முகப்பு <span class="nav-line"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft">
+                        <li>@Html.ActionLink("புத்தகங்கள் மதிப்புரை", "Index", "Home", new { target = "_blank" })</li>
+                        <li><a href="#">இதழ்கள் மதிப்புரை</a></li>
+                        <li class="dropdown-submenu">
+                            <a href="#">சிறப்பு மலர்</a>
+                            <ul class="dropdown-menu animated fadeInLeft"><li><a href="http://www.karkathamizha.com">பொங்கல் மலர்</a></li><li><a href="http://www.karkathamizha.com">தீபாவளி மலர்</a></li></ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown color-2">
+                    <a href="#" class="dropdown-toggle">மதிப்புரை<span class="nav-line"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft">
+                        <li class="dropdown-submenu">
+                            <a href="#">புத்தகங்கள்</a>
+                            <ul class="dropdown-menu animated fadeInLeft">
+                                <li>@Html.ActionLink("எழுத்தாளர்கள்", "Author", "Reviews", new { ReviewBy = "Author" }, new { target = "_blank" })</li>
+                                <li>@Html.ActionLink("வாசகர்கள்", "User", "Reviews", new { ReviewBy = "User" }, new { target = "_blank" })</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("இதழ்கள் மதிப்புரை", "Magazines", "MagazineReview", null, new { target = "_blank" })</li>
+                    </ul>
+                </li>
+                <li class="dropdown color-3">
+                    <a href="#" class="dropdown-toggle">எழுத்தாளர்கள்<span class="nav-line"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft">
+                        <li>@Html.ActionLink("எழுத்தாளர் பட்டியல்", "Authors", "Author", null, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("தொடர்கள்", "AuthorSeries", "Author", null, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("பேட்டிகள்", "AuthorInterviews", "Author", null, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("கட்டுரைகள்", "Articles", "Author", null, new { target = "_blank" })</li>
+                    </ul>
+                </li>
+                <li class="dropdown color-theme">
+                    <a href="#" class="dropdown-toggle">வெளியீடு<span class="nav-line"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft">
+                        <li>@Html.ActionLink("முன் வெளியீட்டுத் திட்டம்", "BookPreRelease", "BookPreRelease", null, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("சிறப்புத் தள்ளுபடி", "Offer", "BookPreRelease", null, new { target = "_blank" })</li>
+                    </ul>
+                </li>
+                <li class="dropdown color-2">
+                    <a href="#" class="dropdown-toggle">நிகழ்வுகள்<span class="nav-line"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft">
+                        <li>@Html.ActionLink("புத்தகக் கண்காட்சி", "Events", "Events", new { Page = "BookFair" }, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("நூல் வெளியீட்டு விழா", "Events", "Events", new { Page = "BookRelease" }, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("விருது வழங்கும் விழா", "Events", "Events", new { Page = "Award" }, new { target = "_blank" })</li>
+                    </ul>
+                </li>
+                <li class="dropdown color-3">
+                    <a href="#" class="dropdown-toggle">மற்றவை<span class="nav-line"></span></a>
+                    <ul class="dropdown-menu animated fadeInLeft">
+                        <li><a href="http://www.karkathamizha.com/">எங்களைப் பற்றி</a></li>
+                        <li>@Html.ActionLink("தொடர்புக்கு", "ContactUs", "Others", null, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("உங்கள் கருத்து", "Comments", "ContactUs", null, new { target = "_blank" })</li>
+                    </ul>
+                </li>
+            </ul>
+            @*<ul class="menu-block">
+
+                    <li class="active color-theme">
+                        <a href="#">Home <span class="nav-line"></span></a>
+                        <ul class="dropdown-menu animated fadeInLeft">
+                            <li><a href="#">Right Sidebar (Default)</a></li>
+                            <li><a href="#">Left Sidebar</a></li>
+                            <li><a href="#">Full Width</a></li>
+                        </ul>
+                    </li>
+                    <li class="color-theme"><a href="#">Menu Item <span class="nav-line"></span></a></li>
+                    <li class="dropdown color-theme">
+                        <a href="#" class="dropdown-toggle">Dropdown Menu<span class="nav-line"></span></a>
+                        <ul class="dropdown-menu animated fadeInLeft">
+                            <li class="dropdown-submenu">
+                                <a href="#">Sub Menu</a>
+                                <ul class="dropdown-menu animated fadeInLeft">
+                                    <li><a href="#">Style 1</a></li>
+                                    <li><a href="#">Style 2</a></li>
+                                    <li><a href="#">Style 3</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">One more link</a></li>
+                        </ul>
+                    </li>
+                </ul>*@
+        </nav>
+
+        <!-- Mobile-Menu (Close) Site Overlay -->
+        <div class="site-overlay"></div>
+
+
+    </div>
+
+
+    <!-- Main Container -->
+
+    <div class="container main-site-container sb-none-layout" itemscope itemtype="http://schema.org/CreativeWork">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Opposite Posts Category -->
+                @RenderBody()
+            </div>
+        </div>
+
+        <footer class="container footer-container">
+
+            <section class="row footer-widgets">
+                <h3 class="hidden">Footer Widgets</h3>
+                <div class="col-md-4">
+                    <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                        <div class="widget-title clearfix"><h3 class="hidden">Hidden Title</h3></div>
+                        @*<div class="widget-content paddingZero clearfix text-center">
+                        <a href="index.html">
+                            <img itemprop="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKMAAABbCAYAAAAfrTX0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpEM0U1MEQ5MkUyQzRFNDExOURDRDlEMkQ4MkI5Qzg5QSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3NDBBQUYwNUM0RTMxMUU0OEZFMzlBRTc3QTVGNkRENiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3NDBBQUYwNEM0RTMxMUU0OEZFMzlBRTc3QTVGNkRENiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQzRTUwRDkyRTJDNEU0MTE5RENEOUQyRDgyQjlDODlBIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkQzRTUwRDkyRTJDNEU0MTE5RENEOUQyRDgyQjlDODlBIi8+IDwvcmRmOkRlc2NyaXB0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" data-src="" alt="footer-logo" />
+                        </a>
+                    </div>*@
+                        <div class="widget-content paddingZero clearfix text-center">
+                            <div class="widget-title clearfix"><h3>தொடர்பு கொள்க</h3><div class="sep-widget"></div></div>
+                            <div class="widget-content clearfix">
+                                <div class="social-icons white">
+                                    <ul class="clearfix">
+                                        <li data-placement="bottom" style="border:0px; text-align:left;">
+                                            Mobile: 81 2288 5555 <br /><br />Mobile: 81 899 899 11<br /><br />EMail: support@karkathamizha.com
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                    <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                        <div class="widget-title clearfix"><h3>Tags</h3><div class="sep-widget"></div></div>
+                        <div class="widget-content clearfix">
+                            <div class="tags-cloud clearfix">
+                                <a href="#">Sport<span class="badge">5</span></a><a href="#">President<span class="badge">10</span></a><a href="#">Morsi<span class="badge">15</span></a><a href="#">Coup<span class="badge">13</span></a>
+                            </div>
+                        </div>
+                    </aside>
+                    <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                        <div class="widget-title clearfix"><h3>Social Icons</h3><div class="sep-widget"></div></div>
+                        <div class="widget-content clearfix">
+                            <div class="social-icons white">
+                                <ul class="clearfix">
+                                    <li class="tooltip_item fb-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="facebook">
+                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-facebook"></i></a>
+                                    </li>
+                                    <li class="tooltip_item twitter-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="twitter">
+                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-twitter"></i></a>
+                                    </li>
+                                    <li class="tooltip_item googleplus-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="google+">
+                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-gplus"></i></a>
+                                    </li>
+                                    <li class="tooltip_item pinterest-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="pinterest">
+                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-pinterest"></i></a>
+                                    </li>
+                                    <li class="tooltip_item youtube-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="youtube">
+                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-youtube"></i></a>
+                                    </li>
+                                    <li class="tooltip_item rss-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="rss">
+                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-rss"></i></a>
+                                    </li>
+                                    <li class="tooltip_item vk-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="vk">
+                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-vk"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-md-4">
+                    <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                        <div class="widget-title clearfix"><h3>@DateTime.Now.AddYears(-1).Year விருதுகள்</h3><div class="sep-widget"></div></div>
+                        <div class="widget-content clearfix">
+                            <div class="wdg-classic-posts color-theme clearfix">
+                                <ul class="list-unstyled">
+                                    <li class="post-item">
+                                        @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த நாவல்", "Novels", "Books", new { header = "Novel" }, new { @class = "bookspace", target = "_blank" })<br />
+                                        @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த சிறுகதைத் தொகுப்பு", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                        @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த கவிதைத் தொகுப்பு", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                        @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த கட்டுரைத் தொகுப்பு", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                        @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த சிறுவர் இலக்கியம்", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                        @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த மொழிபெயர்ப்பு - சிறுகதை", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                        @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த மொழிபெயர்ப்பு - கவிதை", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                        @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த மொழிபெயர்ப்பு - கட்டுரை", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                        @*@Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த மொழிபெயர்ப்பு - கட்டுரை", "", "Books", null, new { @class = "divfloat", target = "_blank" })<br />*@
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget-title clearfix"><h3>எழுத்தாளர்கள்</h3><div class="sep-widget"></div></div>
+                        <div class="widget-content clearfix">
+                            <div class="wdg-classic-posts color-theme clearfix">
+                                <ul class="list-unstyled">
+                                    <li class="post-item">@Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " நம்பிக்கை எழுத்தாளர்கள்", "StarAuthor", "Author", null, new { @class = "bookspace", target = "_blank" })<br /></li>
+                                </ul>
+                            </div>
+                        </div><br /><br />
+                        <div class="widget-title clearfix"><h3>புத்தக பரிந்துரைகள்</h3><div class="sep-widget"></div></div>
+                        <div class="widget-content clearfix">
+                            <div class="wdg-classic-posts color-theme clearfix">
+                                <ul class="list-unstyled">
+                                    <li class="post-item">@Html.ActionLink("எழுத்தாளர்கள்", "BooksSuggestion", "Home", null, new { @class = "bookspace", target = "_blank" })<br /><a href="#" target="_blank">பத்திரிக்கைகள்</a><br /><br /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-md-4">
+                    <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                        <div class="widget-title clearfix"><h3>Recent CommentsBOT</h3><div class="sep-widget"></div></div>
+                        <div class="widget-content clearfix">
+                            <div class="wdg-comments clearfix">
+                                <ul class="list-unstyled">
+                                    <li class="post-item">
+                                        <article class="post-box clearfix">
+                                            <div class="wdg-col-4 sec-image">
+                                                <div class="avatar-thumbnail border-radius-2px"><img class="border-radius-2px" src="" data-src="holder.js/70x65/sky" alt="" /></div>
+                                                <a href="#" class="more"></a>
+                                            </div>
+                                            <div class="wdg-col-8 sec-title">
+                                                <div class="meta-info"><span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span></div>
+                                                <div class="comment"><h5>Serpentsoft</h5><span class="separator"></span><p>Excellent Cellphone</p></div>
+                                                <div class="leave-comment"><a href="#">Leave Comment</a></div>
+                                            </div>
+                                        </article>
+                                    </li>
+                                    <li class="post-item">
+                                        <article class="post-box clearfix">
+                                            <div class="wdg-col-4 sec-image">
+                                                <div class="avatar-thumbnail border-radius-2px"><img class="border-radius-2px" src="" data-src="holder.js/70x65/sky" alt="" /></div>
+                                                <a href="#" class="more"></a>
+                                            </div>
+                                            <div class="wdg-col-8 sec-title">
+                                                <div class="meta-info"><span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span></div>
+                                                <div class="comment"><h5>Mostafa</h5><span class="separator"></span><p>Hi everybody, I like MAG4U theme very much...</p></div>
+                                                <div class="leave-comment"><a href="#">Leave Comment</a></div>
+                                            </div>
+                                        </article>
+                                    </li>
+                                    <li class="post-item">
+                                        <article class="post-box clearfix">
+                                            <div class="wdg-col-4 sec-image">
+                                                <div class="avatar-thumbnail border-radius-2px"><img class="border-radius-2px" src="" data-src="holder.js/70x65/sky" alt="" /></div>
+                                                <a href="#" class="more"></a>
+                                            </div>
+                                            <div class="wdg-col-8 sec-title">
+                                                <div class="meta-info"><span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span></div>
+                                                <div class="comment"><h5>Mohammad</h5><span class="separator"></span><p>Progress Colors depending on the ratio! That's Nice...</p></div>
+                                                <div class="leave-comment"><a href="#">Leave Comment</a></div>
+                                            </div>
+                                        </article>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+            <section class="row footer-bottom" data-showonscroll="true" data-animation="fadeIn">
+                <h3 class="hidden">Footer Bottom Links</h3>
+                <div class="col-md-6">
+                    <ul>
+                        <li><a href="http://www.karkathamizha.com/">எங்களைப் பற்றி</a></li>
+                        <li>@Html.ActionLink("தொடர்புக்கு", "ContactUs", "Others", null, new { target = "_blank" })</li>
+                        <li><a href="http://www.karkathamizha.com/">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6"><p class="pull-right">&copy; Copyright 2016 </p><p>Powered by <a href="http://www.koinfotech.in">koinfotech.in</a></p></div>
+            </section>
+        </footer>
+    </div>
+
+
+
+    <div class="btn-goto-top border-radius-2px">
+        <i class="icon-arrow-up7"></i>
+    </div>
+
+    @Scripts.Render("~/bundles/framework")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
