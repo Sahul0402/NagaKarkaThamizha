@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Web.Mvc;
 
 namespace KarkaThamizha.Object.Models
 {
     public class BooksReviewModels
     {
-        public int BooksReviewID { get; set; }        
+        public int BooksReviewID { get; set; }
         public int BookID { get; set; }
         public string BookName { get; set; }
         [AllowHtml]
@@ -28,9 +26,9 @@ namespace KarkaThamizha.Object.Models
         public Int16 BookCategoryID { get; set; }
         public string BookCategory { get; set; }
         public Byte UserType { get; set; }
-        public UserModels Users { get; set; }
+        public UserModels UserInfo { get; set; }
         public UserDetailsModels UserDetail { get; set; }
-        public BooksDetailsModels BookDetail { get; set; }        
+        public BooksDetailsModels BookDetail { get; set; }
         public string Type { get; set; }
         public DateTime CreatedDate { get; set; }
         public CategoryModels Category { get; set; }

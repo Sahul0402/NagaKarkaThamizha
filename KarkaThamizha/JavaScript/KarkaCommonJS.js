@@ -1,33 +1,81 @@
 ﻿//Global Variable and used in this page.
-var gViewPageID;
+var gMainPageID;
 var gChildPageID;
 $(document).ready(function () {
-    //gViewPageID = masterPageID;
+
+    //GetLatestNews();
+    /*gMainPageID = masterPageID;*/
+    var key = GetParameterValues('BooksReview');
+    var gChildPageID = GetParameterValues('booksReviewID');
 
     //if (childPageID != 'undefined' && childPageID > 0)
     //    gChildPageID = childPageID; // Data from ShowEvents.cshtml js file.
+    if (document.location.href.match(/[^\/]+$/) != null)
+        var pageName = document.location.href.match(/[^\/]+$/)[0];
 
-    if (gChildPageID) {
+    if (pageName) {
         //LoadUserFeedback(gViewPageID);        Need to check 
 
-        ClearFeedbackControls();
-        document.getElementById("Name").maxLength = 35;
-        document.getElementById("EMail").maxLength = 40;
-        document.getElementById("Mobile").maxLength = 20;
-        document.getElementById("Password").maxLength = 12;
+        //ClearControls();
+        //document.getElementById("Name").maxLength = 35;
+        //document.getElementById("EMail").maxLength = 40;
+        //document.getElementById("Mobile").maxLength = 20;
+        //document.getElementById("Password").maxLength = 12;
     }
 });
+//#region Common Function
+function ValidateEmail(email) {
+    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return expr.test(email);
+};
+
+function GetParameterValues(param) {
+    var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < url.length; i++) {
+        var urlparam = url[i].split('=');
+        if (urlparam[0] == param) {
+            return urlparam[1];
+        }
+    }
+}
+//#End
+function GetLatestNews() {
+    var targetControl = "#newsDescription";
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: "/Master/GetLatestNews",
+        data: {},
+        contentType: "application/json; charset=utf-8",
+        dataType: "html",
+        success: function (response) {
+            const obj = JSON.parse(response);
+            var text = JSON.stringify(obj[0].Description);
+            $("#newsDescription").html(text);
+        },
+        failure: function (response) {
+            alert("Failure1:" + response);
+            alert("Failure2:" + response.responseText);
+            alert("Failure3:" + response.responseText);
+        },
+        error: function (response) {
+            var r = jQuery.parseJSON(response.responseText);
+            alert("Message: " + r.Message);
+            alert("StackTrace: " + r.StackTrace);
+            alert("ExceptionType: " + r.ExceptionType);
+            var errorMessage = response.status + ': ' + response.statusText
+            alert('Error - ' + errorMessage);
+        }
+    });
+}
 
 //#region Login & Register Popup
 $("#btnLogin").click(function () {
-    try {
-
-    
     var mailid = document.getElementById("loginemail").value;
     var pwd = document.getElementById("loginPassword").value;
     if (mailid == "" || pwd == "") {
         alert("Please check EMail or Password");
-        return true;
+        return false;
     }
     $.ajax({
         type: "GET",
@@ -41,25 +89,49 @@ $("#btnLogin").click(function () {
             if (response == null) {
                 alert("Please check EMail or Password");
             }
-            else
+            else if (response > 0) {
                 alert("User Login Successful");
+                location.reload();
+            }
         },
         error: function (response) {
             alert("Error while User login " + response);
+        },
+        faillure: function (response) {
+            alert("Faillure while User login " + response);
         }
     });
-    } catch (e) {
-        alert("Error in Login: " + e);
-    }
 });
 
 $("#Register").click(function () {
-    
-    $.ajax({
-        type: "Get",
-        url: "/Login/Register",
 
-    });
+    try {
+        $.ajax({
+            type: "Get",
+            url: "/Login/UserLogin",
+            //data: '{email: "' + $("#loginemail").val() + '", password: "' + $("#loginPassword").val() + '" }',
+            data: '{emailID: "test@gmai.com", password: "' + $("#loginPassword").val() + '" }',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+                if (res.message > 0) {
+                    alert("Login Successful");
+                    location.reload(true);
+                }
+                else {
+                    alert(res.responseText);
+                }
+            },
+            error: function (res) {
+                //alert(res.responseText);
+                alert("Error while inserting ToDo data" + res.message);
+            }
+        });
+    }
+    catch (e) {
+        alert(e.message);
+        //alert(e.stack);
+    }
 });
 //#endregion Login
 
@@ -107,45 +179,64 @@ function LoadUserFeedback(MainPage) {
     });
 }
 
-$("#submitFeedback").click(function (e) {
+$("#submitComments11").click(function (e) {
+    debugger;
     e.preventDefault();
-    if ($(this.form).valid()) {
-        var targetControl = "#msgPageFeedback";
-        var contact = {};
-        contact.Name = $.trim($("#Name").val());
-        contact.EMail = $.trim($("#EMail").val());
-        contact.Mobile = $.trim($("#Mobile").val());
-        contact.Password = $.trim($("#Password").val());
-        contact.Comments = $.trim($("#Comments").val());
-        contact.MasterPageID = gViewPageID;
-        contact.ChildPageID = $("#userID").val();
 
-
-        $(targetControl).html("");
-        $.ajax({
-            url: '/ContactUs/Feedback',
-            type: 'POST',
-            //data: $("#PageFeedback").serialize(),
-            data: '{mdlContact: ' + JSON.stringify(contact) + '}',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.Message == "Success") {
-                    ClearFeedbackControls();
-                    $(targetControl).html("<div class='success'>" + "Thanks for your Feedback" + "</div>");
-                }
-                else {
-                    $(targetControl).html(response.Message);
-                }
-            },
-            error: function () {
-                $(targetControl).html("<div class='failed'>" + "Error Occured. Please contact Administrator." + "</div>");
-            }
-        });
+    var targetControl = "#msgPageFeedback";
+    var comments = {};
+    comments.ParentID = 0;
+    if (hdnSessionId == 'undefined' || hdnSessionId==0 || hdnSessionId=='') {
+        if ($("#Name").val() == '') {
+            alert('Please enter Name');
+        }
+        if ($("#EMail").val() == '') {
+            alert('Please enter EMail');
+        }
+        if ($("#Mobile").val() == '') {
+            alert('Please enter Mobile');
+        }
+        if ($("#Password").val() == '') {
+            alert('Please enter Password');
+        }
+        if ($("#Comments").val() == '') {
+            alert('Please enter Comments');
+        }
     }
+
+    comments.Name = $.trim($("#Name").val());
+    comments.Email = $.trim($("#EMail").val());
+    comments.Mobile = $.trim($("#Mobile").val());
+    comments.Password = $.trim($("#Password").val());
+    comments.Comments = $.trim($("#Comments").val());
+    comments.MasterPageID = gMainPageID;
+    comments.ChildPageID = GetParameterValues('booksReviewID');
+
+    $(targetControl).html("");
+    $.ajax({
+        url: '/Comments/AddComments',
+        type: 'POST',
+        //data: $("#PageFeedback").serialize(),
+        data: '{mdlContact: ' + JSON.stringify(comments) + '}',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.Message == "Success") {
+                ClearControls11();
+                $(targetControl).html("<div class='success'>" + "Thanks for your Feedback" + "</div>");
+            }
+            else {
+                $(targetControl).html(response.Message);
+            }
+        },
+        error: function () {
+            $(targetControl).html("<div class='failed'>" + "Error Occured. Please contact Administrator." + "</div>");
+        }
+    });
+
 });
 
-function ClearFeedbackControls() {
+function ClearControls11() {
     $("#Name").val('');
     $("#EMail").val('');
     $("#Mobile").val('');
@@ -166,8 +257,8 @@ $("#submit").click(function () {
     feedback.EMail = document.getElementById("EMail").value;
     feedback.Password = document.getElementById("Password").value;
     feedback.Comments = document.getElementById("Comments").value;
-    feedback.MasterPageID = gViewPageID;
-    feedback.ChildPageID = ChildPage;
+    feedback.MasterPageID = gMainPageID;
+    feedback.ChildPageID = GetParameterValues('booksReviewID');
 
     $.ajax({
         cache: false,
@@ -227,7 +318,6 @@ $('img').each(function () {
 
 //#region Page View Count
 function SetGetPageViewCount(viewPage) {
-    debugger;
     var targetControl = "#lblPageViewCount";
 
     $.ajax({
@@ -353,10 +443,40 @@ $('#Name').keydown(function (e) {
 //    }
 //});
 
-function ValidateEmail(email) {
-    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    return expr.test(email);
-};
+$("#Email").blur(function () {
+    $("#lblStatus").html("");
+    var mailId = $("#Email").val();
+    if (mailId == null || mailId == "")
+        return;
+    $("#lblStatus").html("wait...");
+    $.ajax({
+        type: "POST",
+        url: "/User/IsMailExists",
+        data: { Email: mailId },
+        /*contentType: "application/json; charset=utf-8",*/ /*will get error()when using this line*/
+        dataType: "json",
+        success: OnSuccess,
+        failure: function (response) {
+            alert(response);
+        },
+    });
+});
+
+//function OnSuccess 
+function OnSuccess(response) {
+    var targetControlInfo = "#lblStatus";
+    if (response) {
+        $("#Email").val('');
+        $(targetControlInfo).show();
+        $(targetControlInfo).css("color", "red");
+        $(targetControlInfo).html("EMail already exists.");
+    }
+    else {
+        $(targetControlInfo).html("");
+    }
+}
+
+
 
 //called when key is pressed in textbox
 $("#Mobile").keypress(function (e) {
@@ -369,3 +489,19 @@ $("#Mobile").keypress(function (e) {
 //$('#Comments').bind("cut copy paste", function (event) {
 //    event.preventDefault();
 //});
+
+function Password_Show_Hide(controlId, eyeOpenId, eyeCloseId) {
+    var x = document.getElementById(controlId);
+    var show_eye = document.getElementById(eyeOpenId);
+    var hide_eye = document.getElementById(eyeCloseId);
+    hide_eye.classList.remove("d-none");
+    if (x.type === "password") {
+        x.type = "text";
+        show_eye.style.display = "none";
+        hide_eye.style.display = "block";
+    } else {
+        x.type = "password";
+        show_eye.style.display = "block";
+        hide_eye.style.display = "none";
+    }
+}

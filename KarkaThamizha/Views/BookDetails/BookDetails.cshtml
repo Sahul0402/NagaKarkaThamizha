@@ -1,62 +1,247 @@
 ﻿@model KarkaThamizha.Object.Models.BooksDetailsModels
 @{
-    ViewBag.Title = "UserProfile";
+    ViewBag.Title = "Book Details";
 }
-
-
 @{
     Layout = "~/Views/Shared/_FullWidthLayout.cshtml";
 }
+<style>
+    .row {
+        padding: 6px 0px;
+    }
+</style>
 
-<style></style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="~/Content/Karkastyle.css" rel="stylesheet" />
 
 <div style="height:980px;">
-    @*<div class="widget-title">
-            <h3><a href="#">Personal Details</a></h3>
-            <span class="sub-title">.</span>
-            <div class="sep-widget"></div>
-        </div>*@
 
     <div class="color-red widget-content clearfix">
-        
+        @if (Model != null)
+        {
+            <input type="hidden" id="hdnSession" value="@Session["UserID"]" />
+            <input type="hidden" id="hdnBookdDetailID" value="@Model.Books.BookID" />
             <article class="odd-item" data-showonscroll="true" data-animation="fadeIn">
                 <div class="row">
-                    <div class="col-md-6">
-                        <h1>ரோமாபுரிப் பாண்டியன்</h1>
-                        <span>2005</span>
+                    <div class="col-md-7">
+                        <h2>@Model.Books.Book</h2>
+                        @if (Model.XtraBookDetails.EventID > 0)
+                        {<a href="@Url.Action("EventName", "Events", new { eventId = @Model.XtraBookDetails.EventID })" style="color:blue;" target="_blank">@Model.FirstEdition</a>}
+                    else
+                    {<span>@Model.FirstEdition</span>}
                     </div>
-                    <div class="col-md-3">கற்க தமிழா மதிப்பு(Rating)</div>
-                    <div class="col-md-3">உங்கள் மதிப்பு</div>
+                    <div class="col-md-3">
+                        கற்க தமிழா மதிப்பு(Rating)
+                        <div class="bdRating">
+                            <div><a href="#" title=""><img src="~/Images-Website/Rating.svg" title="Global Rating" alt="" /></a></div>
+                            <div id="divAvgRating" class="rating-text"><label id="lblAvgUserRating"></label>/<label id="lblAvgRating">@System.Web.Configuration.WebConfigurationManager.AppSettings["MaxUserRating"]</label></div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <div>உங்கள் மதிப்பு</div>
+                        <div class="bdRating">
+                            <div><i id="elmRateUs" class="fas fa-star" style="font-size:1.8em;"></i></div>
+                            @*<div><a href="#" title=""><img src="~/Images-Website/RatingGrey.svg" title="Global Rating" alt="" /></a></div>\*@
+                            <div id="divRating" class="rating-text"><label id="lblUserRating"></label>/<label id="lblRating">@System.Web.Configuration.WebConfigurationManager.AppSettings["MaxUserRating"]</label></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="~/Images-Books/Velpari.jpg" style="height:400px;" />
+                        <img src="@Url.Content("~/Images-Books/" + @Model.ImgBookSmallFS)" style="width:100%;height:400px;" alt="karka Thamizha" />
                     </div>
                     <div class="col-md-9">
                         <iframe itemprop="contentURL" class="youtube-player" type="text/html" width="100%" height="400px" src="https://www.youtube.com/embed/OeRvH1BjwlY" frameborder="0" allowfullscreen=""></iframe>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                       Novel(Hostoric Novel)
+                    <div class="col-md-12 control-label">
+                        @Model.Category.Category (@Model.Category.SubCategoryName)
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <p>
-                            தன்னலமற்ற கொடை உள்ளத்தாலும், அன்புவழிப்பட்ட வாழ்வியல் மரபாலும் பாரியின் புகழ் தமிழ் நிலம் எங்கும் பரவியது. மூவேந்தர்களான சேர, சோழ, பாண்டியர்கள் அவன் புகழ் கண்டு
-                            வெதும்பினர். பறம்பு நாட்டின் நிலவளம் அவர்களின் கண்களை உறுத்தியது. பாரிக்கு எதிராகத் தனித்தனியே அவர்கள் மேற்கொண்ட போர் முயற்சிகள் கைகூடவில்லை. இறுதியில்
-                            மூவேந்தர்களும் ஒன்றிணைந்தனர். அவர்களின் கூட்டுப்படை பாரியின் பறம்பு நாட்டை அனைத்துத் திசைகளில் இருந்தும் ஒருசேரத் தாக்கியது. சின்னஞ்சிறு `டிராய்’ நகரின் மீது மொத்த
-                            கிரேக்கப் படையும் போர் தொடுத்ததைப் போலத்தான் இதுவும் நிகழ்ந்தது. பெரும் நிலப்பரப்பை ஆண்ட மூவேந்தர்களின் கூட்டுப்படை, ஒரு குறுநில மன்னனால் சிதறடிக்கப்பட்டது.
-                            அதன் பின் மூவேந்தர்களும் ஒன்றாய் சதிசெய்து, வஞ்சினம் நிகழ்த்தி, பாரியின் உயிர் பறித்தனர். வீரத்தால் சாதிக்க முடியாததை துரோகம் செய்து முடித்தது. இயற்கைக்கும் மனிதனின்
-                            பேராசைக்கும் இடையில் இன்று நடக்கும் போராட்டத்தின் ஆதிவடிவம்தான் வேள்பாரியின் கதை. திரும்பும் திசையெல்லாம் அருவி கொட்டும் குறிஞ்சி நிலத்தில், அந்த அருவி நீரினும்
-                            குழுமையுடை பாரியின் கரம்பற்றி நடக்க வாருங்கள்...
-                        </p>
+                    <div class="col-md-12 control-label"><p>@Model.Books.BookDescription</p></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 font-weight-bold">கதை மாந்தர்கள்:</div>
+                    <div class="col-md-9">@Model.XtraBookDetails.Characters</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">சமர்ப்பணம் / காணிக்கை:</div>
+                    <div class="col-md-9">@Model.XtraBookDetails.Dedication</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 control-label">அணிந்துரை / அறிமுகம்</div>
+                    <div class="col-md-4">@Model.XtraBookDetails.Foreword</div>
+                    <div class="col-md-2 control-label">சிறப்புரை</div>
+                    <div class="col-md-3">@Model.XtraBookDetails.KeyNote</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 control-label">முதல் பதிப்பு</div>
+                    <div class="col-md-4">@Model.FirstEdition</div>
+                    <div class="col-md-2 control-label">தற்போதைய பதிப்பு</div>
+                    <div class="col-md-3">@Model.CurrentEdition</div>
+                </div>
+                @*@foreach (var publisher in Model.PublisherList)*@
+                @*{*@
+                <div class="row">
+                    <div class="col-md-3 control-label">Price</div>
+                    <div class="col-md-4 control-label">@Model.Price</div>
+                    <div class="col-md-2 control-label">No.of Pages</div>
+                    <div class="col-md-3 control-label">@Model.Pages</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 control-label">Book Format</div>
+                    <div class="col-md-4 control-label">@Model.BookFormat.BookFormat</div>
+                    <div class="col-md-2 control-label">ISBN</div>
+                    <div class="col-md-3 control-label">@Model.ISBN13</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 control-label">அட்டை ஓவியம்:</div>
+                    <div class="col-md-4">கற்க தமிழா</div>
+                    <div class="col-md-2 control-label">அட்டை வடிவமைப்பு:</div>
+                    <div class="col-md-3">கற்க தமிழா</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">மறுப்பு நூலா?:</div>
+                    <div class="col-md-9">@Model.XtraBookDetails.Rebuttal</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 control-label">நூல் அளவு:</div>
+                    <div class="col-md-4">@Model.Dimensions</div>
+                    <div class="col-md-2 control-label"></div>
+                    <div class="col-md-3"></div>
+                </div>
+                @*}*@
+                <div class="row">
+                    <div class="col-md-3">விருதுகள்:</div>
+                    <div class="col-md-9">
+                        <ul>
+                            <li>2000 Aug - சாகித்ய அகாடமி விருது</li>
+                            <li>2003 Sep - ஞானபீட விருது</li>
+                            <li>2007 Jan - மா.அரங்கநாதன் இலக்கிய விருது</li>
+                        </ul>
                     </div>
                 </div>
             </article>
-        
+        }
         <div class="divider"></div>
 
     </div>
 </div>
+<div id="dialog-message" title="Rate This">
+    <div id="divRateTitle"><label id="lblRateTitle" /></div>
+    <div id="divRateTool" class="ratingrating"></div>
+    <div id="divFooter">
+        <button id="btnRate" type="button" class="btn btn-secondary btn-sm btn-block" onclick="onAddOrUpdateUserRating(this)">Rate</button>
+        <button id="btnRemoveRating" type="button" class="btn btn-secondary btn-sm btn-block" onclick="onRemoveUserRating(this)">Remove Rating</button>
+    </div>
+</div>
+
+<script>
+    var _userStars = 0, _userRating = {};
+    var stars = @System.Web.Configuration.WebConfigurationManager.AppSettings["MaxUserRating"];
+    $(function () {
+        GetUserRatingByUserAndBookID();
+        $("#dialog-message").dialog({
+            modal: true,
+            autoOpen: false,
+            maxWidth: 450,
+            maxHeight: 250,
+            minWidth: 450,
+            minHeight: 250,
+            width: 450,
+            height: 250
+        });
+        var $ratings = null;
+        $('#elmRateUs').on('click', function () {
+            $('.ratingrating').starRating(
+                {
+                    starIconEmpty: 'far fa-star',
+                    starIconFull: 'fas fa-star',
+                    starColorEmpty: 'lightgray',
+                    starColorFull: 'rgb(87 153 239)',
+                    starsSize: 1.8, // em
+                    showInfo: false,
+                    stars: stars,
+                    defaultStars: _userRating['Rating']
+                });
+
+            $(document).on('change', '.ratingrating',
+                function (e, stars, index) {
+                    _userStars = stars;
+                    $('#btnRate').addClass('remove-rate').removeClass('add-rate');
+                    if (stars > 0) {
+                        $('#btnRate').removeClass('remove-rate').addClass('add-rate').prop('disabled', false);
+                    }
+                });
+
+            $('#btnRemoveRating').hide();
+            if (_userRating['Rating'] > 0) {
+                $('#btnRemoveRating').show();
+            }
+            $("#dialog-message").dialog("open");
+        });
+
+        $("#dialog-message").on("dialogclose", function (event, ui) {
+            $('#divRateTool').removeClass('js-wc-star-rating');
+            $('#divRateTool').empty();
+        });
+    });
+
+
+    function onAddOrUpdateUserRating(e) {
+        var userID = $("#hdnSession").val();
+        var bookID = $("#hdnBookdDetailID").val();
+
+        $.ajax({
+            cache: false,
+            type: 'GET',
+            url: "/UserRating/AddOrUpdateUserRating",
+            data: { userId: userID, bookId: bookID, userRating: _userStars },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (response, status, xhr) {
+                $("#dialog-message").dialog("close");
+                GetUserRatingByUserAndBookID();
+            },
+            error: function (jqXHR, exception) {
+
+            }
+        });
+    }
+
+    function onRemoveUserRating(e) {
+        _userStars = 0;
+        onAddOrUpdateUserRating();
+    }
+    function GetUserRatingByUserAndBookID() {
+        var userID = $("#hdnSession").val();
+        var bookID = $("#hdnBookdDetailID").val();
+
+        $.ajax({
+            cache: false,
+            type: 'GET',
+            url: "/UserRating/GetUserRatingByUserAndBookID",
+            data: { userId: userID, bookId: bookID },
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (response, status, xhr) {
+                _userRating = response;
+                $('#divRating').show();
+                $('#btnRate').removeClass('remove-rate').addClass('add-rate').prop('disabled', false);
+                if (_userRating['Rating'] == 0) {
+                    $('#divRating').hide();
+                    $('#btnRate').addClass('remove-rate').removeClass('add-rate').prop('disabled', true);
+                }
+                $('#lblAvgUserRating').text(_userRating['AvgUserRating'])
+                $('#lblRateTitle').text(_userRating['Book']);
+                $('#lblUserRating').text(_userRating['Rating']);
+            },
+            error: function (jqXHR, exception) {
+
+            }
+        });
+    }
+</script>

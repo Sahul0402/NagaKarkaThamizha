@@ -199,7 +199,7 @@
                         </header>
 
                         <div class="meta-info">
-                            <span class="author"><i class="icon-user3"></i><a href="#">@novel.Users.UserName</a></span>
+                            <span class="author"><i class="icon-user3"></i><a href="#">@novel.UserInfo.UserName</a></span>
                             <span class="date-time"><i class="icon-alarm2"></i>@novel.CreatedDate</span>
                         </div>
 
@@ -252,7 +252,7 @@
                         </header>
 
                         <div class="meta-info">
-                            <span class="author"><i class="icon-user3"></i><a href="#">@shortStory.Users.UserName</a></span>
+                            <span class="author"><i class="icon-user3"></i><a href="#">@shortStory.UserInfo.UserName</a></span>
                             <span class="date-time"><i class="icon-alarm2"></i>@shortStory.CreatedDate</span>
                         </div>
                         <div class="post-desc">
@@ -299,7 +299,7 @@
                         <header class="title">
                             <h4 class="post-title">@Html.ActionLink(story.Header.ToString().Substring(0, (Convert.ToString(story.Header.ToString())).Length), "/AllReview", new { bookDetailsID = story.BookDetail.BookDetailsID }, new { @class = "divfloat", target = "_blank" })</h4>
                         </header>
-                        <div class="meta-info"><span class="author"><i class="icon-user3"></i><a href="#">@story.Users.UserName</a></span><span class="date-time"><i class="icon-alarm2"></i>@story.SourceDate</span></div>
+                        <div class="meta-info"><span class="author"><i class="icon-user3"></i><a href="#">@story.UserInfo.UserName</a></span><span class="date-time"><i class="icon-alarm2"></i>@story.SourceDate</span></div>
                         <div class="post-desc">
                             <p style="text-align:justify;">>@story.Description.ToString().Chop(270)</p>
                             <div>@Html.ActionLink("மேலும்...", "/BooksReview", "BooksReview", new { booksReviewID = story.BooksReviewID }, new { @class = "divfloat", target = "_blank" })</div>
@@ -319,44 +319,44 @@
     <div class="widget-content color-theme clearfix">
         <div>
             <!--<article class="first-post clearfix" data-showonscroll="true" data-animation="fadeIn">
-                {var politics = Model.FirstOrDefault(x => x.ParentID == (Int16)EnumCode.Category.அரசியல் || x.ParentID == (Int16)EnumCode.Category.கட்டுரைகள்); }
-                if (politics !=null)
-                {
-                <figure class="sec-image">
-                    <a class="post-thumbnail"><img src="" data-src="holder.js/280x195/sky" alt="politics.BookCategory" title="politics.BookCategory" /></a>
-                    <div class="top-bar">
-                        <span class="likes"><a href="#"><i class="icon-heart"></i>15</a></span>
-                        <span class="comments"><i class="icon-bubble"></i>12</span>
-                        <span class="views"><i class="icon-tv"></i>500</span>
-                        <span class="btn-srp"><a href="#">politics.BookCategory</a></span>
-                    </div>
-                    <div class="bottom-bar">
-                        <span class="btn-srp"><a href="#">மேலும்...</a></span>
-                        <div class="rating">
-                            <div class="stars retina x-2">
-                                <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
-                                <div class="fill" style="width: 80%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </figure>
-                <div class="sec-desc">
-                    <header class="title">
-                        <h4 class="post-title">
-                            Html.ActionLink(politics.Header.ToString().Substring(0, (Convert.ToString(politics.Header.ToString())).Length), "/AllReview", new { bookDetailsID = politics.BookDetail.BookDetailsID }, new { class = "divfloat", target = "_blank" })
-                        </h4>
-                    </header>
-                    <div class="meta-info"><span class="author"><i class="icon-user3"></i><a href="#">politics.Users.Name</a></span><span class="date-time"><i class="icon-alarm2"></i>politics.CreatedDate</span></div>
-                    <div class="post-desc">
-                        <p style="text-align:justify;">politics.Description.ToString().Chop(270)</p>
-                        <div>Html.ActionLink("மேலும்...", "/BooksReview", "BooksReview", new { booksReviewID = politics.BooksReviewID }, new { class = "divfloat", target = "_blank" })</div>
+        {var politics = Model.FirstOrDefault(x => x.ParentID == (Int16)EnumCode.Category.அரசியல் || x.ParentID == (Int16)EnumCode.Category.கட்டுரைகள்); }
+        if (politics !=null)
+        {
+        <figure class="sec-image">
+            <a class="post-thumbnail"><img src="" data-src="holder.js/280x195/sky" alt="politics.BookCategory" title="politics.BookCategory" /></a>
+            <div class="top-bar">
+                <span class="likes"><a href="#"><i class="icon-heart"></i>15</a></span>
+                <span class="comments"><i class="icon-bubble"></i>12</span>
+                <span class="views"><i class="icon-tv"></i>500</span>
+                <span class="btn-srp"><a href="#">politics.BookCategory</a></span>
+            </div>
+            <div class="bottom-bar">
+                <span class="btn-srp"><a href="#">மேலும்...</a></span>
+                <div class="rating">
+                    <div class="stars retina x-2">
+                        <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                        <div class="fill" style="width: 80%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
                     </div>
                 </div>
-                }-->
+            </div>
+        </figure>
+        <div class="sec-desc">
+            <header class="title">
+                <h4 class="post-title">
+                    Html.ActionLink(politics.Header.ToString().Substring(0, (Convert.ToString(politics.Header.ToString())).Length), "/AllReview", new { bookDetailsID = politics.BookDetail.BookDetailsID }, new { class = "divfloat", target = "_blank" })
+                </h4>
+            </header>
+            <div class="meta-info"><span class="author"><i class="icon-user3"></i><a href="#">politics.UserInfo.Name</a></span><span class="date-time"><i class="icon-alarm2"></i>politics.CreatedDate</span></div>
+            <div class="post-desc">
+                <p style="text-align:justify;">politics.Description.ToString().Chop(270)</p>
+                <div>Html.ActionLink("மேலும்...", "/BooksReview", "BooksReview", new { booksReviewID = politics.BooksReviewID }, new { class = "divfloat", target = "_blank" })</div>
+            </div>
+        </div>
+        }-->
             @*else
-                {<div> அரசியல் பற்றி தற்போது எந்த விதமான புத்தக விமர்சனங்களும் இல்லை.</div>}*@
+        {<div> அரசியல் பற்றி தற்போது எந்த விதமான புத்தக விமர்சனங்களும் இல்லை.</div>}*@
             <!--</article>
-            <br />-->
+    <br />-->
             <div class="divider"></div>
             <article class="first-post clearfix" data-showonscroll="true" data-animation="fadeIn">
                 @{var poem = Model.FirstOrDefault(x => x.ParentID == (Int16)EnumCode.Category.கவிதைகள்); }
@@ -385,7 +385,7 @@
                             <h4 class="post-title">@Html.ActionLink(poem.Header.ToString().Substring(0, (Convert.ToString(poem.Header.ToString())).Length), "/AllReview", new { bookDetailsID = poem.BookDetail.BookDetailsID }, new { @class = "divfloat", target = "_blank" })</h4>
                         </header>
                         <div class="meta-info">
-                            <span class="author"><i class="icon-user3"></i><a href="#">@poem.Users.UserName</a></span>
+                            <span class="author"><i class="icon-user3"></i><a href="#">@poem.UserInfo.UserName</a></span>
                             <span class="date-time"><i class="icon-alarm2"></i>@poem.CreatedDate</span>
                         </div>
                         <div class="post-desc">
@@ -395,7 +395,7 @@
                     </div>
                 }
                 @*else
-                    {<div> இலக்கியத்தைப் பற்றி தற்போது எந்த விதமான புத்தக விமர்சனங்களும் இல்லை.</div>}*@
+            {<div> இலக்கியத்தைப் பற்றி தற்போது எந்த விதமான புத்தக விமர்சனங்களும் இல்லை.</div>}*@
             </article>
             <div class="divider"></div>
             <div class="related-posts">
@@ -427,7 +427,7 @@
                                         </a>
                                     </h5>
                                     <div class="meta-info">
-                                        <span class="author"><i class="icon-user3"></i><a href="#">@literature.Users.UserName</a></span>
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@literature.UserInfo.UserName</a></span>
                                         <span class="date"><i class="icon-alarm2"></i>@literature.CreatedDate</span>
                                     </div>
                                 </header>
@@ -451,11 +451,13 @@
                                 </figure>
                                 <header class="wdg-col-8 sec-title">
                                     <span class="btn-srp"><a href="#cat">திரை</a></span>
-                                    <h5><a href="#" title="">
+                                    <h5>
+                                        <a href="#" title="">
                                             @Html.ActionLink(politics.Header.ToString().Substring(0, (Convert.ToString(politics.Header.ToString())).Length), "/AllReview", new { bookDetailsID = politics.BookDetail.BookDetailsID }, new { @class = "divfloat", target = "_blank" })
-                                    </a></h5>
+                                        </a>
+                                    </h5>
                                     <div class="meta-info">
-                                        <span class="author"><i class="icon-user3"></i><a href="#">@politics.Users.UserName</a></span>
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@politics.UserInfo.UserName</a></span>
                                         <span class="date"><i class="icon-alarm2"></i>@politics.CreatedDate</span>
                                     </div>
                                 </header>
@@ -481,7 +483,7 @@
                                     <span class="btn-srp"><a href="#cat">பயணம்</a></span>
                                     <h5><a href="#" title="">@Html.ActionLink(travel.Header.ToString().Substring(0, (Convert.ToString(travel.Header.ToString())).Length), "/AllReview", new { bookDetailsID = travel.BookDetail.BookDetailsID }, new { @class = "divfloat", target = "_blank" })</a></h5>
                                     <div class="meta-info">
-                                        <span class="author"><i class="icon-user3"></i><a href="#">@travel.Users.UserName</a></span>
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@travel.UserInfo.UserName</a></span>
                                         <span class="date"><i class="icon-alarm2"></i>@travel.CreatedDate</span>
                                     </div>
                                 </header>
@@ -506,7 +508,7 @@
                                     <span class="btn-srp"><a href="#cat">@biography.BookCategory</a></span>
                                     <h5><a href="#" title="">@biography.Header</a></h5>
                                     <div class="meta-info">
-                                        <span class="author"><i class="icon-user3"></i><a href="#">@biography.Users.UserName</a></span>
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@biography.UserInfo.UserName</a></span>
                                         <span class="date"><i class="icon-alarm2"></i>@biography.CreatedDate</span>
                                     </div>
                                 </header>
@@ -532,7 +534,7 @@
                                     <span class="btn-srp"><a href="#cat">@cinema.BookCategory</a></span>
                                     <h5><a href="#" title="">@cinema.Header</a></h5>
                                     <div class="meta-info">
-                                        <span class="author"><i class="icon-user3"></i><a href="#">@cinema.Users.UserName</a></span>
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@cinema.UserInfo.UserName</a></span>
                                         <span class="date"><i class="icon-alarm2"></i>@cinema.CreatedDate</span>
                                     </div>
                                 </header>
@@ -565,7 +567,7 @@
                                     <span class="btn-srp"><a href="#cat">@selfConfidence.BookCategory</a></span>
                                     <h5><a href="#" title="">@selfConfidence.Header</a></h5>
                                     <div class="meta-info">
-                                        <span class="author"><i class="icon-user3"></i><a href="#">@selfConfidence.Users.UserName</a></span>
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@selfConfidence.UserInfo.UserName</a></span>
                                         <span class="date"><i class="icon-alarm2"></i>@selfConfidence.CreatedDate</span>
                                     </div>
                                 </header>
@@ -771,7 +773,7 @@
                         <header class="title-bar">
                             <h4 class="post-title"><a href="#">@shortNovel.Header</a></h4>
                             <div class="meta-info">
-                                <span class="author"><i class="icon-user3"></i><a href="#">@shortNovel.Users.UserName</a></span>
+                                <span class="author"><i class="icon-user3"></i><a href="#">@shortNovel.UserInfo.UserName</a></span>
                                 <span class="date-time"><i class="icon-alarm2"></i>@shortNovel.CreatedDate</span>
                             </div>
                         </header>
@@ -805,7 +807,7 @@
                                         <span class="btn-srp"><a href="pg-category.html">சங்க இலக்கியம்</a></span>
                                         <h5><a href="#" title="">@sangaIlakkiya.Header</a></h5>
                                         <div class="meta-info">
-                                            <span class="author"><i class="icon-user3"></i><a href="#">@sangaIlakkiya.Users.UserName</a></span>
+                                            <span class="author"><i class="icon-user3"></i><a href="#">@sangaIlakkiya.UserInfo.UserName</a></span>
                                             <span class="date"><i class="icon-alarm2"></i>@sangaIlakkiya.CreatedDate</span>
                                         </div>
                                     </header>
@@ -834,7 +836,7 @@
                                         <span class="btn-srp"><a href="pg-category.html">மருத்துவம்</a></span>
                                         <h5><a href="#" title="">@folklore.Header</a></h5>
                                         <div class="meta-info">
-                                            <span class="author"><i class="icon-user3"></i><a href="#">@folklore.Users.UserName</a></span>
+                                            <span class="author"><i class="icon-user3"></i><a href="#">@folklore.UserInfo.UserName</a></span>
                                             <span class="date"><i class="icon-alarm2"></i>@folklore.CreatedDate</span>
                                         </div>
                                     </header>
@@ -925,7 +927,7 @@
                             <h4 class="post-title"><a href="#">@agri.Header</a></h4>
 
                             <div class="meta-info">
-                                <span class="author"><i class="icon-user3"></i><a href="#">@agri.Users.UserName</a></span>
+                                <span class="author"><i class="icon-user3"></i><a href="#">@agri.UserInfo.UserName</a></span>
                                 <span class="date-time"><i class="icon-alarm2"></i>@agri.CreatedDate</span>
                             </div>
 
@@ -970,7 +972,7 @@
                                         <span class="btn-srp"><a href="pg-category.html">நாடகங்கள்</a></span>
                                         <h5><a href="#" title="">@drama.Header</a></h5>
                                         <div class="meta-info">
-                                            <span class="author"><i class="icon-user3"></i><a href="#">@drama.Users.UserName</a></span>
+                                            <span class="author"><i class="icon-user3"></i><a href="#">@drama.UserInfo.UserName</a></span>
                                             <span class="date"><i class="icon-alarm2"></i>@drama.CreatedDate</span>
                                         </div>
                                     </header>
@@ -1004,7 +1006,7 @@
                                         <span class="btn-srp"><a href="pg-category.html">மதம்</a></span>
                                         <h5><a href="#" title="">@religion.Header</a></h5>
                                         <div class="meta-info">
-                                            <span class="author"><i class="icon-user3"></i><a href="#">@religion.Users.UserName</a></span>
+                                            <span class="author"><i class="icon-user3"></i><a href="#">@religion.UserInfo.UserName</a></span>
                                             <span class="date"><i class="icon-alarm2"></i>@religion.CreatedDate</span>
                                         </div>
                                     </header>
@@ -1076,7 +1078,7 @@
                     <header class="title-bar">
                         <h4 class="post-title">@Html.ActionLink(translateNovel.Header.ToString().Substring(0, 6), "/BooksReview", new { philosID = translateNovel.BooksReviewID }, new { title = translateNovel.Header })</h4>
                         <div class="meta-info">
-                            <span class="author"><i class="icon-user3"></i><a href="#">@translateNovel.Users.UserName</a></span>
+                            <span class="author"><i class="icon-user3"></i><a href="#">@translateNovel.UserInfo.UserName</a></span>
                             <span class="date-time"><i class="icon-alarm2"></i>@translateNovel.SourceDate</span>
                         </div>
                     </header>
@@ -1125,7 +1127,7 @@
                                     <span class="btn-srp"><a href="pg-category.html">மொழிபெயர்ப்பு சிறுகதை</a></span>
                                     <h5><a href="#" title="">@translateShortStory.Header</a></h5>
                                     <div class="meta-info">
-                                        <span class="author"><i class="icon-user3"></i><a href="#">@translateShortStory.Users.UserName</a></span>
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@translateShortStory.UserInfo.UserName</a></span>
                                         <span class="date"><i class="icon-alarm2"></i>@translateShortStory.CreatedDate</span>
                                     </div>
                                 </header>
@@ -1152,7 +1154,7 @@
                                     <span class="btn-srp"><a href="pg-category.html">கவிதை</a></span>
                                     <h5><a href="#" title="">@translatePoem.Header</a></h5>
                                     <div class="meta-info">
-                                        <span class="author"><i class="icon-user3"></i><a href="#">@translatePoem.Users.UserName</a></span>
+                                        <span class="author"><i class="icon-user3"></i><a href="#">@translatePoem.UserInfo.UserName</a></span>
                                         <span class="date"><i class="icon-alarm2"></i>@translatePoem.CreatedDate</span>
                                     </div>
                                 </header>
@@ -1223,7 +1225,7 @@
                             <header class="title-bar">
                                 <h4 class="post-title"><a href="#">@child.Header</a></h4>
                                 <div class="meta-info">
-                                    <span class="author"><i class="icon-user3"></i><a href="#">@child.Users.UserName</a></span>
+                                    <span class="author"><i class="icon-user3"></i><a href="#">@child.UserInfo.UserName</a></span>
                                     <span class="date-time"><i class="icon-alarm2"></i>@child.CreatedDate</span>
                                 </div>
                             </header>
@@ -1262,7 +1264,7 @@
                             <header class="title-bar">
                                 <h4 class="post-title"><a href="#">@childOther.Header</a></h4>
                                 <div class="meta-info">
-                                    <span class="author"><i class="icon-user3"></i><a href="#">@childOther.Users.UserName</a></span>
+                                    <span class="author"><i class="icon-user3"></i><a href="#">@childOther.UserInfo.UserName</a></span>
                                     <span class="date-time"><i class="icon-alarm2"></i>@childOther.CreatedDate</span>
                                 </div>
                             </header>
@@ -1369,10 +1371,7 @@
 </section>
 
 @section scripts{
-    <script>
-        $(document).ready(function () {
-            //$("#datepicker").datepicker();
-        });
+    <script>        
 
         jQuery(function () {
 

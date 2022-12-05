@@ -1,0 +1,69 @@
+﻿@model KarkaThamizha.Object.Models.CommentsModels
+
+<style>
+    .row {
+        padding: 6px 0;
+    }
+
+    .txtMultiTextBox {
+        resize: none;
+        position: relative;
+        Height: 150px;
+    }
+</style>
+
+<div id="respond" class="comment-respond" data-showonscroll="true" data-animation="fadeIn">
+    <h3 id="reply-title" class="comment-reply-title">உங்கள் கருத்துகள்</h3>
+
+    @Html.AntiForgeryToken()
+
+    @if (Session["UserId"] == null)
+    {
+        <p class="comment-notes">Your email address will not be published. Required fields are marked as<span class="required">*</span></p>
+        <span class="errmsg" id="msgPageComments"></span>
+
+        <div class="row">
+            <div class="col-md-2 control-label">Name <span class="error"> *</span></div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Name, new { @maxlength = "35", @placeholder = "Karka Thamizha", @class = "form-control toProperCase" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })
+            </div>
+            <div class="col-md-2 control-label">Email <span class="error">*</span></div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.EMail, new { @maxlength = "35", @placeholder = "karkathamizha@gmail.com", @class = "form-control toLowerCase" })
+                @Html.ValidationMessageFor(m => m.EMail, "", new { @class = "error" })
+                <span id="lblStatus" class="errmsg"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 control-label">Password <span class="error">*</span></div>
+            <div class="col-md-4">
+                @Html.PasswordFor(m => m.Password, new { @maxlength = "12", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })
+            </div>
+            <div class="col-md-2 control-label">Mobile <span class="error">*</span></div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Mobile, new { @maxlength = "20", @placeholder = "8190090011", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "error" })
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-2 control-label">Comments <span class="error">*</span></div>
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Comments, new { @maxlength = "2000", cols = "86", rows = "8", @class = "txtMultiTextBox" })
+            @Html.ValidationMessageFor(m => m.Comments, "", new { @class = "error" })
+        </div>
+    </div>
+    <p class="form-submit">
+        <input name="submit" type="submit" id="submitComments" value="Post Comment">
+    </p>
+
+
+</div>
+
+@{
+    @section Scripts{
+        <script src="~/JavaScript/Comments.js"></script>
+    }
+}

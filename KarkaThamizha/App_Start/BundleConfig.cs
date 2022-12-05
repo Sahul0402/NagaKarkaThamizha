@@ -12,6 +12,8 @@ namespace KarkaThamizha
                 "~/framework/js/jquery-2.0.3.min.js",
                 "~/framework/js/jquery-migrate-1.2.1.min.js",
                 "~/framework/js/jquery.easing.1.3.js",
+                "~/Scripts/jquery-ui.js",
+                "~/Scripts/jquery.star-rating.js",
                 "~/framework/bootstrap/js/bootstrap.min.js",
                 "~/framework/addons/camera/js/camera.min.js",
                 "~/framework/addons/owl/owl.carousel.min.js",

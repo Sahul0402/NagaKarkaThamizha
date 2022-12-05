@@ -167,12 +167,14 @@
     <Compile Include="Controllers\BookDetailsController.cs" />
     <Compile Include="Controllers\BookPreReleaseController.cs" />
     <Compile Include="Controllers\BooksReviewController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\CustomErrorAttribute.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MasterController.cs" />
     <Compile Include="Controllers\UserRatingController.cs" />
     <Compile Include="Controllers\UserTrackingController.cs" />
     <Compile Include="Global.asax.cs">
@@ -387,10 +389,16 @@
     <Content Include="JavaScript\Authors.js" />
     <Content Include="JavaScript\BookPreRelease.js" />
     <Content Include="JavaScript\BooksReviews.js" />
+    <Content Include="JavaScript\Comments.js" />
     <Content Include="JavaScript\Events.js" />
+    <Content Include="JavaScript\Feedback.js" />
     <Content Include="JavaScript\Interviews.js" />
     <Content Include="JavaScript\KarkaCommonJS.js" />
+    <Content Include="JavaScript\Login.js" />
+    <Content Include="JavaScript\MagazineReview.js" />
     <Content Include="JavaScript\Offer.js" />
+    <Content Include="JavaScript\Rating.js" />
+    <Content Include="JavaScript\User.js" />
     <Content Include="JavaScript\UserProfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -418,6 +426,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.star-rating.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -472,9 +482,14 @@
     <Content Include="Views\BookPreRelease\OfferBook.cshtml" />
     <Content Include="Views\Home\AllReview.cshtml" />
     <Content Include="Views\Home\BooksReview.cshtml" />
-    <Content Include="Views\Login\UserProfile.cshtml" />
     <Content Include="Views\Shared\_FullWidthLayout.cshtml" />
     <Content Include="Views\BookDetails\BookDetails.cshtml" />
+    <Content Include="Views\Shared\_AddComments.cshtml" />
+    <Content Include="Views\User\User.cshtml" />
+    <Content Include="Views\User\UserProfile.cshtml" />
+    <Content Include="Views\User\_UserInfo.cshtml" />
+    <Content Include="Views\User\_UserReview.cshtml" />
+    <Content Include="Views\Shared\_LatestNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -485,6 +500,7 @@
     <Folder Include="Images-Publisher\" />
     <Folder Include="Images-Users\" />
     <Folder Include="Views\Feedback\" />
+    <Folder Include="Views\Login\" />
     <Folder Include="Views\UserRating\" />
   </ItemGroup>
   <ItemGroup>

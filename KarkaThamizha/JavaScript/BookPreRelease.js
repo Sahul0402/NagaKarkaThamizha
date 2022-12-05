@@ -31,12 +31,3 @@ $(document).on("click", "#contentPager a[href]", function (e) {
     e.preventDefault();
     GetAllBookRelease($(e.target).text());
 });
-
-$("#submit").click(function () {
-    var mainPage;
-    var name = document.getElementById("Name").value;
-    var mobile = document.getElementById("Mobile").value;
-    var mail = document.getElementById("EMail").value;
-    mainPage = masterPageID;
-    alert(name);
-});

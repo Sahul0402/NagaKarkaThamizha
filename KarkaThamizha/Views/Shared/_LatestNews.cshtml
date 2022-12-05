@@ -1,0 +1,28 @@
+﻿
+@model IEnumerable<KarkaThamizha.Object.Models.MasterModels.BreakingNewsModels>
+
+<div class="container">
+    <div class="title"><h3>புதிய செய்தி</h3></div>
+    <div id="divBreakingNewsTicker" class="content">
+        <ul id="js-news" class="js-hidden">
+
+            @foreach (var item in Model)
+            {
+                if (item.Type == "Event")
+                {
+                    <li>
+                        <img src="~/Images-Website/2.png" class="animated fadeIn" alt="Karka Thamizha" title="Karka Thamizha" />
+                        @Html.ActionLink(@item.Description, "EventName", "Events", new { eventId = @item.BreakingNewsID }, new { @class = "link", target = "_blank" })
+                    </li>
+                }
+                else if (item.Type == "News")
+                {
+                    <li>
+                        <img src="~/Images-Website/2.png" class="animated fadeIn" alt="Karka Thamizha" title="Karka Thamizha" />
+                        @Html.ActionLink(@item.Description, "AuthorDetails", "Author", new { Name = item.UserName.Replace(" ", "-"), UserID = item.UserID }, new { @class = "", target = "_blank" })
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

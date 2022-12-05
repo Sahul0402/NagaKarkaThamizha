@@ -1,9 +1,12 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" class="background-main no-js" lang="ta" xml:lang="ta">
 <head>
+    <title>@ViewBag.Title - கற்க தமிழா</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>@ViewBag.Title - கற்க தமிழா</title>
+
+    <link href="~/framework/addons/camera/css/camera.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -23,6 +26,7 @@
         ga('send', 'pageview');
     </script>
     @RenderSection("metatags", required: false)
+
 </head>
 <body>
     <!--<canvas id="snowfall"></canvas>-->
@@ -38,15 +42,6 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div id="social-menu-navbar-collapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left visible-lg visible-md">
-                        <li class="dropdown color-theme active">
-                            <a href="" class="dropdown-toggle" data-hover="dropdown">முகப்பு <b class="caret"></b><span class="nav-line"></span></a>
-                            <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">
-                                <li>@Html.ActionLink("Right Sidebar (Default)", "Index", "Home", null, new { target = "_blank" })</li>
-                                <li><a href="http://www.karkathamizha.com/">Left Sidebar</a></li>
-                                <li><a href="http://www.karkathamizha.com/">Full Width</a></li>
-                            </ul>
-                        </li>
-
                         @if (Session["UserID"] == null)
                         {
                             <li class="color-theme"><a href="#" id="login" data-target="#loginModal" data-toggle="modal">Login / Register<span class="nav-line"></span></a></li>
@@ -54,11 +49,11 @@
                         else
                         {
                             <li class="dropdown color-theme">
-                                <a href="#" class="dropdown-toggle" data-hover="dropdown">@Session["Name"]<b class="caret"></b><span class="nav-line"></span></a>
-                                <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">                                    
-                                    <li>@Html.ActionLink("My Profile", "UserProfile", "Login", new { id = @Session["UserID"] }, new { @class = "link", target = "_blank" })</li>
-                                    <li><a href="#">Change Password</a></li>
-                                    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = @Session["UserID"] }, new { @class = "link", target = "" })</li>
+                                <a class="dropdown-toggle" data-hover="dropdown">@Session["Name"]<b class="caret"></b><span class="nav-line"></span></a>
+                                <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">
+                                    <li>@Html.ActionLink("My Profile", "UserProfile", "User", new { id = Session["UserID"] }, new { @class = "link" })</li>
+                                    <li>@Html.ActionLink("Change Password", "ChangePassword", "Login", new { id = Session["UserID"] }, new { @class = "link" })</li>
+                                    <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Session["UserID"] }, new { @class = "link", target = "" })</li>
                                 </ul>
                             </li>
                         }
@@ -80,38 +75,7 @@
                         </li>
                         <li class="social-icons">
                             <ul class="list-inline clearfix">
-                                <li class="tooltip_item fb-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="facebook">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="http://www.facebook.com/karkathamizha" title="Karka Thamizha" target="_blank"><i class="zoc-facebook"></i></a>
-                                </li>
-                                <li class="tooltip_item twitter-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="twitter">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="https://twitter.com/karkathamizha" title="Karka Thamizha" target="_blank"><i class="zoc-twitter"></i></a>
-                                </li>
-
-                                <li class="tooltip_item googleplus-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="google+">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="#" target="_blank" title="Karka Thamizha"><i class="zoc-gplus"></i></a>
-                                </li>
-
-                                <li class="tooltip_item pinterest-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="pinterest">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="#" target="_blank" title="Karka Thamizha"><i class="zoc-pinterest"></i></a>
-                                </li>
-
-                                <li class="tooltip_item youtube-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="youtube">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="#" target="_blank" title="Karka Thamizha"><i class="zoc-youtube"></i></a>
-                                </li>
-
-                                <li class="tooltip_item rss-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="rss">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="#" target="_blank" title="Karka Thamizha"><i class="zoc-rss"></i></a>
-                                </li>
-
-                                <li class="tooltip_item github-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="github">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="#" target="_blank" title="Karka Thamizha"><i class="zoc-github-circled"></i></a>
-                                </li>
-                                <li class="tooltip_item instagram-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="instagram">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="#" target="_blank" title="Karka Thamizha"><i class="zoc-instagram"></i></a>
-                                </li>
-                                <li class="tooltip_item vk-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="vk">
-                                    <div class="mask-background animated lightSpeedIn"></div><a href="#" target="_blank" title="Karka Thamizha"><i class="zoc-vk"></i></a>
-                                </li>
+                                @{Html.RenderPartial("_SocialMedia", new KarkaThamizha.Object.Models.UserModels()); }
                             </ul>
                         </li>
                     </ul>
@@ -119,35 +83,16 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
+        
         <!-- Breaking News -->
         <section class="tkr-breaking-news hidden-xs">
-            <div class="container">
-                <div class="title"><h3>புதிய செய்தி</h3></div>
-                <div id="divBreakingNewsTicker" class="content">
-                    <ul id="js-news" class="js-hidden">
-                        <li>
-                            <a href="#">
-                                <img src="../Images-Website/2.png" class="animated fadeIn" alt="Karka Thamizha" title="Karka Thamizha" />
-                                பண்பாட்டு ஆய்வாளர் பேராசிரியர் தொ.பரமசிவன்(24.12.2020/வயது:70)அவர்கள் காலமானார்.
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="../Images-Website/2.png" class="animated fadeIn" alt="Karka Thamizha" title="Karka Thamizha" />
-                                எழுத்தாளர் சோ.தர்மன் அவர்களுக்கு 2019ஆம் ஆண்டிற்கான சாகித்ய அகாடமி விருது அறிவிக்கப்பட்டுள்ளது.
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @{ Html.RenderAction("GetLatestNews", "Master");}
         </section>
 
         <!-- Site Logo -->
         <header class="container header-logo">
             <div class="logo" itemscope itemtype="http://schema.org/Brand">
                 <h1 class="hidden" itemprop="name">கற்க தமிழா</h1>
-                @*<a href="index.html">*@
-                @*<a href="@Url.Action("Index", "Home", new { target = "_blank" })" title="Book Review">*@
                 <a href="@Url.Action("Index", "Home")" target="_blank" title="Book Review"><img itemprop="logo" class="site-logo" style="width:300px;" src="~/Images-Website/KarkaThamizha.svg" data-src="" title="Karka Thamizha" alt="Karka Thamizha" /></a>
             </div>
             <div class="advertise-790 visible-lg">
@@ -220,7 +165,7 @@
                                 <ul class="dropdown-menu animated fadeInLeft">
                                     <li><a href="http://www.karkathamizha.com/">எங்களைப் பற்றி</a></li>
                                     <li>@Html.ActionLink("தொடர்புக்கு", "ContactUs", "ContactUs", null, new { target = "_blank" })</li>
-                                    <li>@Html.ActionLink("உங்கள் கருத்து", "Feedback", "ContactUs", null, new { target = "_blank" })</li>
+                                    <li>@Html.ActionLink("உங்கள் கருத்து", "Feedback", "Feedback", null, new { target = "_blank" })</li>
                                 </ul>
                             </li>
                         </ul>
@@ -230,7 +175,8 @@
                 </div>
             </div>
         </nav>
-        <!-- Mobile Menu (Pushy Menu) -->
+        
+    <!-- Mobile Menu (Pushy Menu) -->
         <nav class="mobile-menu pushy pushy-left  animated fadeInLeft">
             <h2 class="hidden">Mobile Navigation</h2>
             <div class="close-button"><i class="icon-close"></i>Close</div>
@@ -288,11 +234,38 @@
                     <ul class="dropdown-menu animated fadeInLeft">
                         <li><a href="http://www.karkathamizha.com/">எங்களைப் பற்றி</a></li>
                         <li>@Html.ActionLink("தொடர்புக்கு", "ContactUs", "Others", null, new { target = "_blank" })</li>
-                        <li>@Html.ActionLink("உங்கள் கருத்து", "Feedback", "Others", null, new { target = "_blank" })</li>
+                        <li>@Html.ActionLink("உங்கள் கருத்து", "Feedback", "Feedback", null, new { target = "_blank" })</li>
                     </ul>
                 </li>
             </ul>
-            
+            @*<ul class="menu-block">
+
+                    <li class="active color-theme">
+                        <a href="#">Home <span class="nav-line"></span></a>
+                        <ul class="dropdown-menu animated fadeInLeft">
+                            <li><a href="#">Right Sidebar (Default)</a></li>
+                            <li><a href="#">Left Sidebar</a></li>
+                            <li><a href="#">Full Width</a></li>
+                        </ul>
+                    </li>
+                    <li class="color-theme"><a href="#">Menu Item <span class="nav-line"></span></a></li>
+                    <li class="dropdown color-theme">
+                        <a href="#" class="dropdown-toggle">Dropdown Menu<span class="nav-line"></span></a>
+                        <ul class="dropdown-menu animated fadeInLeft">
+                            <li class="dropdown-submenu">
+                                <a href="#">Sub Menu</a>
+                                <ul class="dropdown-menu animated fadeInLeft">
+                                    <li><a href="#">Style 1</a></li>
+                                    <li><a href="#">Style 2</a></li>
+                                    <li><a href="#">Style 3</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">One more link</a></li>
+                        </ul>
+                    </li>
+                </ul>*@
         </nav>
         <!-- Mobile-Menu (Close) Site Overlay -->
         <div class="site-overlay"></div>
@@ -313,7 +286,7 @@
                             <li style="font-size: 10px;"><a href="#comments" data-toggle="tab">மற்ற நிகழ்ச்சிகள்</a></li>
                         </ul>
                         <!-- Tab panes -->
-                        @*<div class="tab-content">@{ Html.RenderAction("ShowMainPageEvents", "Home");}</div>*@
+                        
                     </div>
                 </section>
                 <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
@@ -345,11 +318,97 @@
                                         <span class="fans-word">Subscribers</span><span class="fans-count">0</span><a href="#" class="more"></a>
                                     </div>
                                 </li>
+                                @*<li>
+                                        <div class="dribbble">
+                                            <i class="zoc-dribbble border-radius-50-per"></i><span class="fans-word">Followers</span>
+                                            <span class="fans-count">0</span><a href="#" class="more"></a></div>
+                                    </li>
+                                    <li>
+                                        <div class="rss">
+                                            <i class="zoc-rss border-radius-50-per"></i><span class="fans-word">To RSS Feed</span><span class="fans-count">Subscribe</span><a href="#" class="more"></a>
+                                        </div>
+                                    </li>*@
                             </ul>
                         </div>
                     </div>
                 </aside>
                 
+                <!-- #region name -->
+                @*<aside id="divWidgetSlides_1" class="widget wdg-scroll-box" data-showonscroll="true" data-animation="fadeIn">
+                        <div class="widget-title clearfix">
+                            <h3>Slide Widget</h3><div class="sep-widget"></div>
+                        </div>
+                        <div class="widget-content clearfix">
+                            <div>
+                                <ul class="nav-arrows list-inline">
+                                    <li><a href="#" class="backward"><i class="icon-arrow-left6"></i></a></li>
+                                    <li><a href="#" class="forward"><i class="icon-arrow-right6"></i></a></li>
+                                </ul>
+                                <div class="scroll-box color-theme">
+                                    <div class="post-item">
+                                        <article class="post-box clearfix">
+                                            <a class="post-thumbnail"><img src="" data-src="holder.js/308x210/sky" /></a>
+                                            <div class="title-bar"><h4 class="post-title"><a href="#">Post With Featured Image</a></h4></div>
+                                            <div class="bottom-bar">
+                                                <span class="btn-srp"><a href="#">Read More...</a></span>
+                                                <div class="rating">
+                                                    <div class="stars retina x-2">
+                                                        <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                                                        <div class="fill" style="width: 90%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="post-item">
+                                        <article class="post-box clearfix">
+                                            <a class="post-thumbnail"><img src="" data-src="holder.js/308x210/sky" /></a>
+                                            <div class="title-bar"><h4 class="post-title"><a href="#">Post With Featured Image And Lightbox</a></h4></div>
+                                            <div class="bottom-bar">
+                                                <span class="btn-srp"><a href="#">Read More...</a></span>
+                                                <div class="rating">
+                                                    <div class="stars retina x-2">
+                                                        <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                                                        <div class="fill" style="width: 60%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="post-item">
+                                        <article class="post-box clearfix">
+                                            <a class="post-thumbnail"><img src="" data-src="holder.js/308x210/sky" /></a>
+
+                                            <div class="title-bar"><h4 class="post-title"><a href="#">Post With Youtube Video</a></h4></div>
+                                            <div class="bottom-bar">
+                                                <span class="btn-srp"><a href="#">Read More...</a></span>
+                                                <div class="rating">
+                                                    <div class="stars retina x-2"><div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                                                        <div class="fill" style="width: 20%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="post-item">
+                                        <article class="post-box clearfix">
+                                            <a class="post-thumbnail"><img src="" data-src="holder.js/308x210/sky" /></a>
+                                            <div class="title-bar"><h4 class="post-title"><a href="#">Post With Sound Cloud</a></h4></div>
+                                            <div class="bottom-bar">
+                                                <span class="btn-srp"><a href="#">Read More...</a></span>
+                                                <div class="rating">
+                                                    <div class="stars retina x-2">
+                                                        <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+                                                        <div class="fill" style="width: 50%"><div class="light"><i></i><i></i><i></i><i></i><i></i></div></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>*@
                 <!-- #endregion -->
                 <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
                     <div class="widget-title clearfix"><h3>காணொளி</h3><div class="sep-widget"></div></div>
@@ -359,18 +418,18 @@
                         </div>
                     </div>
                 </aside>
-                <section class="widget wdg-tabs" data-showonscroll="true" data-animation="fadeIn">
-                    <div class="widget-title clearfix"><h3 class="hidden">Tabs Widget</h3><div class="sep-widget"></div></div>
-                    <div class="widget-content paddingZero clearfix">
-                        <ul class="nav nav-tabs">
-                            <li class="active" style="font-size: 10px;"><a href="#recent" data-toggle="tab">நான் ஏன் எழுதுகிறேன்?</a></li>
-                            <li style="font-size: 10px;"><a href="#popular" data-toggle="tab">எனக்கு பிடித்த நூல்கள்</a></li>
-                            <li style="font-size: 10px;"><a href="#comments" data-toggle="tab">எழுத்துக்கு அப்பால்</a></li>
-                        </ul>
-                        <!-- Tab panes -->
-                        @*<div class="tab-content">@{ Html.RenderAction("ShowAuthorActivities", "Home");}</div>*@
-                    </div>
-                </section>
+
+                @*<aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                    <div>@DateTime.Now.Year @DateTime.Now.ToString("MMMM", new System.Globalization.CultureInfo("ta-IN")) மாத எழுத்தாளர்கள்</div>
+                    @{ Html.RenderAction("GetLastestBooksAndAuthors", "Master", new { type = "Author" });}
+                </aside>
+                <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                    <div>@DateTime.Now.Year @DateTime.Now.ToString("MMMM", new System.Globalization.CultureInfo("ta-IN")) மாத புத்தகங்கள்</div>
+                    @{ Html.RenderAction("GetLastestBooksAndAuthors", "Master", new { type = "Books" });}
+                </aside>*@
+
+               
+
             </section>
         </div>
         <footer class="container footer-container">
@@ -391,7 +450,7 @@
                                 <div class="social-icons white">
                                     <ul class="clearfix">
                                         <li data-placement="bottom" style="border:0px; text-align:left;">
-                                            Mobile: 81 2288 5555 <br /><br />Mobile: 81 899 899 11<br /><br />EMail: support@karkathamizha.com
+                                            Mobile: 81 2288 5555 <br /><br />Mobile: 81 899 899 11<br /><br />EMail: karkathamizha@gmail.com
                                         </li>
                                     </ul>
                                 </div>
@@ -411,27 +470,7 @@
                         <div class="widget-content clearfix">
                             <div class="social-icons white">
                                 <ul class="clearfix">
-                                    <li class="tooltip_item fb-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="facebook">
-                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-facebook"></i></a>
-                                    </li>
-                                    <li class="tooltip_item twitter-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="twitter">
-                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-twitter"></i></a>
-                                    </li>
-                                    <li class="tooltip_item googleplus-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="google+">
-                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-gplus"></i></a>
-                                    </li>
-                                    <li class="tooltip_item pinterest-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="pinterest">
-                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-pinterest"></i></a>
-                                    </li>
-                                    <li class="tooltip_item youtube-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="youtube">
-                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-youtube"></i></a>
-                                    </li>
-                                    <li class="tooltip_item rss-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="rss">
-                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-rss"></i></a>
-                                    </li>
-                                    <li class="tooltip_item vk-metro-but-16" data-toggle="tooltip" data-placement="bottom" title="vk">
-                                        <div class="mask-background animated lightSpeedIn"></div><a href="#"><i class="zoc-vk"></i></a>
-                                    </li>
+                                    @{Html.RenderPartial("_SocialMedia", new KarkaThamizha.Object.Models.UserModels()); }
                                 </ul>
                             </div>
                         </div>
@@ -570,13 +609,18 @@
                                                 <label for="loginPassword" class="col-sm-2 control-label">Password</label>
                                                 <div class="col-sm-10">
                                                     <input type="password" class="form-control" id="loginPassword" placeholder="Password" maxlength="12" minlength="8" required />
+                                                    @*<span onclick="Password_Show_Hide('loginPassword','fnmaShow_eye','fnmaHide_eye');" style="border-radius: 0px; border: 2px solid #ccc;padding: 3px 4px 4px 4px;background: #f5f5f5;height: 21px;margin-top: 1px">
+                                                        <i class="fas fa-eye" id="fnmaShow_eye" style="font-size:12px"></i>
+                                                        <i class="fas fa-eye-slash" id="fnmaHide_eye" style="font-size:12px; display:none"></i>
+                                                    </span>*@
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-2"></div>
                                                 <div class="col-sm-10">
                                                     <button id="btnLogin" type="submit" class="btn btn-warning btn-sm">Login</button>
-                                                    <a href="javascript:;">Forgot your password?</a>
+                                                    @Html.ActionLink("Forgot your password?", "", "", new { UserID = 1 }, new { @class = "divfloat", target = "_blank" })
+                                                    <a href="javascript:;"></a>
                                                 </div>
                                             </div>
                                         </form>
@@ -586,25 +630,25 @@
                                             <div class="form-group">
                                                 <label for="Name" class="col-sm-2 control-label">Name</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control toProperCase" id="Name" placeholder="Name (ex.Tamil)" maxlength="35" required />
+                                                    <input type="text" class="form-control toProperCase" id="RegName" placeholder="Name (ex.Tamil)" maxlength="35" required />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="Mobile" class="col-sm-2 control-label">Mobile</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="Mobile" placeholder="Mobile" maxlength="20" required />
+                                                    <input type="text" class="form-control" id="RegMobile" placeholder="Mobile" maxlength="20" required />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="EMail" class="col-sm-2 control-label">EMail</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control toLowerCase" id="EMail" placeholder="EMail" onblur="ValidateEmail(this)" maxlength="40" required />
+                                                    <input type="text" class="form-control toLowerCase" id="RegEMail" placeholder="EMail" onblur="ValidateEmail(this)" maxlength="40" required />
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="password" class="col-sm-2 control-label">Password</label>
                                                 <div class="col-sm-10">
-                                                    <input type="password" class="form-control" id="Password" placeholder="Password" maxlength="12" minlength="8" required />
+                                                    <input type="password" class="form-control" id="RegPassword" placeholder="Password" maxlength="12" minlength="8" required />
                                                 </div>
                                             </div>
                                             <div class="row">

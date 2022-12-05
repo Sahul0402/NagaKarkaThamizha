@@ -72,6 +72,7 @@
     <Compile Include="DAL\BooksDetailsRepository.cs" />
     <Compile Include="DAL\BooksRepository.cs" />
     <Compile Include="DAL\BooksReviewRepository.cs" />
+    <Compile Include="DAL\CommentsRepository.cs" />
     <Compile Include="DAL\ContactUsRepository.cs" />
     <Compile Include="DAL\EventsRepository.cs" />
     <Compile Include="DAL\EventsTypeRepository.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="DAL\MasterRepository.cs" />
     <Compile Include="DAL\SQLObjects.cs" />
     <Compile Include="DAL\UserDetailsRepository.cs" />
+    <Compile Include="DAL\UserRatingRepository.cs" />
     <Compile Include="DAL\UserRepository.cs" />
     <Compile Include="DAL\UserTrackingRepository.cs" />
     <Compile Include="DAL\UserTypeRepository.cs" />

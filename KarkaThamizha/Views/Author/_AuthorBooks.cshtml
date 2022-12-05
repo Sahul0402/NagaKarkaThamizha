@@ -87,13 +87,14 @@ childGrid.Column(header: "புத்தகத்தின் பெயர்",
 format: (item) =>
 {
 if (item.BooksReview.BooksReviewID > 0)
-return Html.ActionLink((string)@item.Books.Book, "BooksReview", "BooksReview", new { BooksReviewID = item.BooksReview.BooksReviewID }, new { @class = "link", target = "_blank" });
+//return Html.ActionLink((string)@item.Books.Book, "BooksReview", "BooksReview", new { BooksReviewID = item.BooksReview.BooksReviewID }, new { @class = "link", target = "_blank" });
+return Html.ActionLink((string)@item.Books.Book, "BookDetails", "BookDetails", new { id = item.Books.BookID }, new { @class = "link", target = "_blank" });
 else
 {
 if (item.UserTypeID == 2)
 { return @item.Books.Book + " (உரையாசிரியர்)"; }
 else if (item.UserTypeID == 3)
-{ return @item.Books.Book +  " - " + "(தொகுப்பாசிரியர்)"; }
+{ return @item.Books.Book + " - " + "(தொகுப்பாசிரியர்)"; }
 else if (item.UserTypeID == 5)
 { return @item.Books.Book + " (பதிப்பாசிரியர்)"; }
 else if (item.UserTypeID == 7)
@@ -103,7 +104,12 @@ else
 }
 }),
 childGrid.Column("விலை", format: @<text>@item.Price.ToString("c")</text>, style: "pricestyle"),
-childGrid.Column("FirstEdition", "முதல் பதிப்பு")
+childGrid.Column("FirstEdition", "முதல் பதிப்பு"),
+childGrid.Column("FirstEdition", "Global Rating"),
+childGrid.Column("FirstEdition", "User Rating"),
+childGrid.Column("FirstEdition", "Add View"),
+childGrid.Column("FirstEdition", "Show Review")
+
 ));
 })
 ))

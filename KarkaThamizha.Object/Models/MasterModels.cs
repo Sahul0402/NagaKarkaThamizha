@@ -69,5 +69,17 @@ namespace KarkaThamizha.Object.Models
             public DateTime CreatedDate { get; set; }
             public string TimeInterval { get; set; }
         }
+
+        public class BreakingNewsModels
+        {
+            public int BreakingNewsID { get; set; }
+            public string Description { get; set; }
+            public DateTime CreatedDate { get; set; }
+            public string Type { get; set; }
+            public List<BreakingNewsModels> NewsList { get; set; }
+            public UserModels UserList { get; set; }
+            public int UserID { get; set; }
+            public string UserName { get; set; }
+        }
     }
 }

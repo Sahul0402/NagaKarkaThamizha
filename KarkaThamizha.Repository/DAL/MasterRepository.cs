@@ -328,7 +328,45 @@ namespace KarkaThamizha.Repository.DAL
                 }
             }
             return result;
-        } 
+        }
         #endregion
+
+        public List<BreakingNewsModels> GetLatestNews()
+        {
+            List<BreakingNewsModels> lstBreakingNews = new List<BreakingNewsModels>();
+
+            using (SqlConnection con = ConnectionManager.GetConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(SQLObjects.GetLatestNews, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    try
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                        {
+                            while (reader.Read())
+                            {
+                                lstBreakingNews.Add(new BreakingNewsModels()
+                                {
+                                    BreakingNewsID = DataConversion.Convert2Int32(reader["BreakingNewsID"].ToString()),
+                                    Description = Convert.ToString(reader["Header"]),
+                                    Type = Convert.ToString(reader["Type"]),
+                                    UserID = Convert.ToInt32(reader["AuthorID"]),
+                                    UserName = Convert.ToString(reader["UserName"]),
+                                });
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    return lstBreakingNews;
+                }
+            }
+        }
+
+        
     }
 }

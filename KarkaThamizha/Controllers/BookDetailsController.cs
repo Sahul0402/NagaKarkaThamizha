@@ -16,9 +16,9 @@ namespace KarkaThamizha.Controllers
             BooksDetailsRepository repoBookDetails = null;
             if (id > 0)
             {
-                //mdlBookDetails = new BooksDetailsModels();
-                //repoBookDetails = new BooksDetailsRepository();
-                //mdlBookDetails = repoBookDetails.GetBooksDetailsByBookID(id.Value);
+                mdlBookDetails = new BooksDetailsModels();
+                repoBookDetails = new BooksDetailsRepository();
+                mdlBookDetails = repoBookDetails.GetBooksDetailsByBookID(id.Value);
             }
             return View("BookDetails", mdlBookDetails);
         }

@@ -5,38 +5,39 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
+
 
 namespace KarkaThamizha.Repository.DAL
 {
     public class FeedbackRepository
     {
-        public int Add(FeedbackModels feedback)
+        #region Page Feedback
+        public string AddFeedback(FeedbackModels mdlfeedback)
         {
-            int result = 0;
+            string result = "";
             using (SqlConnection con = ConnectionManager.GetConnection())
             {
-                using (SqlCommand cmd = new SqlCommand(SQLObjects.UserFeedback, con))
+                using (SqlCommand cmd = new SqlCommand(SQLObjects.AddFeedback, con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@UserID", feedback.UserId);
-                    cmd.Parameters.AddWithValue("@Feedback", feedback.Feedback.Trim());
-                    cmd.Parameters.AddWithValue("@ProjectID", feedback.ProjectID);
-                    cmd.Parameters.AddWithValue("@MasterPageID", feedback.MasterPageID);
-                    cmd.Parameters.AddWithValue("@ChildPageID", feedback.ChildPageID);
+                    cmd.Parameters.AddWithValue("@ProjectId", mdlfeedback.ProjectID);
+                    cmd.Parameters.AddWithValue("@UserID", mdlfeedback.UserId);
+                    cmd.Parameters.AddWithValue("@Name", mdlfeedback.Name.Trim());
+                    cmd.Parameters.AddWithValue("@EMail", mdlfeedback.EmailID.ToLower().Trim());
+                    cmd.Parameters.AddWithValue("@Mobile", mdlfeedback.Mobile.Trim());
+                    cmd.Parameters.AddWithValue("@Feedback", string.IsNullOrEmpty(mdlfeedback.Feedback) == true ? "" : mdlfeedback.Feedback.Trim());
 
-                    cmd.Parameters.Add("@Result", SqlDbType.Int);
+                    cmd.Parameters.Add("@Result", SqlDbType.VarChar, 7);
                     cmd.Parameters["@Result"].Direction = ParameterDirection.Output;
                     try
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
-                        result = DataConversion.Convert2Int32(cmd.Parameters["@Result"].Value.ToString());
+                        result = Convert.ToString(cmd.Parameters["@Result"].Value.ToString());
                     }
                     catch (Exception ex)
                     {
-                        result = -1;
+                        result = "Fail";
                         throw;
                     }
                 }
@@ -44,46 +45,7 @@ namespace KarkaThamizha.Repository.DAL
             return result;
         }
 
-        public List<FeedbackModels> GetFeedbackByPageID(Int16 MasterPageID, int ChildPageID)
-        {
-            try
-            {
-                using (SqlConnection con = ConnectionManager.GetConnection())
-                {
-                    using (SqlCommand cmd = new SqlCommand(SQLObjects.GetFeedbackByPageID, con))
-                    {
-                        List<FeedbackModels> lstKTFeedback = new List<FeedbackModels>();
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@MasterPageID", MasterPageID);
-                        cmd.Parameters.AddWithValue("@ChildPageID", ChildPageID);
-                        con.Open();
-
-                        using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
-                        {
-                            while (reader.Read())
-                            {
-                                lstKTFeedback.Add(new FeedbackModels()
-                                {
-                                    FeedbackID = DataConversion.Convert2Int32(reader["FeedbackID"].ToString()),
-                                    UserId = DataConversion.Convert2Int32(reader["UserID"].ToString()),
-                                    Feedback = Convert.ToString(reader["Feedback"]),
-                                    MasterPageID = DataConversion.Convert2TinyInt(reader["MasterPageID"].ToString()),
-                                    ChildPageID = DataConversion.Convert2TinyInt(reader["ChildPageID"].ToString()),
-                                    CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
-                                });
-                            }
-                        }
-                        return lstKTFeedback;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
-        public List<FeedbackModels> Get()
+        public List<FeedbackModels> GetAllFeedback(Int16 pageID, Int16 projectID)
         {
             try
             {
@@ -93,6 +55,8 @@ namespace KarkaThamizha.Repository.DAL
                     {
                         List<FeedbackModels> lstKTFeedback = new List<FeedbackModels>();
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@projectID", projectID);
+                        cmd.Parameters.AddWithValue("@pageID", pageID);
                         con.Open();
 
                         using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
@@ -101,12 +65,14 @@ namespace KarkaThamizha.Repository.DAL
                             {
                                 lstKTFeedback.Add(new FeedbackModels()
                                 {
-                                    FeedbackID = DataConversion.Convert2Int32(reader["FeedbackID"].ToString()),
-                                    UserId = DataConversion.Convert2Int32(reader["UserID"].ToString()),
+                                    FeedbackId = DataConversion.Convert2Int32(reader["FeedbackID"].ToString()),
                                     Feedback = Convert.ToString(reader["Feedback"]),
-                                    MasterPageID = DataConversion.Convert2TinyInt(reader["MasterPageID"].ToString()),
-                                    ChildPageID = DataConversion.Convert2TinyInt(reader["ChildPageID"].ToString()),
                                     CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                                    UserId = DataConversion.Convert2Int32(reader["UserID"].ToString()),
+                                    Name = Convert.ToString(reader["User"]),
+                                    Mobile = Convert.ToString(reader["Mobile"]),
+                                    EmailID = Convert.ToString(reader["Email"]),
+
                                 });
                             }
                         }
@@ -127,10 +93,10 @@ namespace KarkaThamizha.Repository.DAL
                 try
                 {
                     sqlConnection.Open();
-                    using (SqlCommand com = new SqlCommand(SQLObjects.DeleteFeedback, sqlConnection))
+                    using (SqlCommand com = new SqlCommand("dbo.USP_DeleteFeedback", sqlConnection))
                     {
                         com.CommandType = CommandType.StoredProcedure;
-                        com.Parameters.AddWithValue("@feedbackId", feedbackID);
+                        com.Parameters.AddWithValue("@FeedbackId", feedbackID);
                         com.ExecuteNonQuery();
                     }
                 }
@@ -140,5 +106,6 @@ namespace KarkaThamizha.Repository.DAL
                 }
             }
         }
+        #endregion
     }
 }

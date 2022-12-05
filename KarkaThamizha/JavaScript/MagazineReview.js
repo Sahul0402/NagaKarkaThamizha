@@ -1,11 +1,17 @@
 ﻿$(document).ready(function () {
-    debugger;
-    var pageName = document.location.href.match(/[^\/]+$/)[0];
-    var reviewBy = hdnPageReview;
-    if (reviewBy == "User")
-        PopulateBooksReviewByUsers(1);
-    else
-        PopulateBooksReviewByWriter(1);
+    //PopulateBooksReviewByMag(1);
+    //var reviewBy = hdnPageReview;
+    //if (reviewBy == "User")
+    //    PopulateBooksReviewByUsers(1);
+    //else
+    //    PopulateBooksReviewByMag(1);
+
+    var fullDate = new Date();
+    //convert month to 2 digits
+    var twoDigitMonth = ((fullDate.getMonth().length + 1) === 1) ? '0' + (fullDate.getMonth() + 1) : (fullDate.getMonth() + 1);
+    var currentDate = fullDate.getFullYear() + "-" + twoDigitMonth;
+    BindMagazinesByMonth(currentDate, 1);
+    SetMagazineBottomColor();
 });
 
 function PopulateBooksReviewByUsers(page) {
@@ -39,7 +45,7 @@ function PopulateBooksReviewByWriter(page) {
     $.ajax({
         cache: false,
         type: "GET",
-        url: "/BooksReview/WritersReview",
+        url: "/BooksReview/MagazinesReview",
         data: { page: page },
         contentType: "application/json; charset=utf-8",
         dataType: "html",
@@ -71,18 +77,20 @@ $(document).on("click", "#contentPager a[href]", function (e) {
 
 function SetMagazineBottomColor() {
     try {
-        var totalcount = document.getElementById('articleCount').value;
+        if (document.getElementById('articleCount')) {
+            var totalcount = document.getElementById('articleCount').value;
 
-        for (i = 0; i < totalcount; i++) {
-            if (totalcount % i == NaN) { document.getElementById('SetColor').className = 'material-card Red'; }
-            else if (totalcount % i == 0) {
-                document.getElementById('SetColor').className = 'material-card Blue';
-            }
-            else if (totalcount % i == 1) {
-                document.getElementById('SetColor').className = 'material-card Grey';
-            }
-            else if (totalcount % i == 2) {
-                document.getElementById('SetColor').className = 'material-card Pink';
+            for (i = 0; i < totalcount; i++) {
+                if (totalcount % i == NaN) { document.getElementById('SetColor').className = 'material-card Red'; }
+                else if (totalcount % i == 0) {
+                    document.getElementById('SetColor').className = 'material-card Blue';
+                }
+                else if (totalcount % i == 1) {
+                    document.getElementById('SetColor').className = 'material-card Grey';
+                }
+                else if (totalcount % i == 2) {
+                    document.getElementById('SetColor').className = 'material-card Pink';
+                }
             }
         }
     }
@@ -120,3 +128,33 @@ $('.material-card > .mc-btn-action').click(function () {
 });
 /* Magazine Page End*/
 
+$("#SearchIssue").click(function () {
+    var txtIssueOn = $("#Issuedaymonth").val();
+    BindMagazinesByMonth(txtIssueOn, 1);
+});
+
+function BindMagazinesByMonth(txtIssueOn, pageSize) {
+    var targetControl = "#divMagazine";
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: "/MagazineReview/AllMagazines",
+        data: { issueOn: txtIssueOn, page: pageSize },
+        contentType: "application/json; charset=utf-8",
+        dataType: "html",
+        success: function (response) {
+            $(targetControl).show();
+            $(targetControl).html(response);
+        },
+        failure: function (response) {
+            alert(response);
+            alert(response.responseText);
+            alert("Failure:" + response.responseText);
+        },
+        error: function (response) {
+            alert(response);
+            alert(response.responseText);
+            alert("Error:" + response.responseText);
+        }
+    });
+}

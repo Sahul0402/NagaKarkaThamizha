@@ -154,7 +154,7 @@ namespace KarkaThamizha.Repository.DAL
                                         BookDetailsID = DataConversion.Convert2Int32(reader["BookDetailsID"].ToString()),
                                         ImgBookSmallFS = Convert.ToString(reader["ImgBookSmallFS"]),
                                     },
-                                    Users = new UserModels()
+                                    UserInfo = new UserModels()
                                     {
                                         UserID = DataConversion.Convert2Int32(reader["UserId"].ToString()),
                                         UserName = Convert.ToString(reader["UserName"].ToString()),
@@ -200,7 +200,7 @@ namespace KarkaThamizha.Repository.DAL
                                 BookCategoryID = DataConversion.Convert2Int16(reader["CategoryID"].ToString()),
                                 BookCategory = Convert.ToString(reader["BookCategory"]),
                                 CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
-                                Users=new UserModels()
+                                UserInfo = new UserModels()
                                 {
                                     UserID = DataConversion.Convert2Int32(reader["UserID"].ToString()),
                                     UserName = Convert.ToString(reader["UserName"]),

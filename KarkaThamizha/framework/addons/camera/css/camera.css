@@ -102,8 +102,10 @@
 	text-decoration: none;
 }
 .camera_loader {
-    background: #fff url('http://www.karkathamizha.com/framework/addons/camera/images/camera-loader.gif') no-repeat center;
-	background: rgba(255, 255, 255, 0.9) url(http://www.karkathamizha.com/framework/addons/camera/images/camera-loader.gif) no-repeat center;
+	/*background: #fff url('http://www.karkathamizha.com/framework/addons/camera/images/camera-loader.gif') no-repeat center;
+	background: rgba(255, 255, 255, 0.9) url(http://www.karkathamizha.com/framework/addons/camera/images/camera-loader.gif) no-repeat center;*/
+	background: #fff url('../framework/addons/camera/images/camera-loader.gif') no-repeat center;
+	background: rgba(255, 255, 255, 0.9) url(../framework/addons/camera/images/camera-loader.gif) no-repeat center;
 	border: 1px solid #ffffff;
 	-webkit-border-radius: 18px;
 	-moz-border-radius: 18px;

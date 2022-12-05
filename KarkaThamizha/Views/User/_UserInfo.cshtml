@@ -1,0 +1,55 @@
+﻿@model KarkaThamizha.Object.Models.UserModels
+
+
+<div class="total-score clearfix" itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+    <div><h4 class="title">என்னைப் பற்றி</h4></div>
+
+    <div class="figure-container">
+        <figure class="featured-post-figure" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+            <a data-lightbox="true" href="@Url.Content("~/Images-Author/" + Model.UserDetail.ImgProfile)">
+                <img itemprop="contentURL" src="@Url.Content("~/Images-Author/" + Model.UserDetail.ImgProfile)" data-src="" alt="@Model.UserName" />
+            </a>
+            <figcaption itemprop="description">
+                @Model.UserName
+            </figcaption>
+        </figure>
+    </div>
+    <div class="summary">
+        <div class="author-desc">
+            <p style="text-align:justify;">@Model.UserDetail.Profile</p>
+        </div>
+    </div>
+</div>
+
+        <div class="criteria clearfix" itemprop="review" itemscope="" itemtype="http://schema.org/Review">
+
+            <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                <div class="widget-title clearfix">
+                    <h3>Social Icons</h3>
+                    <div class="sep-widget"></div>
+                </div>
+
+                <div class="widget-content clearfix">
+                    <div class="social-icons">
+                        <ul class="clearfix">
+                            @{Html.RenderPartial("_SocialMedia", new KarkaThamizha.Object.Models.UserModels()); }
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        @*<div class="criteria clearfix" itemprop="review" itemscope="" itemtype="http://schema.org/Review">
+                <h4 class="title">
+                    <span itemprop="name">படிப்பது</span>
+                    <span class="value"> - சண்டைக்காரிகள்: ஆண்களைப் புண்படுத்தும் பக்கங்கள்</span>
+                </h4>
+            </div>*@
+    
+
+    @{
+        @section scripts{
+            
+            <script src="~/JavaScript/User.js"></script>
+        }
+    }

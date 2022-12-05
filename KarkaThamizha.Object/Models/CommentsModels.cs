@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace KarkaThamizha.Object.Models
 {
-    public class FeedbackModels
+    public class CommentsModels
     {
-        public int FeedbackId { get; set; }
+        public int CommentsID { get; set; }
+        public int ParentID { get; set; }
 
-        public int UserId { get; set; }
+        public Int16 ProjectID { get; set; }
 
+        public int UserID { get; set; }
+        
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "Please enter Name")]
         [MaxLength(35), MinLength(3)]
@@ -21,16 +26,22 @@ namespace KarkaThamizha.Object.Models
                             @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
                             @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
                             ErrorMessage = "Email is not valid")]
-        public string EmailID { get; set; }
+        public string EMail { get; set; }
+
+        [DataType(DataType.Password)]
+        [MaxLength(12), MinLength(8)]
+        [Required(ErrorMessage = "Please enter Password.")]
+        public string Password { get; set; }        
 
         [Required(ErrorMessage = "Please enter Mobile.")]
-        [MaxLength(20), MinLength(10)]
+        [MaxLength(10), MinLength(10)]
         public string Mobile { get; set; }
 
-        [DataType(DataType.Text)]
-        [Required(ErrorMessage = "Please enter your Comments.")]
-        public string Feedback { get; set; }
-        public Byte ProjectID { get; set; }
-        public DateTime CreatedDate { get; set; }
+        [Required(ErrorMessage = "Please provide your comments.")]
+        public string Comments { get; set; }
+
+        public Byte MasterPageID { get; set; }
+        public int ChildPageID { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }

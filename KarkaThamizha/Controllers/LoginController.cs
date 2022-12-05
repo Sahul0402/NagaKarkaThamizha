@@ -33,7 +33,7 @@ namespace KarkaThamizha.Controllers
             {
                 throw ex;
             }
-            return Json(Session["UserID"], JsonRequestBehavior.AllowGet);
+            return Json(Session["UserID"].ToString(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Logout()

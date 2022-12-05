@@ -62,7 +62,8 @@ namespace KarkaThamizha.Repository.DAL
         public const string GetAllBookReviewsByBookID = "dbo.USP_GetAllBookReviewsByBookID";
         public const string GetAllBooksReviewByBookDetailsID = "dbo.USP_GetAllBooksReviewByBookDetailsID";
         public const string GetBooksReviewByReviewID = "dbo.USP_GetBooksReviewByReviewID";
-                    
+        public const string GetAllBookReviewsByUserID = "dbo.USP_GetAllBookReviewsByUserID";
+
         #endregion
 
         #region Country
@@ -173,10 +174,10 @@ namespace KarkaThamizha.Repository.DAL
         #endregion
 
         #region Feedback
-        public const string UserFeedback = "dbo.USP_USP_UserFeedback";
+        public const string AddFeedback = "dbo.USP_AddFeedback";
         public const string GetAllFeedback = "dbo.USP_GetAllFeedback";
-        public const string GetFeedbackByPageID = "dbo.USP_GetFeedbackByPageID";
-        public const string DeleteFeedback = "dbo.USP_DeleteFeedback";
+        public const string AddComments = "dbo.USP_AddComments";
+        public const string GetAllComments = "dbo.USP_GetAllComments";
 
         public const string GetAuthorBookDetails = "dbo.USP_GetAuthorBookDetails";
         public const string GetAllBooksWithAuthorID = "dbo.USP_GetAllBooksWithAuthorID";
@@ -206,5 +207,12 @@ namespace KarkaThamizha.Repository.DAL
         public const string GetAllCacheName = "dbo.USP_GetAllCacheName";
         public const string GetAllSeriesType = "dbo.USP_GetAllSeriesType";
         #endregion
+
+        #region Rating
+        public const string AddOrUpdateUserRating = "dbo.USP_AddOrUpdateUserRating";
+        public const string GetUserRatingByUserAndBookID = "dbo.USP_GetUserRatingByUserAndBookID";
+        #endregion
+
+        public const string GetLatestNews = "dbo.USP_GetLatestNews";
     }
 }

@@ -1,0 +1,164 @@
+﻿@*@model PagedList.IPagedList<KarkaThamizha.Object.Models.BooksReviewModels>*@
+@*@model KarkaThamizha.Object.Models.UserBooksReviewModels*@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/Karkastyle.css" rel="stylesheet" />
+
+<style>
+    a.link {
+        cursor: pointer;
+    }
+
+        a.link:active {
+            color: #1A0DAB;
+        }
+
+        a.link:link {
+            color: #1A0DAB;
+        }
+
+        a.link:visited {
+            color: #609;
+        }
+    /* Create three equal columns that floats next to each other */
+    /*.column {
+        float: left;
+        width: 30.33%;
+        padding: 10px;
+        height: 300px;*/ /* Should be removed. Only for demonstration */
+    /*margin: 0px 10px;
+    }*/
+
+    /* Clear floats after the columns */
+    /*.row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }*/
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    /*  @@media screen and (max-width: 600px) {
+        .column {
+            width: 100%;
+        }
+    }*/
+
+    .imgSize {
+        width: 200px;
+        height: 375px;
+        background: #f0f0f0;
+        margin-bottom: 10px;
+    }
+
+        .imgSize img {
+            width: 200px;
+            height: 275px;
+        }
+
+
+
+    .lvcontainer {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        width: 99%;
+    }
+
+    .lvimage {
+        /*width: 99%;*/
+        /*flex-basis: 25%;*/
+        /*height: 175px;*/
+    }
+
+    .text {
+        float: left;
+        /*width:50%;*/
+        height: 175px;
+    }
+
+    /* Grid and List*/
+    * {
+        box-sizing: border-box;
+    }
+
+    .row {
+        padding: 6px 0px;
+    }
+
+    .btn {
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+        .btn:hover {
+            background-color: #ddd;
+        }
+
+        .btn.active {
+            background-color: #feb500;
+            color: white;
+        }
+    /* Grid and List*/
+</style>
+
+<!-- main content -->
+<article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
+    <div class="article-content clearfix">
+        <header>
+
+
+            <div id="divUserInfo"></div>
+
+            <div id="wait" class="loaderDiv"><img src='~/Images-Website/ajax-loader.gif' /><br>Loading..</div>
+
+            @if (Model != null)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="btnContainer">
+                            <button class="btn active" id="grid" onclick="gridView()"><i class="fa fa-list"></i> Grid</button>
+                            <button class="btn" id="list" onclick="listView()"><i class="fa fa-th"></i> List</button>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row">*@
+                @*<div class="col-md-6">
+                <div class="col-md-3">View In: </div>
+                <div class="col-md-3">
+                    <select id="ShowReviewIn" name="ShowReviewIn" class="target" onchange="BooksReviewUserByID(this.value)">
+                        <option value="G" selected="selected">Grid</option>
+                        <option value="L">ListView</option>
+                        <option value="T">Table</option>
+                    </select>
+                </div>
+            </div>*@
+                <div class="col-md-6">
+                    <div class="col-md-3">Sory By: </div>
+                    <div class="col-md-3">
+                        <select id="ShowReviewIn" name="ShowReviewIn" class="target" onchange="">
+                            <option value="N" selected="selected">Author</option>
+                            <option value="L">Price: Low to High</option>
+                            <option value="T">Price: High to Low</option>
+                            <option value="R">Rating</option>
+                            <option value="R">Year</option>
+                        </select>
+                    </div>
+                </div>
+                @*</div>*@
+            }
+            <div id="UserBooksReviewInGrid"></div>
+            <div id="UserBooksReviewInList"></div>
+            <div id="UserBooksReviewInTable"></div>
+        </header>
+    </div>
+</article>
+
+
+@{
+    @section scripts{
+        <script src="~/JavaScript/User.js"></script>
+    }
+}

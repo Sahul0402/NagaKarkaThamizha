@@ -62,7 +62,7 @@ namespace KarkaThamizha.Repository.DAL
                             {
                                 mdlLogin = new LoginModels()
                                 {
-                                    LoginID = Convert.ToByte(reader["UserID"]),
+                                    LoginID = Convert.ToInt32(reader["UserID"]),
                                     Name = Convert.ToString(reader["UserName"]),
                                 };
                             }
