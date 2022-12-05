@@ -25,8 +25,8 @@
                 <div class="row">
                     <div class="col-md-7">
                         <h2>@Model.Books.Book</h2>
-                        @if (Model.XtraBookDetails.EventID > 0)
-                        {<a href="@Url.Action("EventName", "Events", new { eventId = @Model.XtraBookDetails.EventID })" style="color:blue;" target="_blank">@Model.FirstEdition</a>}
+                        @*@if (Model.XtraBookDetails.EventID > 0)
+                        {<a href="@Url.Action("EventName", "Events", new { eventId = @Model.XtraBookDetails.EventID })" style="color:blue;" target="_blank">@Model.FirstEdition</a>}*@
                     else
                     {<span>@Model.FirstEdition</span>}
                     </div>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 control-label">
-                        @Model.Category.Category (@Model.Category.SubCategoryName)
+                        @*@Model.Category.Category (@Model.Category.SubCategoryName)*@
                     </div>
                 </div>
                 <div class="row">
@@ -65,17 +65,17 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 font-weight-bold">கதை மாந்தர்கள்:</div>
-                    <div class="col-md-9">@Model.XtraBookDetails.Characters</div>
+                    @*<div class="col-md-9">@Model.XtraBookDetails.Characters</div>*@
                 </div>
                 <div class="row">
                     <div class="col-md-3">சமர்ப்பணம் / காணிக்கை:</div>
-                    <div class="col-md-9">@Model.XtraBookDetails.Dedication</div>
+                    @*<div class="col-md-9">@Model.XtraBookDetails.Dedication</div>*@
                 </div>
                 <div class="row">
                     <div class="col-md-3 control-label">அணிந்துரை / அறிமுகம்</div>
-                    <div class="col-md-4">@Model.XtraBookDetails.Foreword</div>
+                    @*<div class="col-md-4">@Model.XtraBookDetails.Foreword</div>*@
                     <div class="col-md-2 control-label">சிறப்புரை</div>
-                    <div class="col-md-3">@Model.XtraBookDetails.KeyNote</div>
+                    @*<div class="col-md-3">@Model.XtraBookDetails.KeyNote</div>*@
                 </div>
                 <div class="row">
                     <div class="col-md-3 control-label">முதல் பதிப்பு</div>
@@ -105,7 +105,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">மறுப்பு நூலா?:</div>
-                    <div class="col-md-9">@Model.XtraBookDetails.Rebuttal</div>
+                    @*<div class="col-md-9">@Model.XtraBookDetails.Rebuttal</div>*@
                 </div>
                 <div class="row">
                     <div class="col-md-3 control-label">நூல் அளவு:</div>

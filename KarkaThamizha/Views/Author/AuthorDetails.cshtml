@@ -3,7 +3,9 @@
 @{
     ViewBag.Title = "AuthorDetails";
 }
-
+@{
+    Layout = "~/Views/Shared/_FullWidthLayout.cshtml";
+}
 
 <article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
     <div class="article-content clearfix">
@@ -17,19 +19,6 @@
 
         <footer class="article-boxes clearfix">
 
-            <aside class="share-box clearfix" data-showonscroll="true" data-animation="fadeIn">
-                <div class="box-title">
-                    <h3>Share On:</h3>
-                </div>
-
-                <div class="box-content share-icons clearfix">
-                    <a href="#" class="facebook">facebook<span class="badge"><i class="zoc-facebook"></i></span></a>
-                    <a href="#" class="twitter">twitter<span class="badge"><i class="zoc-twitter"></i></span></a>
-                    <a href="#" class="gplus">google+<span class="badge"><i class="zoc-gplus"></i></span></a>
-                    <a href="#" class="pinterest">pinterest<span class="badge"><i class="zoc-pinterest"></i></span></a>
-                    <a href="#" class="stumbleupon">stumbleupon<span class="badge"><i class="zoc-stumbleupon"></i></span></a>
-                </div>
-            </aside>
 
             <!-- Comments Box -->
             <aside class="cat-widget comments-box clearfix" itemprop="comment" itemscope="" itemtype="http://schema.org/UserComments">
@@ -43,24 +32,14 @@
                     <div class="comments">
                         <div id="divUserFeedback"></div>
 
-                        <div id="respond" class="comment-respond" data-showonscroll="true" data-animation="fadeIn">
-                            <h3 id="reply-title" class="comment-reply-title">உங்கள் கருத்துகள்</h3>
+                        @{
+                            Html.RenderPartial("_Comments", new KarkaThamizha.Object.Models.CommentsModels());
+                        }
 
-                            @if (Session["UserID"] == null)
-                            { 
-                                
-                            }
+                        @{
+                            Html.RenderPartial("_AddComments", new KarkaThamizha.Object.Models.CommentsModels());
+                        }
 
-                            <div id="commentform" class="comment-form">
-                                <p class="comment-form-comment">
-                                    <label for="Comments">Comment</label>
-                                    <textarea id="Comments" name="Comments" cols="45" rows="8" aria-required="true"></textarea>
-                                </p>
-                                <p class="form-submit">
-                                    <input name="submit" type="submit" id="author_submit" value="Post Comment" data-target="#loginModal" data-toggle="modal">
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </aside>
@@ -70,14 +49,13 @@
 
 @{
     @section scripts{
+        <script src="~/JavaScript/KarkaCommonJS.js"></script>
+        <script src="~/JavaScript/Authors.js"></script>
         <script>
             var hdnPage = "AuthorDetails";
             var masterPageID = @((int)EnumCode.Pages.AuthorPage);
             var childPageID = '@ViewData["hdnUserID"]';
             var hdnUserID = '@ViewData["hdnUserID"]';
-
         </script>
-        <script src="~/JavaScript/KarkaCommonJS.js"></script>
-        <script src="~/JavaScript/Authors.js"></script>
     }
 }

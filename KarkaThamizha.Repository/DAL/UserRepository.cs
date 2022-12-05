@@ -132,18 +132,24 @@ namespace KarkaThamizha.Repository.DAL
                             user = new UserModels()
                             {
                                 UserID = DataConversion.Convert2Int16(reader["UserID"].ToString()),
-                                Initial = Convert.ToString(reader["Initail"]),
-                                UserName = Convert.ToString(reader["User"]),
+                                Initial = Convert.ToString(reader["Initial"]),
+                                UserName = Convert.ToString(reader["UserName"]),
                                 Name = Convert.ToString(reader["Name"]),
                                 Email = Convert.ToString(reader["MailID"]),
                                 Password = Encryption.Decrypt(Convert.ToString(reader["Password"])),
                                 Mobile = Convert.ToString(reader["Mobile"]),
-                                UserCategory = Convert.ToString(reader["IsWriter"]),
+                                UserType = new UserTypeModels()
+                                {
+                                    UserTypeID = DataConversion.Convert2TinyInt(reader["UserTypeID"].ToString()),
+                                },
+                                SpecialName = new MasterModels.SpecialNameModels()
+                                {
+                                    SpecialNameID = DataConversion.Convert2TinyInt(reader["SpecialNameID"].ToString()),
+                                },
                                 CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
                                 Profession = new MasterModels.ProfessionModels()
                                 {
                                     ProfessionID = DataConversion.Convert2TinyInt(reader["ProfessionID"].ToString()),
-                                    Profession = Convert.ToString(reader["Profession"]),
                                 },
                                 UserDetail = new UserDetailsModels()
                                 {
@@ -152,18 +158,20 @@ namespace KarkaThamizha.Repository.DAL
                                     BlogType = Convert.ToString(reader["BlogType"]),
                                     FaceBook = Convert.ToString(reader["FaceBook"]),
                                     Twitter = Convert.ToString(reader["Twitter"]),
+                                    Pinterest = Convert.ToString(reader["Pinterest"]),
+                                    YouTube = Convert.ToString(reader["YouTube"]),
+                                    Instagram = Convert.ToString(reader["Instagram"]),
+                                    Wikipedia = Convert.ToString(reader["Wikipedia"]),
                                     Address = Convert.ToString(reader["Address"]),
                                     DOB = DataConversion.ConvertToDate1(Convert.ToString(reader["DOB"])),
                                     DOD = DataConversion.ConvertToDate2(Convert.ToString(reader["DOD"])),
-                                    WriterImage = Convert.ToString(reader["WriterImage"]),
                                     ImgProfile = Convert.ToString(reader["ImgProfile"]),
                                     ImgComments = Convert.ToString(reader["ImgComments"]),
-                                    OtherImage = Convert.ToString(reader["OtherImage"]),
                                     CountryID = DataConversion.Convert2Int16(reader["CountryID"].ToString()),
                                     StateID = DataConversion.Convert2Int16(reader["StateID"].ToString()),
                                     CityID = DataConversion.Convert2Int16(reader["CityID"].ToString()),
-                                    IsShownInMenu = Convert.ToBoolean(Convert.ToString(reader["IsShownInMenu"]) == "N" ? false : true),
                                     Profile = Convert.ToString(reader["Profile"]),
+                                    IsMailSubscription = DataConversion.StringToBool(Convert.ToString(reader["IsMailSubscription"])) == true ? true : false,
                                 },
 
                             };
@@ -199,7 +207,7 @@ namespace KarkaThamizha.Repository.DAL
             return userId;
         }
 
-        public string CheckMailExists(string mail)
+        public string CheckEmailExists(string mail)
         {
             string result = string.Empty;
             using (SqlConnection sqlConnection = ConnectionManager.GetConnection())

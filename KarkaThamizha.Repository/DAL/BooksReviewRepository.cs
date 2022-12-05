@@ -48,6 +48,47 @@ namespace KarkaThamizha.Repository.DAL
             return result;
         }
 
+        public List<BooksReviewModels> GetAllBookReviewsByUserID(int userId)
+        {
+            using (SqlConnection con = ConnectionManager.GetConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(SQLObjects.GetAllBookReviewsByUserID, con))
+                {
+                    List<BooksReviewModels> lstBooksReview = new List<BooksReviewModels>();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@UserID", userId);
+
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (reader.Read())
+                        {
+                            lstBooksReview.Add(new BooksReviewModels()
+                            {
+                                BooksReviewID = DataConversion.Convert2Int32(reader["BooksReviewID"].ToString()),
+                                BookID = DataConversion.Convert2Int32(reader["BookID"].ToString()),
+                                BookName = Convert.ToString(reader["Book"]),
+                                Description = Convert.ToString(reader["BookDescription"]),
+                                //UserID = DataConversion.Convert2Int32(reader["UserID"].ToString()), //Review by User
+                                //UserName = Convert.ToString(reader["UserName"]),                                
+                                CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                                UserInfo = new UserModels()
+                                {
+                                    UserID = DataConversion.Convert2Int32(reader["AuthorID"].ToString()),   //Written  by(ie.Book Author)
+                                    UserName = Convert.ToString(reader["AuthorName"]),
+                                },
+                                BookDetail = new BooksDetailsModels()
+                                {
+                                    ImgBookSmallFS = Convert.ToString(reader["ImgBookSmallFS"]),
+                                }
+                            });
+                        }
+                    }
+                    return lstBooksReview;
+                }
+            }
+        }
+
         public List<BooksReviewModels> GetAllBooksReviewDetails(int type)
         {
             using (SqlConnection con = ConnectionManager.GetConnection())
@@ -393,6 +434,43 @@ namespace KarkaThamizha.Repository.DAL
                     return lstBooksReview;
                 }
             }
+        }
+
+        public string AddBooksReviewByUser(BooksReviewModels bookReview)
+        {
+            string result = string.Empty;
+            using (SqlConnection con = ConnectionManager.GetConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(SQLObjects.AddBooksReview, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@BookDetailsID", bookReview.BookID);
+                    cmd.Parameters.AddWithValue("@Header", bookReview.Header.Trim());
+                    cmd.Parameters.AddWithValue("@BookDescription", bookReview.Description.Trim());
+                    cmd.Parameters.AddWithValue("@UserID", bookReview.UserID);
+                    cmd.Parameters.AddWithValue("@CreatedDate", Convert.ToDateTime(bookReview.SourceDate));
+
+                    try
+                    {
+                        con.Open();
+                        if (cmd.ExecuteNonQuery() == 0)
+                        {
+                            result = "";
+                        }
+                        else { result = "Success"; }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        result = ex.Message.ToString();
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
+                }
+            }
+            return result;
         }
     }
 }

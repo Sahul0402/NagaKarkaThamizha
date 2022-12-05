@@ -18,6 +18,7 @@ namespace KarkaThamizha.Object.Models
         public string Name { get; set; }
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required.")]
+        [MaxLength(12), MinLength(8)]
         public string Password { get; set; }
         [Required(ErrorMessage = "Mobile is required.")]
         public string Mobile { get; set; }
@@ -26,6 +27,7 @@ namespace KarkaThamizha.Object.Models
         public int[] AuthorIds { get; set; }
         public int AuthorID { get; set; }
         public List<SelectListItem> lstAuthors { get; set; }
+        public IEnumerable<SelectListItem> Authors { get; set; }
         public SelectList lstUsers { get; set; }
         public Int16 ProfessionID { get; set; }
         public MasterModels.ProfessionModels Profession { get; set; }
@@ -35,7 +37,7 @@ namespace KarkaThamizha.Object.Models
         [AllowHtml]
         public string Description { get; set; }
         public string ReviewedBy { get; set; }
-        //public MagazineModels Magazine { get; set; }
+        
         public Nullable<DateTime> SourceDate { get; set; }
         public MasterModels.CountryModels Country { get; set; }
         public MasterModels.StateModels State { get; set; }
@@ -55,5 +57,6 @@ namespace KarkaThamizha.Object.Models
         public DateTime CreatedDate { get; set; }
         public string Reference { get; set; }
         public UserDetailsModels UserDetail { get; set; }
+
     }
 }

@@ -10,6 +10,20 @@ namespace KarkaThamizha.Repository.CacheData
 {
     public class DataCaching
     {
+        public List<UserModels> GetUserByAuthorType()
+        {
+            List<UserModels> users = (List<UserModels>)System.Web.HttpContext.Current.Cache[CacheConstants.CACHE_ALL_USERBYAUTHOR];
+            if (users == null || users.Count == 0)
+            {
+                UserRepository lstUser = new UserRepository();
+                users = lstUser.GetUserByAuthorType().OrderBy(x => x.UserName).ToList();
+                System.Web.HttpContext.Current.Cache.Insert(CacheConstants.CACHE_ALL_USERBYAUTHOR,
+                    users, null, DateTime.Today.AddDays(1).AddHours(1),
+                    System.Web.Caching.Cache.NoSlidingExpiration
+                    );
+            }
+            return users;
+        }
         #region Review - Books & Magazine
         public List<BooksReviewModels> GetBooksReviewByMag()
         {

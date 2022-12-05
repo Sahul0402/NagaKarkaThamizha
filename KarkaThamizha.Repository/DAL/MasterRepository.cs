@@ -349,11 +349,11 @@ namespace KarkaThamizha.Repository.DAL
                             {
                                 lstBreakingNews.Add(new BreakingNewsModels()
                                 {
-                                    BreakingNewsID = DataConversion.Convert2Int32(reader["BreakingNewsID"].ToString()),
-                                    Description = Convert.ToString(reader["Header"]),
-                                    Type = Convert.ToString(reader["Type"]),
-                                    UserID = Convert.ToInt32(reader["AuthorID"]),
-                                    UserName = Convert.ToString(reader["UserName"]),
+                                    //BreakingNewsID = DataConversion.Convert2Int32(reader["BreakingNewsID"].ToString()),
+                                    //Description = Convert.ToString(reader["Header"]),
+                                    //Type = Convert.ToString(reader["Type"]),
+                                    //UserID = Convert.ToInt32(reader["AuthorID"]),
+                                    //UserName = Convert.ToString(reader["UserName"]),
                                 });
                             }
                         }

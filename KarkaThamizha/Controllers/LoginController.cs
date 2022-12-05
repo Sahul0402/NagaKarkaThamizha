@@ -15,6 +15,7 @@ namespace KarkaThamizha.Controllers
         {
             LoginRepository repoLogin = null;
             LoginModels mdlUser = null;
+            string message = "";
 
             if (string.IsNullOrEmpty(email.Trim()) && string.IsNullOrEmpty(password.Trim()))
                 return null;
@@ -27,13 +28,14 @@ namespace KarkaThamizha.Controllers
                 {
                     Session["UserID"] = mdlUser.LoginID;
                     Session["Name"] = mdlUser.Name;
+                    message = Convert.ToString(mdlUser.LoginID);
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return Json(Session["UserID"].ToString(), JsonRequestBehavior.AllowGet);
+            return Json(message, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Logout()

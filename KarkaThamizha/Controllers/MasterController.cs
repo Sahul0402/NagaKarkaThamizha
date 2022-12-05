@@ -23,7 +23,7 @@ namespace KarkaThamizha.Controllers
         {
             List<BreakingNewsModels> news = new List<BreakingNewsModels>();
             MasterRepository repoMaster = new MasterRepository();
-            news = repoMaster.GetLatestNews();
+            news = null;
             return PartialView("_LatestNews", news);
         }
 

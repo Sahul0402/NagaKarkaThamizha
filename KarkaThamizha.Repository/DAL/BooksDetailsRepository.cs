@@ -383,12 +383,12 @@ namespace KarkaThamizha.Repository.DAL
                                 },
                                 BookFormat = new BookFormatModels()
                                 {
-                                    BookFormat = Convert.ToString(reader["BookFormat"]),
+                                    BookFormat = Convert.ToString(reader["Format"]),
                                 },
                                 Users = new UserModels()
                                 {
                                     UserID = DataConversion.Convert2Int32(reader["UserID"].ToString()),
-                                    UserName = Convert.ToString(reader["User"]),
+                                    UserName = Convert.ToString(reader["UserName"]),
                                 },
                                 Category = new CategoryModels()
                                 {

@@ -1,0 +1,144 @@
+﻿<footer class="container footer-container">
+    <section class="row footer-widgets">
+        <h3 class="hidden">Footer Widgets</h3>
+        <div class="col-md-4">
+            <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                <div class="widget-title clearfix"><h3 class="hidden">Hidden Title</h3></div>
+                @*<div class="widget-content paddingZero clearfix text-center">
+                        <a href="index.html">
+                            <img itemprop="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKMAAABbCAYAAAAfrTX0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpEM0U1MEQ5MkUyQzRFNDExOURDRDlEMkQ4MkI5Qzg5QSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3NDBBQUYwNUM0RTMxMUU0OEZFMzlBRTc3QTVGNkRENiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3NDBBQUYwNEM0RTMxMUU0OEZFMzlBRTc3QTVGNkRENiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkQzRTUwRDkyRTJDNEU0MTE5RENEOUQyRDgyQjlDODlBIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkQzRTUwRDkyRTJDNEU0MTE5RENEOUQyRDgyQjlDODlBIi8+IDwvcmRmOkRlc2NyaXB0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" data-src="" alt="footer-logo" />
+                        </a>
+                    </div>*@
+                <div class="widget-content paddingZero clearfix text-center">
+                    <div class="widget-title clearfix"><h3>தொடர்பு கொள்க</h3><div class="sep-widget"></div></div>
+                    <div class="widget-content clearfix">
+                        <div class="social-icons white">
+                            <ul class="clearfix">
+                                <li data-placement="bottom" style="border:0px; text-align:left;">
+                                    Mobile: 81 2288 5555 <br /><br />Mobile: 81 899 899 11<br /><br />EMail: karkathamizha@gmail.com
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                <div class="widget-title clearfix"><h3>Tags</h3><div class="sep-widget"></div></div>
+                <div class="widget-content clearfix">
+                    <div class="tags-cloud clearfix">
+                        <a href="#">Sport<span class="badge">5</span></a><a href="#">President<span class="badge">10</span></a><a href="#">Morsi<span class="badge">15</span></a><a href="#">Coup<span class="badge">13</span></a>
+                    </div>
+                </div>
+            </aside>
+            <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                <div class="widget-title clearfix"><h3>Social Icons</h3><div class="sep-widget"></div></div>
+                <div class="widget-content clearfix">
+                    <div class="social-icons white">
+                        <ul class="clearfix">
+                            @{Html.RenderPartial("_SocialMedia", new KarkaThamizha.Object.Models.UserModels()); }
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <div class="col-md-4">
+            <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                <div class="widget-title clearfix"><h3>@DateTime.Now.AddYears(-1).Year விருதுகள்</h3><div class="sep-widget"></div></div>
+                <div class="widget-content clearfix">
+                    <div class="wdg-classic-posts color-theme clearfix">
+                        <ul class="list-unstyled">
+                            <li class="post-item">
+                                @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த நாவல்", "Novels", "Books", new { header = "Novel" }, new { @class = "bookspace", target = "_blank" })<br />
+                                @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த சிறுகதைத் தொகுப்பு", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த கவிதைத் தொகுப்பு", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த கட்டுரைத் தொகுப்பு", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த சிறுவர் இலக்கியம்", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த மொழிபெயர்ப்பு - சிறுகதை", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த மொழிபெயர்ப்பு - கவிதை", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                @Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த மொழிபெயர்ப்பு - கட்டுரை", "", "Books", null, new { @class = "bookspace", target = "_blank" })<br />
+                                @*@Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " சிறந்த மொழிபெயர்ப்பு - கட்டுரை", "", "Books", null, new { @class = "divfloat", target = "_blank" })<br />*@
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget-title clearfix"><h3>எழுத்தாளர்கள்</h3><div class="sep-widget"></div></div>
+                <div class="widget-content clearfix">
+                    <div class="wdg-classic-posts color-theme clearfix">
+                        <ul class="list-unstyled">
+                            <li class="post-item">@Html.ActionLink(@DateTime.Now.AddYears(-1).Year + " நம்பிக்கை எழுத்தாளர்கள்", "StarAuthor", "Author", null, new { @class = "bookspace", target = "_blank" })<br /></li>
+                        </ul>
+                    </div>
+                </div><br /><br />
+                <div class="widget-title clearfix"><h3>புத்தக பரிந்துரைகள்</h3><div class="sep-widget"></div></div>
+                <div class="widget-content clearfix">
+                    <div class="wdg-classic-posts color-theme clearfix">
+                        <ul class="list-unstyled">
+                            <li class="post-item">@Html.ActionLink("எழுத்தாளர்கள்", "BooksSuggestion", "Home", null, new { @class = "bookspace", target = "_blank" })<br /><a href="#" target="_blank">பத்திரிக்கைகள்</a><br /><br /></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <div class="col-md-4">
+            <aside class="widget" data-showonscroll="true" data-animation="fadeIn">
+                <div class="widget-title clearfix"><h3>Recent CommentsBOT</h3><div class="sep-widget"></div></div>
+                <div class="widget-content clearfix">
+                    <div class="wdg-comments clearfix">
+                        <ul class="list-unstyled">
+                            <li class="post-item">
+                                <article class="post-box clearfix">
+                                    <div class="wdg-col-4 sec-image">
+                                        <div class="avatar-thumbnail border-radius-2px"><img class="border-radius-2px" src="" data-src="holder.js/70x65/sky" alt="" /></div>
+                                        <a href="#" class="more"></a>
+                                    </div>
+                                    <div class="wdg-col-8 sec-title">
+                                        <div class="meta-info"><span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span></div>
+                                        <div class="comment"><h5>Serpentsoft</h5><span class="separator"></span><p>Excellent Cellphone</p></div>
+                                        <div class="leave-comment"><a href="#">Leave Comment</a></div>
+                                    </div>
+                                </article>
+                            </li>
+                            <li class="post-item">
+                                <article class="post-box clearfix">
+                                    <div class="wdg-col-4 sec-image">
+                                        <div class="avatar-thumbnail border-radius-2px"><img class="border-radius-2px" src="" data-src="holder.js/70x65/sky" alt="" /></div>
+                                        <a href="#" class="more"></a>
+                                    </div>
+                                    <div class="wdg-col-8 sec-title">
+                                        <div class="meta-info"><span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span></div>
+                                        <div class="comment"><h5>Mostafa</h5><span class="separator"></span><p>Hi everybody, I like MAG4U theme very much...</p></div>
+                                        <div class="leave-comment"><a href="#">Leave Comment</a></div>
+                                    </div>
+                                </article>
+                            </li>
+                            <li class="post-item">
+                                <article class="post-box clearfix">
+                                    <div class="wdg-col-4 sec-image">
+                                        <div class="avatar-thumbnail border-radius-2px"><img class="border-radius-2px" src="" data-src="holder.js/70x65/sky" alt="" /></div>
+                                        <a href="#" class="more"></a>
+                                    </div>
+                                    <div class="wdg-col-8 sec-title">
+                                        <div class="meta-info"><span class="date-time"><i class="icon-alarm2"></i>14 Aug 2013, 05:15 AM</span></div>
+                                        <div class="comment"><h5>Mohammad</h5><span class="separator"></span><p>Progress Colors depending on the ratio! That's Nice...</p></div>
+                                        <div class="leave-comment"><a href="#">Leave Comment</a></div>
+                                    </div>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+    <section class="row footer-bottom" data-showonscroll="true" data-animation="fadeIn">
+        <h3 class="hidden">Footer Bottom Links</h3>
+        <div class="col-md-6">
+            <ul>
+                <li><a href="http://www.karkathamizha.com/">எங்களைப் பற்றி</a></li>
+                <li>@Html.ActionLink("தொடர்புக்கு", "ContactUs", "Others", null, new { target = "_blank" })</li>
+                <li><a href="http://www.karkathamizha.com/">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="col-md-6"><p class="pull-right">&copy; Copyright 2016 </p><p>Powered by <a href="http://www.koinfotech.in">koinfotech.in</a></p></div>
+    </section>
+</footer>

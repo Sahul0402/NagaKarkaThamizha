@@ -175,6 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserRatingController.cs" />
     <Compile Include="Controllers\UserTrackingController.cs" />
     <Compile Include="Global.asax.cs">
@@ -490,6 +491,8 @@
     <Content Include="Views\User\_UserInfo.cshtml" />
     <Content Include="Views\User\_UserReview.cshtml" />
     <Content Include="Views\Shared\_LatestNews.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

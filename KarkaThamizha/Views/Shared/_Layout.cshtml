@@ -49,7 +49,7 @@
                         else
                         {
                             <li class="dropdown color-theme">
-                                <a class="dropdown-toggle" data-hover="dropdown">@Session["Name"]<b class="caret"></b><span class="nav-line"></span></a>
+                                <a class="dropdown-toggle" data-hover="dropdown">@Session["Name"].ToString()<b class="caret"></b><span class="nav-line"></span></a>
                                 <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">
                                     <li>@Html.ActionLink("My Profile", "UserProfile", "User", new { id = Session["UserID"] }, new { @class = "link" })</li>
                                     <li>@Html.ActionLink("Change Password", "ChangePassword", "Login", new { id = Session["UserID"] }, new { @class = "link" })</li>
@@ -86,7 +86,7 @@
         
         <!-- Breaking News -->
         <section class="tkr-breaking-news hidden-xs">
-            @{ Html.RenderAction("GetLatestNews", "Master");}
+            @*@{ Html.RenderAction("GetLatestNews", "Master");}*@
         </section>
 
         <!-- Site Logo -->

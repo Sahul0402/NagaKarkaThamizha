@@ -3,25 +3,25 @@ var gMainPageID;
 var gChildPageID;
 $(document).ready(function () {
 
-    //GetLatestNews();
-    /*gMainPageID = masterPageID;*/
-    var key = GetParameterValues('BooksReview');
-    var gChildPageID = GetParameterValues('booksReviewID');
+    ////GetLatestNews();
+    ///*gMainPageID = masterPageID;*/
+    //var key = GetParameterValues('BooksReview');
+    //var gChildPageID = GetParameterValues('booksReviewID');
 
-    //if (childPageID != 'undefined' && childPageID > 0)
-    //    gChildPageID = childPageID; // Data from ShowEvents.cshtml js file.
-    if (document.location.href.match(/[^\/]+$/) != null)
-        var pageName = document.location.href.match(/[^\/]+$/)[0];
+    ////if (childPageID != 'undefined' && childPageID > 0)
+    ////    gChildPageID = childPageID; // Data from ShowEvents.cshtml js file.
+    //if (document.location.href.match(/[^\/]+$/) != null)
+    //    var pageName = document.location.href.match(/[^\/]+$/)[0];
 
-    if (pageName) {
-        //LoadUserFeedback(gViewPageID);        Need to check 
+    //if (pageName) {
+    //    //LoadUserFeedback(gViewPageID);        Need to check 
 
-        //ClearControls();
-        //document.getElementById("Name").maxLength = 35;
-        //document.getElementById("EMail").maxLength = 40;
-        //document.getElementById("Mobile").maxLength = 20;
-        //document.getElementById("Password").maxLength = 12;
-    }
+    //    //ClearControls();
+    //    //document.getElementById("Name").maxLength = 35;
+    //    //document.getElementById("EMail").maxLength = 40;
+    //    //document.getElementById("Mobile").maxLength = 20;
+    //    //document.getElementById("Password").maxLength = 12;
+    //}
 });
 //#region Common Function
 function ValidateEmail(email) {
@@ -93,6 +93,7 @@ $("#btnLogin").click(function () {
                 alert("User Login Successful");
                 location.reload();
             }
+            console.log('${response} is the return value');
         },
         error: function (response) {
             alert("Error while User login " + response);
