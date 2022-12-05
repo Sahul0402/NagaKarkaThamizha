@@ -184,6 +184,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Script.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -349,6 +350,9 @@
     <Content Include="Images-Author\PI_Imayam.jpeg" />
     <Content Include="Images-Author\PI_Indran Rajendran.jpg" />
     <Content Include="Images-Author\PI_IraiAnbu.jpg" />
+    <Content Include="Images-Books\oru-maram-pooththadhu-B.png" />
+    <Content Include="Images-Books\Romapurip-Paandiyan-B.jpg" />
+    <Content Include="Images-Books\Velpari.jpg" />
     <Content Include="Images-Website\1045x500.png" />
     <Content Include="Images-Website\2-md.jpg" />
     <Content Include="Images-Website\2.jpg" />
@@ -495,9 +499,7 @@
     <Content Include="Views\Shared\_Comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Images-Articles\" />
-    <Folder Include="Images-Books\" />
     <Folder Include="Images-Events\" />
     <Folder Include="Images-Magazine\" />
     <Folder Include="Images-Publisher\" />

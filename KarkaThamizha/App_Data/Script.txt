@@ -1,0 +1,299 @@
+﻿
+GO
+/****** Object:  Table [dbo].[Comments]    Script Date: 05-12-2022 11.20.42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Comments](
+	[CommentsID] [int] IDENTITY(1,1) NOT NULL,
+	[MasterCommentsID] [int] NULL,
+	[ProjectID] [tinyint] NULL,
+	[UserId] [int] NULL,
+	[MasterPageID] [tinyint] NULL,
+	[ChildPageID] [int] NULL,
+	[Comments] [nvarchar](2050) NOT NULL,
+	[CreatedDate] [datetime] NULL,
+	[RecStatus] [char](1) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CommentsID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET IDENTITY_INSERT [dbo].[Comments] ON 
+GO
+INSERT [dbo].[Comments] ([CommentsID], [MasterCommentsID], [ProjectID], [UserId], [MasterPageID], [ChildPageID], [Comments], [CreatedDate], [RecStatus]) VALUES (3, NULL, 1, 1180, 1, 1, N'செழியன் ரோமாபுரியில் தங்கியிருக்கும்போது அகஸ்டஸ் சீசருக்கு அவரது எதிரிகளால் உயிருக்கு ஆபத்து ஏற்படுகிறது. செழியன் அகஸ்டஸ் மன்னரின் உயிரை அவரது எதிரிகளிடமிருந்து காப்பாற்றுகிறான். இந்நிலையில் தமிழகத்தில் பாண்டிய மன்னரின் உடல் நிலை மோசமாகிறது. இளவரசன் இளம்பெருவழுதியோ தாமரையைத் தேடி ஊர் ஊராகத் தேடி அலைகிறான். தளபதி நெடுமாறனுக்கோ அரியணையை எப்படி கைப்பற்றுவது என்ற சிந்தனை. எனவே இச்சூழ்நிலையில் பாண்டிய மன்னர் செழியனை ரோமாபுரியிலிருந்து வரவழைக்க எண்ணுகிறார். அதற்கு புலவர் மகளை ரோமாபுரிக்கு அனுப்புகிறார். ரோமாபுரியிலிருந்து செழியன் கிளம்பும் நாளில் அகஸ்டஸ் மன்னர் ஜூனோவை செழியனுக்கு பரிசுப் பொருளாக அளிக்கிறார். ஜூனோவும் செழியனை காதலிக்கிறாள்.', CAST(N'2022-12-04T19:27:08.527' AS DateTime), N'A')
+GO
+INSERT [dbo].[Comments] ([CommentsID], [MasterCommentsID], [ProjectID], [UserId], [MasterPageID], [ChildPageID], [Comments], [CreatedDate], [RecStatus]) VALUES (4, NULL, 1, 55, 1, 1, N'கலைஞர் கருணாநிதியின் சிறுகதைகள் என்ற புத்தகம் பாரதி பதிப்பகம் மூலம் வெளிவந்த புத்தகமாகும். இச்சிறுகதைகள் முரசொலி மற்றும் பல இதழ்களில் கலைஞர் அவர்கள் அவ்வப்போது எழுதியவை. இப்புத்தகம் 279 பக்கங்களுடன் மொத்தம் 37 சிறுகதைகளை கொண்டுள்ளது.', NULL, N'A')
+GO
+INSERT [dbo].[Comments] ([CommentsID], [MasterCommentsID], [ProjectID], [UserId], [MasterPageID], [ChildPageID], [Comments], [CreatedDate], [RecStatus]) VALUES (5, 3, 1, 55, 1, 1, N'கலைஞர் கருணாநிதியின் சிறுகதைகள் என்ற புத்தகம் பாரதி பதிப்பகம் மூலம் வெளிவந்த புத்தகமாகும். இச்சிறுகதைகள் முரசொலி மற்றும் பல இதழ்களில் கலைஞர் அவர்கள் அவ்வப்போது எழுதியவை. இப்புத்தகம் 279 பக்கங்களுடன் மொத்தம் 37 சிறுகதைகளை கொண்டுள்ளது.', NULL, N'A')
+GO
+INSERT [dbo].[Comments] ([CommentsID], [MasterCommentsID], [ProjectID], [UserId], [MasterPageID], [ChildPageID], [Comments], [CreatedDate], [RecStatus]) VALUES (6, 3, 1, 56, 1, 1, N'கலைஞர் கருணாநிதியின் சிறுகதைகள் என்ற புத்தகம் பாரதி பதிப்பகம் மூலம் வெளிவந்த புத்தகமாகும். இச்சிறுகதைகள் முரசொலி மற்றும் பல இதழ்களில் கலைஞர் அவர்கள் அவ்வப்போது எழுதியவை. இப்புத்தகம் 279 பக்கங்களுடன் மொத்தம் 37 சிறுகதைகளை கொண்டுள்ளது.', NULL, N'A')
+GO
+INSERT [dbo].[Comments] ([CommentsID], [MasterCommentsID], [ProjectID], [UserId], [MasterPageID], [ChildPageID], [Comments], [CreatedDate], [RecStatus]) VALUES (7, 5, 1, 57, 1, 1, N'No its wrong. The books is very Boring.But the another book of author is very intersting', NULL, N'A')
+GO
+SET IDENTITY_INSERT [dbo].[Comments] OFF
+GO
+
+ALTER TABLE [dbo].[Comments] ADD  DEFAULT ('A') FOR [RecStatus]
+
+GO
+ALTER TABLE [dbo].[Comments]  WITH CHECK ADD FOREIGN KEY([MasterPageID])
+REFERENCES [dbo].[Pages] ([PageID])
+GO
+ALTER TABLE [dbo].[Comments]  WITH CHECK ADD FOREIGN KEY([ProjectID])
+REFERENCES [dbo].[Projects] ([ProjectID])
+GO
+ALTER TABLE [dbo].[Comments]  WITH CHECK ADD FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([UserID])
+GO
+/****** Object:  StoredProcedure [dbo].[USP_AddComments]    Script Date: 05-12-2022 11.20.42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Procedure [dbo].[USP_AddComments]( 
+	@ProjectID TINYINT, @UserID INT, 
+	@Name nvarchar(100), @Email varchar(35), 
+	@Password Nvarchar(60), @Mobile varchar(15), 
+	@MasterPageID TINYINT, @ChildPageID INT,
+	@Comments nvarchar(2050), 
+	@Result VARCHAR(7) Output) AS 
+BEGIN
+   Set NoCount on 
+      BEGIN TRY 
+		 IF(@UserID > 0) 
+				BEGIN
+					Insert into dbo.Comments(ProjectID, UserID, MasterPageID, ChildPageID, Comments, CreatedDate)
+					Values (@ProjectID, @UserID, @MasterPageID, @ChildPageID, @Comments, GETDATE())
+						SET @Result='Success'
+						return @Result 
+				END
+         ELSE
+             BEGIN
+					Insert into dbo.Users(Name,UserName, MailID, Password, Mobile,ProfessionID,UserTypeID)
+					values (@Name, '', @Email, @Password, @Mobile,1, 6) --UserTypeID=6 (User) 
+						SELECT @Result = scope_identity();
+                  
+					Insert into dbo.Comments(ProjectID, UserID, MasterPageID, ChildPageID, Comments, CreatedDate)
+					Values (@ProjectID, @Result, @MasterPageID, @ChildPageID, @Comments, GETDATE())
+
+						SET @Result='Success'
+						return @Result 
+               END
+      END TRY 
+      BEGIN CATCH 
+			EXEC dbo.USP_GetErrorInfo 
+      END CATCH 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_GetAllComments]    Script Date: 05-12-2022 11.20.42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE Procedure [dbo].[USP_GetAllComments]
+AS
+BEGIN
+Set NoCount on
+	Select CommentsID,ProjectID, C.UserID, MasterPageID, ChildPageID, Comments, C.CreatedDate,
+			U.UserName
+			FROM dbo.Comments C
+			JOIN dbo.Users U on C.UserID = U.UserID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[USP_GetAllCommentsByPageID]    Script Date: 05-12-2022 11.20.42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+--Show in UserPortal for every Page by Page ID
+CREATE Procedure [dbo].[USP_GetAllCommentsByPageID]
+(
+	@MasterPageID TINYINT, 
+	@ChildPageID INT
+)
+AS
+BEGIN
+Set NoCount on
+	Select CommentsID, MasterCommentsID, ProjectID, C.UserID, MasterPageID, ChildPageID, Comments, C.CreatedDate,
+			U.UserName
+			FROM dbo.Comments C
+			JOIN dbo.Users U on C.UserID = U.UserID
+			WHERE MasterPageID = @MasterPageID AND ChildPageID = @ChildPageID 
+END
+--SHow in Admin Page
+GO
+
+
+CREATE procedure [dbo].[USP_GetUserByUserID]-- 2    
+      
+      
+      
+(@userid int)      
+      
+      
+      
+AS                        
+      
+BEGIN                        
+      
+SET NOCOUNT ON                        
+      
+ SELECT U.UserID,Initial,U.UserName, U.Name,MailID,Password,Mobile,U.UserTypeID,UT.Name as UserType,SpecialNameID,IsMailSubscription,Website,Blog,BlogType,FaceBook,      
+      
+ Pinterest,Instagram, Wikipedia,YouTube, Twitter,Address, format(DOB,'dd/MM/yyyy') as DOB,DOD,ImgProfile,ImgComments,Profile,U.CreatedDate, ProfessionID,     
+      
+ Cy.CountryID,S.StateID,C.CityID   from dbo.Users U left outer Join       
+      
+ dbo.Userdetails UD on U.UserID=UD.UserID left outer join       
+      
+ dbo.UserTypes UT on U.UserTypeID=UT.UserTypeID       
+       
+ left outer Join dbo.City C on UD.CityID=C.CityID      
+      
+ left outer Join dbo.States S on S.StateID=C.StateID       
+      
+ left outer Join dbo.Country Cy on Cy.CountryID=S.CountryID      
+      
+ where U.userid=@userid and U.RecStatus='A'                  
+      
+      
+      
+END 
+
+GO
+
+            
+/****** Object:  StoredProcedure [dbo].[USP_GetAllBooksDetailsByAuthorID]   ******/            
+ALTER Procedure [dbo].[USP_GetAllBooksDetailsByAuthorID] --62  
+(@AuthorID int)                
+as                            
+BEGIN                
+SET NOCOUNT ON                
+ SELECT B.BookID,                
+   BD.BookDetailsID, B.Book AS BookName,U.Userid, U.UserName, Price,  Pages,BooksReviewID                
+   ,BookCode,  BookDescription,BD.PublisherID,  
+   NoofCopy,  BF.BookFormat,            
+   BC.CategoryID as SubCategoryID, C.Category as SubCategoryName, C.ParentID AS CategoryID,          
+   M.Category as CategoryName, BD.ImgBookSmallFS,BD.ImgBookSmallBS, BD.ImgBookLarge,  ISBN13,  FirstEdition,            
+   CurrentEdition,  IsKarkaBook,  Dimensions, B.RecStatus,BA.UserTypeID        
+ FROM Books B left outer JOIN dbo.BooksDetails BD ON BD.BookID = B.BookID       
+ Left Outer JOIN BookFormat BF ON BF.BookFormatID = BD.BookFormat                
+ left outer Join BookAuthor BA on  B.BookID=BA.BookID                
+ left outer Join Users U on BA.AuthorID=U.UserID                
+ left outer join BookCategory BC on BC.BookID=B.BookID                
+ left outer join Category C on C.CategoryID=BC.CategoryID                
+ left outer join Category M on M.CategoryID=C.Parentid                
+ Left outer join BooksReview BR on BD.BookDetailsID=BR.BookDetailsID         
+     
+ where U.UserID=@AuthorID and  B.RecStatus <>'D'                 
+END   
+
+Go
+
+CREATE Procedure [dbo].[USP_GetBooksDetailsByBookID] --333    
+      
+(@BookID int)      
+      
+as                  
+      
+BEGIN      
+      
+SET NOCOUNT ON      
+      
+ SELECT       
+      
+  BD.BookDetailsID,  B.BookID,  B.Book AS BookName,U.Userid,U.UserName + ' (' + U.Name +')' As UserName, Price,  Pages,      
+      
+  BookCode,  BookDescription      
+      
+  ,BD.PublisherID,  P.Name AS PublisherName,  NoofCopy,  BookFormatID,  BF.Name AS Format,    
+    
+  X.EventID, X.Characters, X.Dedication, X.Foreword, X.Introduction, X.KeyNote, X.Other, X.Rebuttal,  
+      
+ C.ParentID as CategoryID,M.Category as CategoryName, BC.CategoryID as SubCategoryID, C.Category as SubCategoryName,      
+      
+  BD.ImgBookSmallFS,BD.ImgBookSmallBS,      
+      
+  BD.ImgBookLarge,  ISBN13,  FirstEdition,  CurrentEdition,  IsKarkaBook,  Dimensions,  BD.CreatedDate,  BD.ModifiedDate,  B.RecStatus      
+      
+FROM Books B left outer JOIN dbo.BooksDetails BD ON BD.BookID = B.BookID      
+  
+LEFT OUTER JOIN XtraBookDetails X on X.BookID = B.BookID  
+      
+Left Outer JOIN Publishers P ON P.PublisherID = BD.PublisherID      
+      
+Left Outer JOIN BookFormat BF ON BF.BookFormatID = BD.BookFormat      
+      
+left outer Join BookAuthor BA on  B.BookID=BA.BookID      
+      
+left outer Join Users U on BA.AuthorID=U.UserID      
+      
+left outer join bookcategory BC on BC.BookID=BD.BookID      
+      
+left outer join category C on C.CategoryID=BC.CategoryID      
+      
+left outer join category M on M.CategoryID=C.Parentid      
+      
+--Left outer join booksreview_user BRU on BD.BookDetailsID=BRU.BookDetailsID      
+      
+where B.BookID=@BookID and  B.RecStatus <>'D' order by FirstEdition desc      
+      
+END 
+
+GO
+
+Create Procedure [dbo].[USP_GetBooksDetailsByBookID] 333    
+      
+(@BookID int)      
+      
+as                  
+      
+BEGIN      
+      
+SET NOCOUNT ON      
+      
+ SELECT       
+      
+  BD.BookDetailsID,  B.BookID,  B.Book AS BookName,U.Userid,U.UserName + ' (' + U.Name +')' As UserName, Price,  Pages,      
+      
+  BookCode,  BookDescription      
+      
+  ,BD.PublisherID,  --P.Name AS PublisherName,  
+  NoofCopy,  BookFormatID,  BF.Name AS Format,    
+    
+ -- X.EventID, X.Characters, X.Dedication, X.Foreword, X.Introduction, X.KeyNote, X.Other, X.Rebuttal,  
+      
+ C.ParentID as CategoryID,M.Category as CategoryName, BC.CategoryID as SubCategoryID, C.Category as SubCategoryName,      
+      
+  BD.ImgBookSmallFS,BD.ImgBookSmallBS,      
+      
+  BD.ImgBookLarge,  ISBN13,  FirstEdition,  CurrentEdition,  IsKarkaBook,  Dimensions,  BD.CreatedDate,  BD.ModifiedDate,  B.RecStatus      
+      
+FROM Books B left outer JOIN dbo.BooksDetails BD ON BD.BookID = B.BookID      
+  
+--LEFT OUTER JOIN XtraBookDetails X on X.BookID = B.BookID  
+      
+--Left Outer JOIN Publishers P ON P.PublisherID = BD.PublisherID      
+      
+Left Outer JOIN BookFormat BF ON BF.BookFormatID = BD.BookFormat      
+      
+left outer Join BookAuthor BA on  B.BookID=BA.BookID      
+      
+left outer Join Users U on BA.AuthorID=U.UserID      
+      
+left outer join bookcategory BC on BC.BookID=BD.BookID      
+      
+left outer join category C on C.CategoryID=BC.CategoryID      
+      
+left outer join category M on M.CategoryID=C.Parentid      
+      
+--Left outer join booksreview_user BRU on BD.BookDetailsID=BRU.BookDetailsID      
+      
+where B.BookID=@BookID and  B.RecStatus <>'D' order by FirstEdition desc      
+      
+END 
+
