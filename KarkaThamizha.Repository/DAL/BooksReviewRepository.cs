@@ -243,8 +243,20 @@ namespace KarkaThamizha.Repository.DAL
                                 CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
                                 UserInfo = new UserModels()
                                 {
-                                    UserID = DataConversion.Convert2Int32(reader["UserID"].ToString()),
-                                    UserName = Convert.ToString(reader["UserName"]),
+                                    UserID = DataConversion.Convert2Int32(reader["AuthorID"].ToString()),   //Written  by
+                                    UserName = Convert.ToString(reader["AuthorName"]),
+                                    UserDetail = new UserDetailsModels()
+                                    {
+                                        Profile = Convert.ToString(reader["Profile"]),
+                                        FaceBook = Convert.ToString(reader["FaceBook"]),
+                                        Twitter = Convert.ToString(reader["Twitter"]),
+                                        Pinterest = Convert.ToString(reader["Pinterest"]),
+                                        YouTube = Convert.ToString(reader["YouTube"]),
+                                        Wikipedia = Convert.ToString(reader["Wikipedia"]),
+                                        Blog = Convert.ToString(reader["Blogger"]),
+                                        Website = Convert.ToString(reader["Website"]),
+                                        ImgComments = Convert.ToString(reader["ImgComments"]),
+                                    }
                                 },
                                 BookDetail = new BooksDetailsModels()
                                 {

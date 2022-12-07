@@ -13,7 +13,7 @@
 
         <div class="box-content clearfix">
             <h4 class="name">
-                @Html.ActionLink(@Model.Name, "AuthorDetails", "Author", new { Name = @Model.Name.Replace(" ", "-") }, new { @class = "divfloat", target = "_blank" })
+                @Html.ActionLink(@Model.UserName, "AuthorDetails", "Author", new { Name = @Model.UserName.Replace(" ", "-") }, new { @class = "divfloat", target = "_blank" })
             </h4>
 
             <div itemprop="description">
