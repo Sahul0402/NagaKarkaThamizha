@@ -1,0 +1,189 @@
+﻿@model List<KarkaThamizha.Object.Models.BooksReviewModels>
+@using KarkaThamizha.Common.Utility
+@{
+    ViewBag.Title = "BooksReview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section metatags{
+    <meta name="keywords" content='@ViewBag.MetaKeywords' />
+    <meta name="description" content='@ViewBag.MetaDescription' />
+}
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="~/framework/js/html5shiv.js"></script>
+    <script src="~/framework/js/respond.min.js"></script>
+<![endif]-->
+
+<link href="~/framework/addons/lightbox/nivo-lightbox.css" rel="stylesheet" />
+
+<link href="~/Content/social-icons.css" rel="stylesheet" />
+
+<link href="~/Content/style.css" rel="stylesheet" />
+
+<link href="~/Content/theme-color.css" rel="stylesheet" />
+
+<link href="~/Content/responsive.css" rel="stylesheet" />
+
+<link href="~/Content/firefox.css" rel="stylesheet" />
+
+<script src="~/framework/js/modernizr.js"></script>
+
+<div class="container main-site-container" itemscope itemtype="http://schema.org/CreativeWork">
+
+    <div class="row">
+        <div class="col-md-8">
+
+            <!-- main content -->
+            <article class="article-container" itemscope itemtype="http://schema.org/Article">
+
+                <div class="article-content blog-page">
+                    <header>
+
+                        <div class="breadcrumb-container clearfix" itemscope itemtype="http://schema.org/WebPage">
+                            <ul class="breadcrumb ltr" itemprop="breadcrumb">
+                                <li><i class="icon-home3"></i><a href="#">முகப்பு</a></li>
+                                <li>புத்தக மதிப்புரை</li>
+                            </ul>
+                        </div>
+
+                        <h1 itemprop="headline">புத்தக மதிப்புரை</h1>
+
+                        <div class="post-meta">
+                            <ul>
+                                <li title="Post Author"><i class="icon-user3"></i><a href="#">Serpentsoft</a></li>
+                                <li><i class="icon-library"></i><a href="#" title="">World</a></li>
+
+                                <li itemprop="datePublished"><i class="icon-alarm2"></i>14 Aug, 2013 at 06:15 AM</li>
+                                <li><i class="icon-bubbles4"></i><a href="#" itemprop="interactionCount">12</a></li>
+                                <li itemprop="interactionCount"><i class="icon-tv"></i>35</li>
+                                <li itemprop="interactionCount"><i class="icon-heart"></i>120</li>
+
+                            </ul>
+                        </div>
+
+                        <div class="divider"></div>
+                    </header>
+
+                    <div class="post-entry" itemprop="articleBody">
+                    </div>
+
+                    <div class="blog-items style-2">
+                        <ul class="list-unstyled">
+                            @if (Model != null)
+                            {
+                                foreach (var review in Model)
+                                {
+                                    <li class="post-item" data-posttype="image" data-showonscroll="true" data-animation="fadeIn">
+                                        <article class="post-box clearfix">
+
+                                            <div class="sec-title">
+                                                <h2><a href="#" title="">@review.Header</a></h2>
+                                            </div>
+
+                                            <div class="sec-content category-1">
+
+                                                <div class="category-image"></div>
+
+                                                <div class="sec-image">
+                                                    <figure class="post-thumbnail">
+                                                        <a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = review.BooksReviewID })" target="_blank">
+                                                            <img src="@Url.Content("~/Images-Books/" + review.BookDetail.ImgBookSmallFS)" style="width:140px;height:160px;" alt="karka Thamizha" />
+                                                        </a>
+                                                    </figure>
+
+                                                    <div class="rating">
+                                                        <div class="stars retina x-3">
+                                                            <div class="gray"><i></i><i></i><i></i><i></i><i></i></div>
+
+                                                            <div class="fill" style="width: 80%">
+                                                                <div class="light"><i></i><i></i><i></i><i></i><i></i></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="post-desc" style="text-align:justify;">
+                                                    <div class="overlay-dot"></div>
+                                                    <p style="padding:1px;">@Html.Raw(review.Description.ToString().Replace("\r\n", "<br />").ToString().Chop(280))</p>
+                                                </div>
+
+                                                <div class="post-meta-metro clearfix">
+                                                    <ul class="list-unstyled color-theme">
+                                                        <li>
+                                                            <div class="meta-icon"><i class="icon-user3"></i></div>
+                                                            <div class="popup-info animated more-fast fadeInDown"><a href="@Url.Action("User", "User", new { UserID = review.UserInfo.UserID })" target="_blank" tabindex="_blank" title="Tamil Books">@review.UserInfo.UserName</a></div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="meta-icon"><i class="icon-library"></i></div>
+                                                            <div class="popup-info animated more-fast fadeInDown"><a href="#" title=""></a></div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="meta-icon"><i class="icon-alarm2"></i></div>
+                                                            <div class="popup-info animated more-fast fadeInDown"><a href="#" itemprop="datePublished">@review.CreatedDate</a></div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="meta-icon"><i class="icon-tags"></i></div>
+                                                            <div class="popup-info animated more-fast fadeInDown">
+                                                                <div class="tags">
+                                                                    <a href="#">@review.BookCategory</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+
+                                                        <li class="bubbles">
+                                                            <div class="meta-icon bubbles"><i class="icon-bubbles4"></i></div>
+                                                            <div class="popup-info animated more-fast fadeInDown"><a href="#" itemprop="interactionCount">50</a></div>
+                                                        </li>
+
+                                                        <li class="tv">
+                                                            <div class="meta-icon tv"><i class="icon-tv"></i></div>
+                                                            <div class="popup-info animated more-fast fadeInDown"><a href="#" itemprop="interactionCount">150</a></div>
+                                                        </li>
+
+                                                        <li class="heart">
+                                                            <div class="meta-icon heart"><i class="icon-heart"></i></div>
+                                                            <div class="popup-info animated more-fast fadeInDown"><a href="#" itemprop="interactionCount">120</a></div>
+                                                        </li>
+
+                                                        <li class="read-more">
+                                                            @Html.ActionLink("மேலும்...", "/BooksReview", "BooksReview", new { booksReviewID = review.BooksReviewID }, new { @class = "divfloat", target = "_blank" })
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </article>
+                                    </li>
+                                }
+                            }
+                        </ul>
+
+                        <footer class="blog-pagination">
+                            <ul class="pagination">
+                                <li><a href="#">&laquo;</a></li>
+                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">&raquo;</a></li>
+                            </ul>
+                        </footer>
+
+                    </div>
+
+                </div>
+            </article>
+
+        </div>
+    </div>
+</div>
+
+@*This file is removed and used New file BooksReview/Reviews.cshtml page*@

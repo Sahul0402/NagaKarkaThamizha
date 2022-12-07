@@ -1,4 +1,5 @@
-﻿using KarkaThamizha.Repository.DAL;
+﻿using KarkaThamizha.Controller;
+using KarkaThamizha.Repository.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using static KarkaThamizha.Object.Models.MasterModels;
 
 namespace KarkaThamizha.Controllers
 {
-    public class MasterController : Controller
+    public class MasterController : KarkaThamizhaBaseController
     {
         // GET: Master
         public ActionResult GetLatestNews1()

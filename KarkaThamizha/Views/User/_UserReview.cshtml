@@ -1,7 +1,10 @@
-﻿@using PagedList;
+﻿@model KarkaThamizha.Object.Models.UserBookReview
+@using PagedList;
 @using PagedList.Mvc;
 @using KarkaThamizha.Common.Utility;
-@model PagedList.IPagedList<KarkaThamizha.Object.Models.BooksReviewModels>
+
+
+@*@model PagedList.IPagedList<KarkaThamizha.Object.Models.BooksReviewModels>*@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     * {
@@ -16,21 +19,23 @@
         border: none;
         outline: none;
         /*padding: 12px 16px;*/
-        padding:5px 15px;
+        padding: 5px 15px;
         background-color: #f1f1f1;
         cursor: pointer;
     }
-    .btn-info {
-        background-image: linear-gradient(to bottom,#FEB500,#FEB500 100%);
-    }
-        .btn:hover {
-            background-color: #ddd;
-        }
 
-        .btn.active {
-            background-color: #feb500;
-            color: white;
-        }
+    .btn-info {
+        /*background-image: linear-gradient(to bottom,#FEB500,#FEB500 100%);*/
+    }
+
+    .btn:hover {
+        background-color: #ddd;
+    }
+
+    .btn.active {
+        background-color: #feb500;
+        color: white;
+    }
 </style>
 
 @if (Model != null)
@@ -38,20 +43,9 @@
     <div class="row">
         <div class="col-md-6">
             <div id="btnContainer">
-                <button class="btn active" id="grid" onclick="gridView()"><i class="fa fa-list"></i> Grid</button>
-                <button class="btn" id="list" onclick="listView()"><i class="fa fa-th"></i> List</button>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="col-md-3">View In: </div>
-            <div class="col-md-3">
-                <select id="ShowReviewIn" name="ShowReviewIn" class="target" onchange="BooksReviewUserByID(this.value)">
-                    <option value="G" selected="selected">Grid</option>
-                    <option value="L">ListView</option>
-                    <option value="T">Table</option>
-                </select>
+                <button class="btn active" id="grid" onclick="OnGridViewClick()"><i class="fa fa-th"></i> Grid</button>
+                <button class="btn" id="list" onclick="OnListViewClick()"><i class="fa fa-list"></i> List</button>
+                <button class="btn" id="table" onclick="OnTableViewClick()"><i class="fa fa-table"></i> Table</button>
             </div>
         </div>
         <div class="col-md-6">
@@ -67,140 +61,106 @@
             </div>
         </div>
     </div>
-}
-<div id="UserBooksReviewInGrid">
-    @if (Model != null)
-    {
-        <div class="row">
-            @foreach (var books in Model)
-            {
-                <div class="col-md-4">
-                    <div class="imgSize">
-                        <img title=@books.BookName alt=@books.BookName src="@Url.Content("~/Images-Books/" + books.BookDetail.ImgBookSmallFS)" class="avatar" />
-                        <div style="height: 40px;">@books.BookName</div>
-                        <div style="height: 25px;">
-                            <div class="btn-group" role="group" aria-label="Basic example" style="">
-                                <a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = books.BooksReviewID })" class="btn btn-info btn-sm" title="Show Review">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                </a>
-                                <a href="" target="_blank" class="btn btn-info btn-sm" title="Add to Cart">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
-                                </a>
-                                <a href="#" class="btn btn-info btn-sm" title="Add to Wishlist">
-                                    <span class="fa fa-heart"></span>
-                                </a>
-                            </div>
 
-                            @*<a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = books.BooksReviewID })" target="_blank">
-                                    <img src="~/Images-Website/Visible.svg" style="height:24px;width:24px;" title="Show Review" alt=@books.BookName />
-                                </a>
-                                <img src="~/Images-Website/Trolley.svg" style="height:24px;width:24px;" title="Buy" alt=@books.BookName />
-                                <img src="~/Images-Website/WishGrey.svg" style="height:24px;width:24px;" title="Add to Wishlist" alt=@books.BookName />*@
+}
+
+@if (Model != null)
+{
+    if (Model.ViewType == "Grid")
+    {
+        <div id="UserBooksReviewInGrid">
+            <div class="row">
+                @foreach (var books in Model.ListBooks)
+                {
+                    <div class="col-md-4">
+                        <div class="imgSize">
+                            <img title=@books.BookName alt=@books.BookName src="@Url.Content("~/Images-Books/" + books.BookDetail.ImgBookSmallFS)" class="avatar" />
+                            <div style="height: 40px;">@books.BookName</div>
+                            <div style="height: 25px;">
+                                <div class="btn-group" role="group" aria-label="Basic example" style="">
+                                    <a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = books.BooksReviewID })" class="btn btn-info btn-sm" title="Show Review">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                    </a>
+                                    <a href="" target="_blank" class="btn btn-info btn-sm" title="Add to Cart">
+                                        <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
+                                    </a>
+                                    <a href="#" class="btn btn-info btn-sm" title="Add to Wishlist">
+                                        <span class="fa fa-heart"></span>
+                                    </a>
+                                </div>
+
+                                @*<a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = books.BooksReviewID })" target="_blank">
+                                        <img src="~/Images-Website/Visible.svg" style="height:24px;width:24px;" title="Show Review" alt=@books.BookName />
+                                    </a>
+                                    <img src="~/Images-Website/Trolley.svg" style="height:24px;width:24px;" title="Buy" alt=@books.BookName />
+                                    <img src="~/Images-Website/WishGrey.svg" style="height:24px;width:24px;" title="Add to Wishlist" alt=@books.BookName />*@
+                            </div>
+                            <div style="height: 25px;">
+                                <div class="col-md-6"><img src="~/Images-Website/Rating.svg" style="height:24px;width:24px;" title="Global Rating" alt=@books.BookName /></div>
+                                <div class="col-md-6"><img src="~/Images-Website/RatingGrey.svg" style="height:24px;width:24px;" title=@books.UserName alt=@books.BookName /></div>
+                            </div>
                         </div>
-                        <div style="height: 25px;">
-                            <div class="col-md-6"><img src="~/Images-Website/Rating.svg" style="height:24px;width:24px;" title="Global Rating" alt=@books.BookName /></div>
-                            <div class="col-md-6"><img src="~/Images-Website/RatingGrey.svg" style="height:24px;width:24px;" title=@books.UserName alt=@books.BookName /></div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else if (Model.ViewType == "List")
+    {
+        <div id="UserBooksReviewInList">
+            @foreach (var books in Model.ListBooks)
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        <img title=@books.BookName alt=@books.BookName src="@Url.Content("~/Images-Books/" + books.BookDetail.ImgBookSmallFS)" style="width: 100%;" class="" />
+                    </div>
+                    <div class="col-md-9" style="margin-left:-20px;">
+                        <div style="padding-bottom:30px;align-items:center;">
+                            <div class="col-md-9">
+                                <h4 style="margin-left: -15px;">@books.BookName</h4>
+                            </div>
+                            <div class="col-md-3" style="text-align:right;">&#8377; 100.00</div>
+                        </div>
+                        <div style="padding-bottom: 15px;text-align:justify;">
+                            சொந்த ஊர்1 அய்யனார் ஊத்து எனும் கிராமம். வேலை சென்னையில் கணினி மென்பொருள் வல்லுநர்.புத்தகம் என்றால் அவ்வளவு ஆர்வம். ஊர் சுற்றுவது, பயணம் செய்வது பிடித்தமானது.
+                            தொடர்ந்து உரையாடுதல் என்பது மிகவும் பிடித்தமான மற்றொரு செயல்.
+                        </div>
+
+                        <div style="padding-bottom: 15px;text-align:right;">
+                            <a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = books.BooksReviewID })" target="_blank">
+                                <img src="~/Images-Website/Visible.svg" style="height:24px;width:24px;" title="Show Review" alt=@books.BookName />
+                            </a>
+                            <img src="~/Images-Website/Trolley.svg" style="height:24px;width:24px;" title="Buy" />
+                            <img src="~/Images-Website/WishGrey.svg" style="height:24px;width:24px;" title="Add to Wishlist" />
+                        </div>
+                        <div style="padding-bottom: 15px; margin-left: -15px;align-items:center;">
+                            <div class="col-md-4">Written By:</div>
+                            <div class="col-md-2">Year:</div>
+                            <div class="col-md-6" style="text-align:right;">
+                                <img src="~/Images-Website/Rating.svg" style="height:24px;width:24px;" title="Global Rating" />
+                                <img src="~/Images-Website/RatingGrey.svg" style="height:24px;width:24px;" tle="@books.UserName" />
+                            </div>
+                        </div>
+                        <div style="padding-bottom: 15px; margin-left: -15px;">
+                            <div class="col-md-4">@books.UserInfo.UserName</div>
+                            <div class="col-md-2">@(books.BookDetail.FirstEdition !=null ? @books.BookDetail.FirstEdition : "-")</div>
                         </div>
                     </div>
                 </div>
             }
         </div>
     }
-</div>
-<div id="UserBooksReviewInList">
-    @if (Model != null)
+    else if (Model.ViewType == "Table")
     {
-        foreach (var books in Model)
-        {
-            <div class="row">
-                <div class="col-md-3">
-                    <img title=@books.BookName alt=@books.BookName src="@Url.Content("~/Images-Books/" + books.BookDetail.ImgBookSmallFS)" style="width: 100%;" class="" />
-                </div>
-                <div class="col-md-9" style="margin-left:-20px;">
-                    <div style="padding-bottom:30px;align-items:center;">
-                        <div class="col-md-9">
-                            <h4 style="margin-left: -15px;">@books.BookName</h4>
-                        </div>
-                        <div class="col-md-3" style="text-align:right;">&#8377; 100.00</div>
-                    </div>
-                    <div style="padding-bottom: 15px;text-align:justify;">
-                        சொந்த ஊர்1 அய்யனார் ஊத்து எனும் கிராமம். வேலை சென்னையில் கணினி மென்பொருள் வல்லுநர்.புத்தகம் என்றால் அவ்வளவு ஆர்வம். ஊர் சுற்றுவது, பயணம் செய்வது பிடித்தமானது.
-                        தொடர்ந்து உரையாடுதல் என்பது மிகவும் பிடித்தமான மற்றொரு செயல்.
-                    </div>
+        <div id="UserBooksReviewInTable">
+            <table class="table table-bordered table-condensed table-hover table-striped">
+                @Html.ActionLink("Clr", "ClearEventsCache", "Events", null, new { @style = "color:white;" })
+                <thead>
+                    <tr id="t01"><th>புத்தகத்தின் பெயர்</th><th>எழுத்தாளர்</th><th>தேதி</th></tr>
+                </thead>
+                <tbody>
 
-                    <div style="padding-bottom: 15px;text-align:right;">
-                        <a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = books.BooksReviewID })" target="_blank">
-                            <img src="~/Images-Website/Visible.svg" style="height:24px;width:24px;" title="Show Review" alt=@books.BookName />
-                        </a>
-                        <img src="~/Images-Website/Trolley.svg" style="height:24px;width:24px;" title="Buy" />
-                        <img src="~/Images-Website/WishGrey.svg" style="height:24px;width:24px;" title="Add to Wishlist" />
-                    </div>
-                    <div style="padding-bottom: 15px; margin-left: -15px;align-items:center;">
-                        <div class="col-md-4">Written By:</div>
-                        <div class="col-md-2">Year:</div>
-                        <div class="col-md-6" style="text-align:right;">
-                            <img src="~/Images-Website/Rating.svg" style="height:24px;width:24px;" title="Global Rating" />
-                            <img src="~/Images-Website/RatingGrey.svg" style="height:24px;width:24px;" tle="@books.UserName" />
-                        </div>
-                    </div>
-                    <div style="padding-bottom: 15px; margin-left: -15px;">
-                        <div class="col-md-4">@books.UserInfo.UserName</div>
-                        <div class="col-md-2">@(books.BookDetail.FirstEdition !=null ? @books.BookDetail.FirstEdition : "-")</div>
-                    </div>
-
-                    @*<div class="text">
-                            சொந்த ஊர்1 அய்யனார் ஊத்து எனும் கிராமம். வேலை சென்னையில் கணினி மென்பொருள் வல்லுநர்.புத்தகம் என்றால் அவ்வளவு ஆர்வம். ஊர் சுற்றுவது, பயணம் செய்வது பிடித்தமானது.
-                            தொடர்ந்து உரையாடுதல் என்பது மிகவும் பிடித்தமான மற்றொரு செயல்.
-                            <div class="divfloat" style=" padding-right: 25px; ">
-                                <div style="display:flex;">
-                                    <a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = books.BooksReviewID })" target="_blank">
-                                        <img src="~/Images-Website/Visible.svg" style="height:24px;width:24px;" title="Show Review" alt=@books.BookName />
-                                    </a>
-                                    <img src="~/Images-Website/Trolley.svg" style="height:24px;width:24px;" title="Buy" />
-                                    <img src="~/Images-Website/WishGrey.svg" style="height:24px;width:24px;" title="Add to Wishlist" />
-                                </div>
-                                <div style="display:flex;">
-                                    <img src="~/Images-Website/Rating.svg" style="height:24px;width:24px;" title="Global Rating" />
-                                    <img src="~/Images-Website/RatingGrey.svg" style="height:24px;width:24px;" tle="@books.UserName" />
-                                </div>
-                            </div>
-                        </div>*@
-                </div>
-                @*<div class="col-md-9">
-                        <div class="text">
-                            சொந்த ஊர்1 அய்யனார் ஊத்து எனும் கிராமம். வேலை சென்னையில் கணினி மென்பொருள் வல்லுநர்.புத்தகம் என்றால் அவ்வளவு ஆர்வம். ஊர் சுற்றுவது, பயணம் செய்வது பிடித்தமானது.
-                            தொடர்ந்து உரையாடுதல் என்பது மிகவும் பிடித்தமான மற்றொரு செயல்.
-                            <div class="divfloat" style=" padding-right: 25px; ">
-                                <div style="display:flex;">
-                                    <a href="@Url.Action("BooksReview", "BooksReview", new { booksReviewID = books.BooksReviewID })" target="_blank">
-                                        <img src="~/Images-Website/Visible.svg" style="height:24px;width:24px;" title="Show Review" alt=@books.BookName />
-                                    </a>
-                                    <img src="~/Images-Website/Trolley.svg" style="height:24px;width:24px;" title="Buy" />
-                                    <img src="~/Images-Website/WishGrey.svg" style="height:24px;width:24px;" title="Add to Wishlist" />
-                                </div>
-                                <div style="display:flex;">
-                                    <img src="~/Images-Website/Rating.svg" style="height:24px;width:24px;" title="Global Rating" />
-                                    <img src="~/Images-Website/RatingGrey.svg" style="height:24px;width:24px;" tle="@books.UserName" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
-            </div>
-        }
-    }
-</div>
-<div id="UserBooksReviewInTable">
-    @if (Model != null)
-    {
-        <table class="table table-bordered table-condensed table-hover table-striped">
-            @Html.ActionLink("Clr", "ClearEventsCache", "Events", null, new { @style = "color:white;" })
-            <thead>
-                <tr id="t01"><th>புத்தகத்தின் பெயர்</th><th>எழுத்தாளர்</th><th>தேதி</th></tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
-                {
-                    foreach (var _review in Model)
+                    @foreach (var _review in Model.ListBooks)
                     {
                         <tr>
                             <th>
@@ -210,28 +170,25 @@
                             <th>@_review.CreatedDate.ToShortDateString()</th>
                         </tr>
                     }
-                }
-            </tbody>
-        </table>
-    }
-</div>
-@if (Model != null && Model.Count > 0)
-{
-    <div class="d-flex;">
-        <div>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</div>
-        <div class="pagination" id="contentPager">
-            @Html.PagedListPager(Model, page => Url.Action("User",
-                        new { Page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly,
-                        new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "UserBooksReview" }))
+
+                </tbody>
+            </table>
         </div>
-    </div>
-}
-
-@{
-    @section scripts{
-
     }
 }
+
+@if (Model != null && Model.ListBooks.Count > 0)
+{
+    @*<div class="d-flex;">
+            <div>Page @(Model.ListBooks.PageCount < Model.ListBooks.PageNumber ? 0 : Model.ListBooks.PageNumber) of @Model.ListBooks.PageCount</div>
+            <div class="pagination" id="contentPager">
+                @Html.PagedListPager(Model.ListBooks, page => Url.Action("User",
+                            new { Page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.PageNumbersOnly,
+                            new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "UserBooksReview" }))
+            </div>
+        </div>*@
+}
+
 
 
 

@@ -207,9 +207,9 @@ namespace KarkaThamizha.Repository.DAL
             return userId;
         }
 
-        public string CheckEmailExists(string mail)
+        public bool CheckEmailExists(string mail)
         {
-            string result = string.Empty;
+            bool flag = false;
             using (SqlConnection sqlConnection = ConnectionManager.GetConnection())
             {
                 try
@@ -219,7 +219,7 @@ namespace KarkaThamizha.Repository.DAL
                         com.CommandType = CommandType.StoredProcedure;
                         com.Parameters.AddWithValue("@EMail", mail.Trim());
                         sqlConnection.Open();
-                        result = Convert.ToString(com.ExecuteScalar());
+                        flag = Convert.ToBoolean(com.ExecuteScalar());
                     }
                 }
                 catch (Exception ex)
@@ -227,7 +227,7 @@ namespace KarkaThamizha.Repository.DAL
                     throw new ArgumentException("The creation was cancelled before it could be saved. " + ex.Message);
                 }
             }
-            return result;
+            return flag;
         }
 
         internal string DeleteAuthor(int userId)

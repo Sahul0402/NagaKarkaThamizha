@@ -1,4 +1,5 @@
 ﻿using KarkaThamizha.Common.Utility;
+using KarkaThamizha.Controller;
 using KarkaThamizha.Object.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 
 namespace KarkaThamizha.Controllers
 {
-    public class FeedbackController : Controller
+    public class FeedbackController : KarkaThamizhaBaseController
     {
         // GET: Feedback
         public ActionResult Add(FeedbackModels mdlFeedback)

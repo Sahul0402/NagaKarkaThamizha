@@ -39,8 +39,6 @@
         @if (Model != null)
         {
             <header>
-
-
                 <div class="figure-container">
                     <figure class="featured-post-figure" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                         <a data-lightbox="true" title="Image With Image + Lightbox" href="~/Images-Website/8.png"><img itemprop="contentURL" src="~/Images-Website/7.jpg" /></a>
@@ -69,11 +67,6 @@
 
             <div class="post-entry" itemprop="articleBody">
                 @Html.Raw(Model.Description.ToString().Replace("\r\n", "<br />"))
-
-                @if (Model.Type == "Magazine")
-                {
-                    <h5 itemprop="headline">நன்றி: @Model.MagazineName (@Model.SourceDate?.ToShortDateString())</h5>
-                }
 
                 @*<ul class="post-ul">
                         <li><i class="icon-thumbs-up"></i>படித்தது.</li>
@@ -113,10 +106,6 @@
                     <a href="#">Coup<span class="badge">13</span></a>
                 </div>
             </aside>
-
-            @{
-                Html.RenderPartial("_ShareOn", new KarkaThamizha.Object.Models.ShareOnModels());
-            }
 
             <aside class="author-box clearfix" itemprop="author" itemscope="" itemtype="http://schema.org/Person" data-showonscroll="true" data-animation="fadeIn">
                 <div class="box-title">

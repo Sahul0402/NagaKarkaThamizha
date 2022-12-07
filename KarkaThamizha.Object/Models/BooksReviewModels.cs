@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -32,5 +33,15 @@ namespace KarkaThamizha.Object.Models
         public string Type { get; set; }
         public DateTime CreatedDate { get; set; }
         public CategoryModels Category { get; set; }
+    }
+
+    public class UserBookReview
+    {
+        public UserBookReview()
+        {
+            this.ListBooks = new List<BooksReviewModels>();
+        }
+        public List<BooksReviewModels> ListBooks { get; set; }
+        public string ViewType { get; set; }
     }
 }

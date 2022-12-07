@@ -1,4 +1,5 @@
 ﻿using KarkaThamizha.Common.Utility;
+using KarkaThamizha.Controller;
 using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.CacheData;
 using KarkaThamizha.Repository.DAL;
@@ -11,7 +12,7 @@ using System.Web.Mvc;
 namespace KarkaThamizha.Controllers
 {
     [CustomErrorAttribute]
-    public class HomeController : Controller
+    public class HomeController : KarkaThamizhaBaseController
     {
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Index()

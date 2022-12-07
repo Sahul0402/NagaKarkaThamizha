@@ -1,4 +1,5 @@
-﻿using KarkaThamizha.Object.Models;
+﻿using KarkaThamizha.Controller;
+using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.DAL;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 
 namespace KarkaThamizha.Controllers
 {
-    public class BookDetailsController : Controller
+    public class BookDetailsController : KarkaThamizhaBaseController
     {
         public ActionResult BookDetails(int? id)
         {

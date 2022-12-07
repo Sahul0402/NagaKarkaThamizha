@@ -199,7 +199,7 @@
                         </header>
 
                         <div class="meta-info">
-                            <span class="author"><i class="icon-user3"></i><a href="#">@novel.UserInfo.UserName</a></span>
+                            <span class="author"><i class="icon-user3"></i>@Html.ActionLink(@novel.UserInfo.UserName, "User", "User", new { UserID = novel.UserInfo.UserID }, new { @class = "divfloat", target = "_blank" })</span>
                             <span class="date-time"><i class="icon-alarm2"></i>@novel.CreatedDate</span>
                         </div>
 

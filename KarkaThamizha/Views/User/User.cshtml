@@ -2,7 +2,7 @@
 @*@model KarkaThamizha.Object.Models.UserBooksReviewModels*@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="~/Content/Karkastyle.css" rel="stylesheet" />
+<link href="~/Content/Karkastyle.css" rel="stylesheet" />
 
 <style>
     a.link {
@@ -108,12 +108,8 @@
 <article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
     <div class="article-content clearfix">
         <header>
-
-
             <div id="divUserInfo"></div>
-
             <div id="wait" class="loaderDiv"><img src='~/Images-Website/ajax-loader.gif' /><br>Loading..</div>
-
             @if (Model != null)
             {
                 <div class="row">
@@ -124,17 +120,7 @@
                         </div>
                     </div>
                 </div>
-                @*<div class="row">*@
-                @*<div class="col-md-6">
-                <div class="col-md-3">View In: </div>
-                <div class="col-md-3">
-                    <select id="ShowReviewIn" name="ShowReviewIn" class="target" onchange="BooksReviewUserByID(this.value)">
-                        <option value="G" selected="selected">Grid</option>
-                        <option value="L">ListView</option>
-                        <option value="T">Table</option>
-                    </select>
-                </div>
-            </div>*@
+
                 <div class="col-md-6">
                     <div class="col-md-3">Sory By: </div>
                     <div class="col-md-3">
@@ -147,11 +133,8 @@
                         </select>
                     </div>
                 </div>
-                @*</div>*@
             }
-            <div id="UserBooksReviewInGrid"></div>
-            <div id="UserBooksReviewInList"></div>
-            <div id="UserBooksReviewInTable"></div>
+            <div id="divUserBooksReview"></div>
         </header>
     </div>
 </article>

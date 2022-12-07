@@ -1,4 +1,5 @@
 ﻿using KarkaThamizha.Common.Utility;
+using KarkaThamizha.Controller;
 using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.DAL;
 using System;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 namespace KarkaThamizha.Controllers
 {
     [CustomErrorAttribute]
-    public class ContactUsController : Controller
+    public class ContactUsController : KarkaThamizhaBaseController
     {
         // GET: ContactUs
         [OutputCache(Duration = 43200, VaryByParam = "none")]

@@ -1,4 +1,5 @@
 ﻿using KarkaThamizha.Common.Utility;
+using KarkaThamizha.Controller;
 using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.CacheData;
 using KarkaThamizha.Repository.DAL;
@@ -13,7 +14,7 @@ namespace KarkaThamizha.Controllers
 {
     [RoutePrefix("Events")]
     [CustomErrorAttribute]
-    public class EventsController : Controller
+    public class EventsController : KarkaThamizhaBaseController
     {
         [AcceptVerbs(HttpVerbs.Get)]        
         [Route("Events/{Page}")]

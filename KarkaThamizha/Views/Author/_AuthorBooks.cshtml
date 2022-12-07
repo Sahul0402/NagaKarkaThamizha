@@ -68,51 +68,65 @@
 <div style="overflow-x:auto;">
     @{ WebGrid webGrid = new WebGrid(source: Model, canSort: false, canPage: false);}
     @webGrid.GetHtml(
-        htmlAttributes: new { @id = "WebGrid", @class = "Grid" },
-        columns: webGrid.Columns(
-                 webGrid.Column(null, null, format: @<text><img src="~/Images-Website/details_open.png" /><div style="display:none"></div></text>),
-webGrid.Column("CategoryName", "வகைகள் (Category)"),
-webGrid.Column(format: (item1) =>
-{
-//WebGrid childGrid = new WebGrid(source: item1.authorBooks, canSort: false, canPage: true, rowsPerPage: 10);
-WebGrid childGrid = new WebGrid(source: item1.authorBooks, canSort: false, canPage: false);
-return childGrid.GetHtml(
+                                htmlAttributes: new { @id = "WebGrid", @class = "Grid" },
+                                columns: webGrid.Columns
+                           (
+                                         webGrid.Column(null, null, format: @<text><img src="~/Images-Website/details_open.png" /><div style="display:none"></div></text>),
+                                webGrid.Column("CategoryName", "வகைகள் (Category)"),
+                                webGrid.Column(format: (item1) =>
+                                {
+                                //WebGrid childGrid = new WebGrid(source: item1.authorBooks, canSort: false, canPage: true, rowsPerPage: 10);
+                                WebGrid childGrid = new WebGrid(source: item1.authorBooks, canSort: false, canPage: false);
+                                return childGrid.GetHtml(
 
-htmlAttributes: new { @class = "ChildGrid" },
-columns: childGrid.Columns(
-childGrid.Column(header: "வ.எண்",
-format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(childGrid.TotalRowCount / childGrid.PageCount) / childGrid.RowsPerPage) * childGrid.RowsPerPage * childGrid.PageIndex),
-//childGrid.Column(null, null, format: @<input type="hidden" name="Books.BookID" value="@item.Books.BookID" />),
-childGrid.Column(header: "புத்தகத்தின் பெயர்",
-format: (item) =>
-{
-if (item.BooksReview.BooksReviewID > 0)
-//return Html.ActionLink((string)@item.Books.Book, "BooksReview", "BooksReview", new { BooksReviewID = item.BooksReview.BooksReviewID }, new { @class = "link", target = "_blank" });
-return Html.ActionLink((string)@item.Books.Book, "BookDetails", "BookDetails", new { id = item.Books.BookID }, new { @class = "link", target = "_blank" });
-else
-{
-if (item.UserTypeID == 2)
-{ return @item.Books.Book + " (உரையாசிரியர்)"; }
-else if (item.UserTypeID == 3)
-{ return @item.Books.Book + " - " + "(தொகுப்பாசிரியர்)"; }
-else if (item.UserTypeID == 5)
-{ return @item.Books.Book + " (பதிப்பாசிரியர்)"; }
-else if (item.UserTypeID == 7)
-{ return @item.Books.Book + " (மொழிபெயர்ப்பாளர்)"; }
-else
-{ return @item.Books.Book; }
-}
-}),
-childGrid.Column("விலை", format: @<text>@item.Price.ToString("c")</text>, style: "pricestyle"),
-childGrid.Column("FirstEdition", "முதல் பதிப்பு"),
-childGrid.Column("FirstEdition", "Global Rating"),
-childGrid.Column("FirstEdition", "User Rating"),
-childGrid.Column("FirstEdition", "Add View"),
-childGrid.Column("FirstEdition", "Show Review")
+                                htmlAttributes: new { @class = "ChildGrid" },
+                                columns: childGrid.Columns(
+                                childGrid.Column(header: "வ.எண்",
+                                format: item => item.WebGrid.Rows.IndexOf(item) + 1 + Math.Round(Convert.ToDouble(childGrid.TotalRowCount / childGrid.PageCount) / childGrid.RowsPerPage) * childGrid.RowsPerPage * childGrid.PageIndex),
+                                //childGrid.Column(null, null, format: @<input type="hidden" name="Books.BookID" value="@item.Books.BookID" />),
+                                childGrid.Column(header: "புத்தகத்தின் பெயர்",
+                                format: (item) =>
+                                {
+                                    if (item.BooksReview.BooksReviewID > 0)
+                                    //return Html.ActionLink((string)@item.Books.Book, "BooksReview", "BooksReview", new { BooksReviewID = item.BooksReview.BooksReviewID }, new { @class = "link", target = "_blank" });
+                                        return Html.ActionLink((string)@item.Books.Book, "BookDetails", "BookDetails", new { id = item.Books.BookID }, new { @class = "link", target = "_blank" });
+                                    else
+                                        {
+                                                if (item.UserTypeID == 2)
+                                                { return @item.Books.Book + " (உரையாசிரியர்)"; }
+                                                else if (item.UserTypeID == 3)
+                                                { return @item.Books.Book + " - " + "(தொகுப்பாசிரியர்)"; }
+                                                else if (item.UserTypeID == 5)
+                                                { return @item.Books.Book + " (பதிப்பாசிரியர்)"; }
+                                                else if (item.UserTypeID == 7)
+                                                { return @item.Books.Book + " (மொழிபெயர்ப்பாளர்)"; }
+                                                else
+                                                { return @item.Books.Book; }
+                                        }
+                                }),
+                                childGrid.Column("விலை", format: @<text>@item.Price.ToString("c")</text>, style: "pricestyle"),
+                                childGrid.Column("FirstEdition", "முதல் பதிப்பு"),
+                                childGrid.Column("FirstEdition", "Global Rating"),
+                                childGrid.Column("FirstEdition", "User Rating"),
 
-));
-})
-))
+                                childGrid.Column(header: "Add Review",
+                                    format: (item) =>
+                                    {
+                                        return Html.ActionLink("Add Review", "BooksReview", "BooksReview", new { booksReviewID = item.BooksReview.BooksReviewID }, new { @class = "link", target = "_blank" });
+                                    }),
+
+                                childGrid.Column(header: "Show Review",
+                                    format: (item) =>
+                                    {
+                                        if (item.BooksReview.BooksReviewID > 0)
+                                            return Html.ActionLink("View", "BooksReview", "BooksReview", new { booksReviewID = item.BooksReview.BooksReviewID }, new { @class = "link", target = "_blank" });
+                                        else { return ""; }
+                                    })
+
+                                ));
+                                })
+                        )
+                )
 </div>
 
 <script>

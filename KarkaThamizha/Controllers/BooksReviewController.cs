@@ -1,4 +1,5 @@
 ﻿using KarkaThamizha.Common.Utility;
+using KarkaThamizha.Controller;
 using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.DAL;
 using PagedList;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace KarkaThamizha.Controllers
 {
-    public class BooksReviewController : Controller
+    public class BooksReviewController : KarkaThamizhaBaseController
     {
         /// <summary>
         /// Called from Layout Page

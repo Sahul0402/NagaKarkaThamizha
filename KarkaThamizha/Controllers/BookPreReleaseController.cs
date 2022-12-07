@@ -1,4 +1,5 @@
 ﻿using KarkaThamizha.Common.Utility;
+using KarkaThamizha.Controller;
 using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.CacheData;
 using PagedList;
@@ -11,7 +12,7 @@ using System.Web.Mvc;
 namespace KarkaThamizha.Controllers
 {
     [CustomErrorAttribute]
-    public class BookPreReleaseController : Controller
+    public class BookPreReleaseController : KarkaThamizhaBaseController
     {
         #region BookPreRelease
         // GET: BookPreRelease

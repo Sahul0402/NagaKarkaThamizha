@@ -84,8 +84,6 @@ $("#btnLogin").click(function () {
         dataType: "JSON",
         contentType: "application/json; charset=utf-8",
         success: function (response) {
-            debugger;
-            alert(response);
             if (response == null) {
                 alert("Please check EMail or Password");
             }

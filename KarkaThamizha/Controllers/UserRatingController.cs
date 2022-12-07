@@ -1,4 +1,5 @@
-﻿using KarkaThamizha.Object.Models;
+﻿using KarkaThamizha.Controller;
+using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.DAL;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace KarkaThamizha.Controllers
 {
-    public class UserRatingController : Controller
+    public class UserRatingController : KarkaThamizhaBaseController
     {
         // GET: UserRating
         public ActionResult Index()

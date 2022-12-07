@@ -1,4 +1,5 @@
 ﻿using KarkaThamizha.Common.Utility;
+using KarkaThamizha.Controller;
 using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.DAL;
 using System;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace KarkaThamizha.Controllers
 {
-    public class CommentsController : Controller
+    public class CommentsController : KarkaThamizhaBaseController
     {
         [OutputCache(Duration = 43200, VaryByParam = "none")]
         [AcceptVerbs(HttpVerbs.Get)]

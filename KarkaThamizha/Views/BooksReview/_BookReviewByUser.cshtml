@@ -87,7 +87,8 @@
                                                         <ul class="list-unstyled color-theme">
                                                             <li>
                                                                 <div class="meta-icon"><i class="icon-user3"></i></div>
-                                                                <div class="popup-info animated more-fast fadeInRight"><a href="#" title="">@review.Users.Name</a></div>
+                                                                <div class="popup-info animated more-fast fadeInRight">
+    @Html.ActionLink(@review.UserInfo.UserName, "User", "User", new { UserID = review.UserInfo.UserID }, new { @class = "divfloat", target = "_blank" })</div>
                                                             </li>
 
                                                             <li>

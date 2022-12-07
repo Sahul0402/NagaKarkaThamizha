@@ -1,11 +1,10 @@
 ﻿$(document).ready(function () {
-    debugger;
     var pageName = document.location.href.match(/[^\/]+$/)[0];
 
     var urlParamValue = GetParameterValues('UserID');
     if (urlParamValue > 0) {
         PopulateUserInfoByUserId(urlParamValue);
-        BooksReviewUserByID(urlParamValue, 1, "#UserBooksReviewInGrid");
+        BooksReviewUserByID(urlParamValue, 1, "Grid");
     }
 });
 
@@ -23,6 +22,7 @@ function PopulateUserInfoByUserId(id) {
         contentType: "application/json; charset=utf-8",
         dataType: "html",
         success: function (response) {
+            debugger;
             if (response != null) {
                 $(targetControlInfo).html(response);
             }
@@ -40,32 +40,19 @@ function PopulateUserInfoByUserId(id) {
 }
 
 function BooksReviewUserByID(id, paging, viewIn) {
-    var targetControl = viewIn;
+    var targetControl = "#divUserBooksReview";
 
     $.ajax({
         cache: false,
         type: "GET",
         url: "/User/UserReviews",
-        data: { userId: id, page: paging, view: viewIn },
+        data: { userId: id, page: paging, viewType: viewIn },
         contentType: "application/json; charset=utf-8",
         dataType: "html",
         success: function (response) {
-            $(targetControl).html('');
+            debugger;
+            $(targetControl).empty();
             $(targetControl).html(response);
-            $(targetControl).show();
-
-            if (viewIn == "#UserBooksReviewInTable") {
-                $("#UserBooksReviewInGrid").hide();
-                $("#UserBooksReviewInList").hide();
-            }
-            if (viewIn == "#UserBooksReviewInList") {
-                $("#UserBooksReviewInTable").hide();
-                $("#UserBooksReviewInGrid").hide();
-            }
-            else {
-                $("#UserBooksReviewInTable").hide();
-                $("#UserBooksReviewInList").hide();
-            }
         },
         failure: function (response) {
             alert(response);
@@ -142,19 +129,33 @@ $(document).on("click", "#contentPager a[href]", function (e) {
 //});
 
 // List View
-function listViewlistView() {
-    $("#grid").css('background-color', '#f1f1f1');
-    $("#list").css('background-color', '#feb500');
-
-    BooksReviewUserByID("#UserBooksReviewInList", 1);
-}
-
 
 // Grid View
-function gridView() {
+function OnGridViewClick() {
     $("#grid").css('background-color', '#feb500');
     $("#list").css('background-color', '#f1f1f1');
+    $("#table").css('background-color', '#f1f1f1');
 
-    BooksReviewUserByID("#UserBooksReviewInGrid", 1);
+    var urlParamValue = GetParameterValues('UserID');
+    BooksReviewUserByID(urlParamValue, 1, "Grid");
+}
+
+function OnListViewClick() {
+    $("#grid").css('background-color', '#f1f1f1');
+    $("#table").css('background-color', '#f1f1f1');
+    $("#list").css('background-color', '#feb500');
+
+    var urlParamValue = GetParameterValues('UserID');
+    BooksReviewUserByID(urlParamValue, 1, "List");
+}
+
+// Table View
+function OnTableViewClick() {
+    $("#grid").css('background-color', '#f1f1f1');
+    $("#list").css('background-color', '#f1f1f1');
+    $("#table").css('background-color', '#feb500');
+
+    var urlParamValue = GetParameterValues('UserID');
+    BooksReviewUserByID(urlParamValue, 1, "Table");
 }
 

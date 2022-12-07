@@ -1,4 +1,5 @@
-﻿using KarkaThamizha.Object.Models;
+﻿using KarkaThamizha.Controller;
+using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.DAL;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace KarkaThamizha.Controllers
 
     
     [CustomErrorAttribute]
-    public class UserTrackingController : Controller
+    public class UserTrackingController : KarkaThamizhaBaseController
     {
         [AcceptVerbs(HttpVerbs.Get)]
         public JsonResult SetGetPageViewCount(Int16 viewPageID, int? articleID)
