@@ -91,3 +91,64 @@ Set NoCount on
 END
 
 GO
+
+ALTER procedure [dbo].[USP_GetBooksReviewByReviewID]  --1  
+(@booksReviewID int)                                      
+AS                                      
+BEGIN                                      
+  SET NOCOUNT ON                                
+            
+  SELECT             
+  BR.BooksReviewID,            
+  BD.BookDetailsID,            
+  B.BookID,            
+  B.Name AS BookName,            
+  BR.Header,            
+  BR.Description,            
+  BR.UserID,            
+  U.UserName,        
+  A.AuthorID,      
+  W.UserName as AuthorName,       
+  Cast(UD.Profile as nVarchar(100))AS Profile,    
+  UD.FaceBook,    
+  UD.Twitter,    
+  UD.Pinterest,    
+  UD.YouTube,    
+  UD.Wikipedia,    
+  UD.Blog + ''+ UD.BlogType as Blogger,    
+  UD.Website,    
+  UD.ImgComments,  
+  BR.CreatedDate,            
+  BC.CategoryID,            
+  C.Name AS BookCategory            
+            
+  FROM dbo.BooksReview BR            
+            
+  JOIN dbo.BooksDetails BD            
+    ON BR.BookDetailsID = BD.BookDetailsID            
+            
+  JOIN dbo.Books B            
+    ON BD.BookID = B.BookID            
+            
+  JOIN dbo.Users U            
+    ON U.UserID = BR.UserID            
+            
+  JOIN dbo.BookCategory BC            
+    ON BC.BookID = BD.BookID            
+            
+  JOIN dbo.Category C            
+    ON C.CategoryID = BC.CategoryID     
+      
+  Join dbo.BookAuthor A     
+  on A.BookID   = B.BookID    
+    
+  Join dbo.Users   W     
+  on A.AuthorID  = W.UserID     
+      
+  Join dbo.UserDetails   UD    
+  on W.UserID = UD.UserID    
+  WHERE BR.BooksReviewID = @booksReviewID            
+  AND BR.RecStatus = 'A'            
+            
+    
+END        
