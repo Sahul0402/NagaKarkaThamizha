@@ -28,7 +28,7 @@ namespace KarkaThamizha.Repository.DAL
             }
         }
 
-        public UserRatingModels GetUserRatingByUserAndBookID(int userID, int bookID)
+        public UserRatingModels GetUserRatingByUserAndBookID(int? userID, int bookID)
         {
             UserRatingModels ratingModels = new UserRatingModels();
             using (SqlConnection con = ConnectionManager.GetConnection())

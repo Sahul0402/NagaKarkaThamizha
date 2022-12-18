@@ -10,6 +10,7 @@ namespace KarkaThamizha.Object.Models
     {
         public int BookDetailsID { get; set; }
         public BooksModels Books { get; set; }
+        public List<BooksModels> BookList { get; set; }
         public string BookCode { get; set; }
         [Required]
         public Decimal Price { get; set; }

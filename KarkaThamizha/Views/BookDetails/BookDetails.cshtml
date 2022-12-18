@@ -9,6 +9,10 @@
     .row {
         padding: 6px 0px;
     }
+
+    div[aria-describedby="divLoginContainer"] {
+        background-color: transparent !important;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -21,16 +25,23 @@
         {
             <input type="hidden" id="hdnSession" value="@Session["UserID"]" />
             <input type="hidden" id="hdnBookdDetailID" value="@Model.Books.BookID" />
+            <input type="hidden" id="hdnUserRating" />
             <article class="odd-item" data-showonscroll="true" data-animation="fadeIn">
                 <div class="row">
                     <div class="col-md-7">
                         <h2>@Model.Books.Book</h2>
                         @*@if (Model.XtraBookDetails.EventID > 0)
-                        {<a href="@Url.Action("EventName", "Events", new { eventId = @Model.XtraBookDetails.EventID })" style="color:blue;" target="_blank">@Model.FirstEdition</a>}*@
-                    else
-                    {<span>@Model.FirstEdition</span>}
+                            {<a href="@Url.Action("EventName", "Events", new { eventId = @Model.XtraBookDetails.EventID })" style="color:blue;" target="_blank">@Model.FirstEdition</a>}*@
+                        @*else
+                            {<span>@Model.FirstEdition</span>}*@
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
+                        @{
+                            int maxUserRating = int.Parse(System.Web.Configuration.WebConfigurationManager.AppSettings["MaxUserRating"]);
+                            Html.RenderPartial("~/Views/UserRating/UserRating.cshtml", new KarkaThamizha.Object.Models.UserRatingModels() { BookID = Model.Books.BookID, MaxRating = maxUserRating });
+                        }
+                    </div>
+                    <!--<div class="col-md-3">
                         கற்க தமிழா மதிப்பு(Rating)
                         <div class="bdRating">
                             <div><a href="#" title=""><img src="~/Images-Website/Rating.svg" title="Global Rating" alt="" /></a></div>
@@ -41,11 +52,11 @@
                     <div class="col-md-2">
                         <div>உங்கள் மதிப்பு</div>
                         <div class="bdRating">
-                            <div><i id="elmRateUs" class="fas fa-star" style="font-size:1.8em;"></i></div>
-                            @*<div><a href="#" title=""><img src="~/Images-Website/RatingGrey.svg" title="Global Rating" alt="" /></a></div>\*@
-                            <div id="divRating" class="rating-text"><label id="lblUserRating"></label>/<label id="lblRating">@System.Web.Configuration.WebConfigurationManager.AppSettings["MaxUserRating"]</label></div>
+                            <div><i id="elmRateUs" class="fas fa-star" style="font-size:1.8em;"></i></div>-->
+                    @*<div><a href="#" title=""><img src="~/Images-Website/RatingGrey.svg" title="Global Rating" alt="" /></a></div>\*@
+                    <!--<div id="divRating" class="rating-text"><label id="lblUserRating"></label>/<label id="lblRating">@System.Web.Configuration.WebConfigurationManager.AppSettings["MaxUserRating"]</label></div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col-md-3">
@@ -130,118 +141,121 @@
 
     </div>
 </div>
-<div id="dialog-message" title="Rate This">
-    <div id="divRateTitle"><label id="lblRateTitle" /></div>
-    <div id="divRateTool" class="ratingrating"></div>
-    <div id="divFooter">
-        <button id="btnRate" type="button" class="btn btn-secondary btn-sm btn-block" onclick="onAddOrUpdateUserRating(this)">Rate</button>
-        <button id="btnRemoveRating" type="button" class="btn btn-secondary btn-sm btn-block" onclick="onRemoveUserRating(this)">Remove Rating</button>
-    </div>
-</div>
 
-<script>
-    var _userStars = 0, _userRating = {};
-    var stars = @System.Web.Configuration.WebConfigurationManager.AppSettings["MaxUserRating"];
-    $(function () {
-        GetUserRatingByUserAndBookID();
-        $("#dialog-message").dialog({
-            modal: true,
-            autoOpen: false,
-            maxWidth: 450,
-            maxHeight: 250,
-            minWidth: 450,
-            minHeight: 250,
-            width: 450,
-            height: 250
-        });
-        var $ratings = null;
-        $('#elmRateUs').on('click', function () {
-            $('.ratingrating').starRating(
-                {
-                    starIconEmpty: 'far fa-star',
-                    starIconFull: 'fas fa-star',
-                    starColorEmpty: 'lightgray',
-                    starColorFull: 'rgb(87 153 239)',
-                    starsSize: 1.8, // em
-                    showInfo: false,
-                    stars: stars,
-                    defaultStars: _userRating['Rating']
-                });
+<!--<script>
+        var _userStars = 0, _userRating = {};
+        var stars = @System.Web.Configuration.WebConfigurationManager.AppSettings["MaxUserRating"];
+        $(function () {
+            GetUserRatingByUserAndBookID();
+            $("#dialog-message").dialog({
+                modal: true,
+                autoOpen: false,
+                maxWidth: 450,
+                maxHeight: 250,
+                minWidth: 450,
+                minHeight: 250,
+                width: 450,
+                height: 250
+            });
+            var $ratings = null;
+            $('#elmRateUs').on('click', function () {
+                $('.ratingrating').starRating(
+                    {
+                        starIconEmpty: 'far fa-star',
+                        starIconFull: 'fas fa-star',
+                        starColorEmpty: 'lightgray',
+                        starColorFull: 'rgb(87 153 239)',
+                        starsSize: 1.8, // em
+                        showInfo: false,
+                        stars: stars,
+                        defaultStars: _userRating['Rating']
+                    });
 
-            $(document).on('change', '.ratingrating',
-                function (e, stars, index) {
-                    _userStars = stars;
-                    $('#btnRate').addClass('remove-rate').removeClass('add-rate');
-                    if (stars > 0) {
-                        $('#btnRate').removeClass('remove-rate').addClass('add-rate').prop('disabled', false);
-                    }
-                });
+                $(document).on('change', '.ratingrating',
+                    function (e, stars, index) {
+                        _userStars = stars;
+                        $('#hdnUserRating').val(stars);
+                        $('#btnRate').addClass('remove-rate').removeClass('add-rate');
+                        if (stars > 0) {
+                            $('#btnRate').removeClass('remove-rate').addClass('add-rate').prop('disabled', false);
+                        }
+                    });
 
-            $('#btnRemoveRating').hide();
-            if (_userRating['Rating'] > 0) {
-                $('#btnRemoveRating').show();
-            }
-            $("#dialog-message").dialog("open");
-        });
-
-        $("#dialog-message").on("dialogclose", function (event, ui) {
-            $('#divRateTool').removeClass('js-wc-star-rating');
-            $('#divRateTool').empty();
-        });
-    });
-
-
-    function onAddOrUpdateUserRating(e) {
-        var userID = $("#hdnSession").val();
-        var bookID = $("#hdnBookdDetailID").val();
-
-        $.ajax({
-            cache: false,
-            type: 'GET',
-            url: "/UserRating/AddOrUpdateUserRating",
-            data: { userId: userID, bookId: bookID, userRating: _userStars },
-            contentType: "application/json; charset=utf-8",
-            datatype: "json",
-            success: function (response, status, xhr) {
-                $("#dialog-message").dialog("close");
-                GetUserRatingByUserAndBookID();
-            },
-            error: function (jqXHR, exception) {
-
-            }
-        });
-    }
-
-    function onRemoveUserRating(e) {
-        _userStars = 0;
-        onAddOrUpdateUserRating();
-    }
-    function GetUserRatingByUserAndBookID() {
-        var userID = $("#hdnSession").val();
-        var bookID = $("#hdnBookdDetailID").val();
-
-        $.ajax({
-            cache: false,
-            type: 'GET',
-            url: "/UserRating/GetUserRatingByUserAndBookID",
-            data: { userId: userID, bookId: bookID },
-            contentType: "application/json; charset=utf-8",
-            datatype: "json",
-            success: function (response, status, xhr) {
-                _userRating = response;
-                $('#divRating').show();
-                $('#btnRate').removeClass('remove-rate').addClass('add-rate').prop('disabled', false);
-                if (_userRating['Rating'] == 0) {
-                    $('#divRating').hide();
-                    $('#btnRate').addClass('remove-rate').removeClass('add-rate').prop('disabled', true);
+                $('#btnRemoveRating').hide();
+                if (_userRating['Rating'] > 0) {
+                    $('#btnRemoveRating').show();
                 }
-                $('#lblAvgUserRating').text(_userRating['AvgUserRating'])
-                $('#lblRateTitle').text(_userRating['Book']);
-                $('#lblUserRating').text(_userRating['Rating']);
-            },
-            error: function (jqXHR, exception) {
-
-            }
+                $("#dialog-message").dialog("open");
+            });-->
+@*debugger
+    if ('@Session["isRating"]' == 'True') {
+        $('#elmRateUs').trigger('click');
+    }*@
+<!--$("#dialog-message").on("dialogclose", function (event, ui) {
+                $('#divRateTool').removeClass('js-wc-star-rating');
+                $('#divRateTool').empty();
+            });
         });
-    }
-</script>
+
+
+        function onAddOrUpdateUserRating(e) {
+            var userID = $("#hdnSession").val();
+            var bookID = $("#hdnBookdDetailID").val();
+
+            $.ajax({
+                cache: false,
+                type: 'GET',
+                url: "/UserRating/AddOrUpdateUserRating",
+                data: { userId: userID, bookId: bookID, userRating: _userStars },
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (response, status, xhr) {
+                    debugger
+                    $("#dialog-message").dialog("close");
+                    if (!response) {
+                        LoadLoginControl(true, _userStars);
+                        //$('#linklogin').trigger('click');
+                    }
+                    else {
+                        GetUserRatingByUserAndBookID();
+                    }
+                },
+                error: function (jqXHR, exception) {
+
+                }
+            });
+        }
+
+        function onRemoveUserRating(e) {
+            _userStars = 0;
+            onAddOrUpdateUserRating();
+        }
+        function GetUserRatingByUserAndBookID() {
+            var userID = $("#hdnSession").val();
+            var bookID = $("#hdnBookdDetailID").val();
+
+            $.ajax({
+                cache: false,
+                type: 'GET',
+                url: "/UserRating/GetUserRatingByUserAndBookID",
+                data: { userId: userID, bookId: bookID },
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (response, status, xhr) {
+                    _userRating = response;
+                    $('#divRating').show();
+                    $('#btnRate').removeClass('remove-rate').addClass('add-rate').prop('disabled', false);
+                    if (_userRating['Rating'] == 0) {
+                        $('#divRating').hide();
+                        $('#btnRate').addClass('remove-rate').removeClass('add-rate').prop('disabled', true);
+                    }
+                    $('#lblAvgUserRating').text(_userRating['AvgUserRating'])
+                    $('#lblRateTitle').text(_userRating['Book']);
+                    $('#lblUserRating').text(_userRating['Rating']);
+                },
+                error: function (jqXHR, exception) {
+
+                }
+            });
+        }
+</script>-->
