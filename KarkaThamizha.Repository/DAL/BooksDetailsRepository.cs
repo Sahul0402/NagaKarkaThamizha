@@ -202,7 +202,7 @@ namespace KarkaThamizha.Repository.DAL
         1.Karka-->BookDetailsController-->BookDetails 
         
          */
-        public List<BooksDetailsModels> GetAllBooksDetailsByAuthorID(int authorID)
+        public List<BooksDetailsModels> GetAllBooksDetailsByAuthorID(int authorID, int? userID)
         {
             try
             {
@@ -215,6 +215,7 @@ namespace KarkaThamizha.Repository.DAL
                         List<UserModels> Users = new List<UserModels>();
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@AuthorID", authorID);
+                        cmd.Parameters.AddWithValue("@UserID", userID);
                         con.Open();
                         using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                         {
@@ -242,8 +243,12 @@ namespace KarkaThamizha.Repository.DAL
                                     Books = new BooksModels()
                                     {
                                         BookID = DataConversion.Convert2Int32(reader["BookID"].ToString()),
+                                        CategoryID = DataConversion.Convert2Int16(Convert.ToString(reader["CategoryID"])),
                                         Book = Convert.ToString(reader["BookName"]),
+                                        GlobalRating = DataConversion.ConvertInt(reader["GlobalRating"].ToString()), 
+                                        UserRating = DataConversion.ConvertInt(reader["UsrRating"].ToString()),
                                         BookDescription = Convert.ToString(reader["BookDescription"]) != null ? Convert.ToString(reader["BookDescription"]).Replace("\n\r", "<br />").Replace("\r", "<br />") : "",
+                                        BooksReviewID = DataConversion.Convert2Int32(Convert.ToString(reader["BooksReviewID"])),
                                     },
                                     //Publisher = new PublishersModels()
                                     //{
@@ -267,8 +272,8 @@ namespace KarkaThamizha.Repository.DAL
                                     BooksReview = new BooksReviewModels()
                                     {
                                         BooksReviewID = DataConversion.Convert2Int32(Convert.ToString(reader["BooksReviewID"])),
-                                    },                                    
-                                });
+                                    },
+                                }); ;
                             }
                         }
                         return lstBooksDetails;

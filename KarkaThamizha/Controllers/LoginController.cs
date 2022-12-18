@@ -6,18 +6,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace KarkaThamizha.Controllers
 {
     public class LoginController : KarkaThamizhaBaseController
     {
-        public ActionResult UserLogin(string email, string password)
+        public PartialViewResult LoginPartial()
+        {
+
+            return PartialView();
+        }
+        public ActionResult UserLogin(string email, string password, bool isRating = false)
         {
             LoginRepository repoLogin = null;
             LoginModels mdlUser = null;
             string message = "";
-
+            Session["isRating"] = isRating;
             if (string.IsNullOrEmpty(email.Trim()) && string.IsNullOrEmpty(password.Trim()))
                 return null;
 
@@ -36,7 +42,7 @@ namespace KarkaThamizha.Controllers
             {
                 throw ex;
             }
-            return Json(message, JsonRequestBehavior.AllowGet);
+            return Json(new { message = message, isRating = isRating }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Logout()

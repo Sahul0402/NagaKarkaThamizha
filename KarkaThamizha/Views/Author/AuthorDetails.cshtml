@@ -7,15 +7,28 @@
     Layout = "~/Views/Shared/_FullWidthLayout.cshtml";
 }
 
+
 <article class="article-container clearfix" itemscope itemtype="http://schema.org/Article">
+    <div id="dialog-message" title="Rate This">
+        <div id="divRateTitle"><label id="lblRateTitle" /></div>
+        <div id="divRateTool" class="ratingrating"></div>
+        <div id="divFooter">
+            <button id="btnRate" type="button" class="btn btn-secondary btn-sm btn-block" onclick="AddOrUpdateUserRating()">Rate</button>
+            <button id="btnRemoveRating" type="button" class="btn btn-secondary btn-sm btn-block" onclick="onRemoveUserRating()">Remove Rating</button>
+        </div>
+    </div>
+    <input type="hidden" id="hdnMaxRating" value="10" />
+    <input type="hidden" id="hdnBookdDetailID" />
+    <input type="hidden" id="hdnRating" />
     <div class="article-content clearfix">
 
         <div id="divAuthorInfo"></div>
-
         <div class="product-name">
             <h4 itemprop="name" style="color:yellowgreen;text-align:center;">படைப்புகள்</h4>
         </div>
-        <div id="divAuthorBooks"></div>
+
+        @*<div id="divAuthorBooks"></div>*@
+        <table id="tblAuthorBooks"></table>
 
         <footer class="article-boxes clearfix">
 
@@ -46,11 +59,52 @@
         </footer>
     </div>
 </article>
+<link href="~/Content/Karkastyle.css" rel="stylesheet" />
+<style>
+    div[aria-describedby="dialog-message"] {
+        background-color: transparent !important;
+        border: 0px !important;
+    }
+
+        div[aria-describedby="dialog-message"] .ui-dialog-titlebar {
+            background-color: transparent !important;
+            border: 0px !important;
+            padding: 0px !important;
+        }
+
+            div[aria-describedby="dialog-message"] .ui-dialog-titlebar button {
+                float: right !important;
+                border: 0px !important;
+                background-color: transparent !important;
+                transition: width 4s, height 4s, transform 5s;
+            }
+
+                div[aria-describedby="dialog-message"] .ui-dialog-titlebar button span:hover {
+                    transform: rotate(165deg);
+                }
+
+                div[aria-describedby="dialog-message"] .ui-dialog-titlebar button span {
+                    color: white;
+                    font-size: 2.3em;
+                }
+
+    .ui-widget-overlay {
+        background: #000000;
+    }
+
+
+    #dialog-message {
+        background-color: #ffffff;
+    }
+</style>
 
 @{
     @section scripts{
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/jquery.jqgrid.min.js"></script>
         <script src="~/JavaScript/KarkaCommonJS.js"></script>
         <script src="~/JavaScript/Authors.js"></script>
+        <script src="~/JavaScript/Rating.js"></script>
         <script>
             var hdnPage = "AuthorDetails";
             var masterPageID = @((int)EnumCode.Pages.AuthorPage);

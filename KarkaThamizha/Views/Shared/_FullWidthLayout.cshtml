@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="~/Scripts/jquery.star-rating.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/9cd028e484.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/jquery.jqgrid.min.js"></script>
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -58,7 +60,8 @@
                     <ul class="nav navbar-nav navbar-left visible-lg visible-md">
                         @if (Session["UserID"] == null)
                         {
-                            <li class="color-theme"><a href="#" id="login" data-target="#loginModal" data-toggle="modal">Login / Register<span class="nav-line"></span></a></li>
+                            @*<li class="color-theme"><a href="#" id="login" data-target="#loginModal" data-toggle="modal">Login / Register<span class="nav-line"></span></a></li>*@
+                            <li class="color-theme"><a href="#" id="linklogin">Login / Register<span class="nav-line"></span></a></li>
                         }
                         else
                         {
@@ -117,7 +120,7 @@
             </div>
         </header>
         <div>@RenderSection("MainScroll", required: false)</div>
-
+        <div id="divLoginContainer"></div>
         <!-- Main Menu -->
         <nav class="main-menu navbar visible-lg visible-md" data-sticky-header="true">
             <h2 class="hidden">Main Navigation</h2>
@@ -317,3 +320,5 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script src="~/JavaScript/Rating.js"></script>
+<script src="~/JavaScript/KarkaCommonJS.js"></script>

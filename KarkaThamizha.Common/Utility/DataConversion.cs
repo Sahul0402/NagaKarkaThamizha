@@ -7,6 +7,16 @@ namespace KarkaThamizha.Common.Utility
 {
     public static class DataConversion
     {
+        public static int? ConvertInt(string value)
+        {
+            int result = 0;
+            int.TryParse(value, out result);
+            if (result == 0)
+            {
+                return null;
+            }
+            return result;
+        }
         public static Byte Convert2TinyInt(string data)
         {
             Byte value = 0;

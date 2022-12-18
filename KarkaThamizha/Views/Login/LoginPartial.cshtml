@@ -1,0 +1,239 @@
+﻿@*<i class="fa fa-times" aria-hidden="true"></i>*@
+<ul class="nav nav-pills nav-justified">
+    <li class="nav-item active">
+        <a class="nav-link" data-toggle="pill" href="#signin" style="font-size: 1.6rem;">
+            <label>
+                SIGN IN
+            </label>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#signup" style="font-size: 1.6rem;">
+            <label>
+                SIGN UP
+            </label>
+        </a>
+    </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="signin">
+        <form role="form" id="frmLogin">
+            <div class="form-group">
+                <label for="loginemail" class="control-label lbl">Email</label>
+                <input type="text" class="form-control toLowerCase txt" id="loginemail" placeholder="Email" maxlength="40" required />
+            </div>
+            <div class="form-group">
+                <label for="loginPassword" class="control-label lbl">Password</label>
+                <input type="password" class="form-control txt" id="loginPassword" placeholder="Password" maxlength="12" minlength="8" required />
+            </div>
+            <div class="form-group">
+                <div style="float:left">
+                    <label class="checkbox-container">
+                        Remember me
+                        <input type="checkbox" class="custom-checkbox" id="remember" name="remember" required="">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div style="float: right; font-size: 1.3em;">
+                    @Html.ActionLink("Forgot your password?", "", "", new { UserID = 1 }, new { @class = "divfloat", target = "_blank" })
+                    <a href="javascript:;"></a>
+                </div>
+            </div>
+            <button id="btnLogin" type="button" class="btn btn-primary btn-block">Login</button>
+            <div class="form-group" style="text-align: center; padding: 1.5em;">
+                <label class="control-label lbl">
+                    Sign in with social account
+                </label>
+            </div>
+            <div style="display: inline-flex; display: inline-flex;margin-left: 35%;">
+                <div class="icons icon-fa-facebook" style="color: #1b4f9b; border-color: #1b4f9b;">
+                    <i class="fa fa-facebook" style=" line-height: 1; display: inline-block; vertical-align: middle;" aria-hidden="true"></i>
+                </div>
+                <div class="icons icon-fa-twitter" style="color: #00adef; border-color: #00adef;">
+                    <i class="fa fa-twitter" style=" line-height: 1; display: inline-block; vertical-align: middle;" aria-hidden="true"></i>
+                </div>
+                <div class="icons icon-fa-google" style="border-color: #dd4b39; color: #dd4b39;">
+                    <i class="fa fa-google" style=" line-height: 1; display: inline-block; vertical-align: middle;" aria-hidden="true"></i>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="tab-pane fade" id="signup">
+        <form role="form">
+            <div class="form-group">
+                <label for="Name" class="control-label lbl">Name</label>
+                <input type="text" class="form-control toProperCase txt" id="RegName" placeholder="Name (ex.Tamil)" maxlength="35" required />
+            </div>
+            <div class="form-group">
+                <label for="Mobile" class="control-label lbl">Mobile</label>
+                <input type="text" class="form-control txt" id="RegMobile" placeholder="Mobile" maxlength="20" required />
+            </div>
+            <div class="form-group">
+                <label for="EMail" class=" control-label lbl">EMail</label>
+                <input type="text" class="form-control toLowerCase txt" id="RegEMail" placeholder="EMail" onblur="ValidateEmail(this)" maxlength="40" required />
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label lbl">Password</label>
+                <input type="password" class="form-control txt" id="RegPassword" placeholder="Password" maxlength="12" minlength="8" required />
+            </div>
+            <div class="row" style="margin:0px !important;">
+                <div class="col-sm-6">
+                    <button type="button" id="Register" class="btn btn-warning btn-block btn-sm">Register</button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" id="btnCancel" class="btn btn-default btn-block btn-sm" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    .icons {
+        width: 35px;
+        border: 1px solid red;
+        border-radius: 23px;
+        line-height: 2px;
+        line-height: 30px;
+        height: 35px;
+        text-align: center;
+        margin-left: 10px;
+        background-color: #fff;
+        border-width: 1px;
+        font-size: 1.3em;
+    }
+
+    div[aria-describedby="divLoginContainer"] {
+        background-color: transparent !important;
+        border: 0px !important;
+    }
+
+        div[aria-describedby="divLoginContainer"] .ui-dialog-titlebar {
+            background-color: transparent !important;
+            border: 0px !important;
+            padding: 0px !important;
+        }
+
+            div[aria-describedby="divLoginContainer"] .ui-dialog-titlebar button {
+                float: right !important;
+                border: 0px !important;
+                background-color: transparent !important;
+                transition: width 4s, height 4s, transform 5s;
+            }
+
+                div[aria-describedby="divLoginContainer"] .ui-dialog-titlebar button span:hover {
+                    transform: rotate(165deg);
+                }
+
+                div[aria-describedby="divLoginContainer"] .ui-dialog-titlebar button span {
+                    color: white;
+                    font-size: 2.3em;
+                }
+
+    .ui-widget-overlay {
+        background: #000000;
+    }
+
+
+    #divLoginContainer {
+        background-color: #ffffff;
+    }
+
+    .txt {
+        display: block;
+        width: 100%;
+        min-height: 4.7rem;
+        padding: 0.85rem 2rem;
+        border: 1px solid #eee;
+        font-size: 1.4rem;
+        font-family: Poppins, sans-serif;
+        line-height: 1.5;
+        font-weight: 400;
+        color: #999;
+        background-color: transparent;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        outline: 0;
+        font-size: 1.4rem;
+    }
+
+    .lbl {
+        display: block;
+        margin-bottom: 0.5rem rem;
+        font-size: 1.4rem;
+    }
+    /* The container */
+    .checkbox-container {
+        display: block;
+        position: relative;
+        padding-left: 24px;
+        margin-bottom: 11px;
+        cursor: pointer;
+        font-size: 15px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+        /* Hide the browser's default checkbox */
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 21px;
+        width: 21px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .checkbox-container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .checkbox-container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .checkbox-container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .checkbox-container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+        border-bottom: 2px solid #428bca;
+        color: #000;
+        background-color: transparent !important;
+        border-radius: 0;
+    }
+</style>

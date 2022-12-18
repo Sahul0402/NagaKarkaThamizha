@@ -9,6 +9,7 @@ namespace KarkaThamizha.Object.Models
 {
     public class BooksModels
     {
+        public int CategoryID { get; set; }
         public int BookID { get; set; }
 
         [DisplayName("Book Name")]        
@@ -35,5 +36,8 @@ namespace KarkaThamizha.Object.Models
         public CategoryModels Category { get; set; }
         public List<CategoryModels> lstSubCategories { get; set; }
         public string FileUploadType { get; set; }
+        public int? GlobalRating     { get; set; }
+        public int? UserRating { get; set; }
+        public int BooksReviewID { get; set; }
     }
 }

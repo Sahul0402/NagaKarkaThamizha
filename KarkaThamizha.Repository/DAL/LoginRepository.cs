@@ -52,7 +52,7 @@ namespace KarkaThamizha.Repository.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@emailId", email.Trim().ToLower());
                     cmd.Parameters.AddWithValue("@password", Encryption.Encrypt(password.Trim()));
-                    
+
                     try
                     {
                         con.Open();
@@ -99,7 +99,7 @@ namespace KarkaThamizha.Repository.DAL
                     }
                     catch (Exception ex)
                     {
-                        
+
                     }
                 }
             }

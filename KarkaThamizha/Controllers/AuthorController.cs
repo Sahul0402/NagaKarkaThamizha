@@ -18,7 +18,7 @@ namespace KarkaThamizha.Controllers
     {
         #region Show Authors
         // GET: Author
-        [AcceptVerbs(HttpVerbs.Get)]      
+        [AcceptVerbs(HttpVerbs.Get)]
         [Route("Authors")]
         public ActionResult Authors()
         {
@@ -65,7 +65,7 @@ namespace KarkaThamizha.Controllers
 
             pageNumber = page.HasValue ? Convert.ToInt32(page) : 1;
             return PartialView("_Authors", mdlUser.ToPagedList(pageNumber, pageSize));
-        } 
+        }
         #endregion
 
         #region Author Details - Info & Books
@@ -134,6 +134,59 @@ namespace KarkaThamizha.Controllers
             return userDetails;
         }
 
+        public ActionResult GetAuthorBooksDetailsByAuthorID(int? userID)
+        {
+            try
+            {
+                BooksModels mdlbook = new BooksModels();
+                List<BooksDetailsModels> mdlBookDetails = new List<BooksDetailsModels>();
+                List<BooksDetailsModels> books = new List<BooksDetailsModels>();
+
+                if (userID.HasValue && userID > 0)
+                {
+                    DataCaching repoUser = new DataCaching();
+                    BooksDetailsRepository repoBookDetail = new BooksDetailsRepository();
+
+                    //Get Author Profile
+                    //var users = (from user in repoUser.GetAllAuthorsProfile((Byte)EnumCode.UserType.Author).Where(x => x.UserID == userID.Value) select user).FirstOrDefault();
+                    //if (users != null)
+                    //{
+                    //    mdlbook.Users = users;
+                    //Get Author BookDetails
+                    int? userId = null;
+                    if (Session["UserID"] != null)
+                    {
+                        userId = int.Parse(Session["UserID"].ToString());
+                    }
+
+                    mdlBookDetails = repoBookDetail.GetAllBooksDetailsByAuthorID(userID.Value, userId).ToList();
+
+                    var books1 = mdlBookDetails.GroupBy(x => x.CategoryID).Select(x => x.FirstOrDefault()).ToList();
+
+                    foreach (BooksDetailsModels item in books1)
+                    {
+                        var booksList = mdlBookDetails.Where(x => x.CategoryID == item.CategoryID && x.Books.CategoryID == item.CategoryID).Select(b=>b.Books).ToList();
+                        books.Add(new BooksDetailsModels
+                        {
+                            CategoryID = item.CategoryID,
+                            CategoryName = item.CategoryName,
+                            Price = item.Price,
+                            FirstEdition = item.FirstEdition,
+                            BooksReviewID = item.BooksReview.BooksReviewID,
+                            BookList = booksList,
+                            UserTypeID = item.UserTypeID
+                        });
+                    }
+                    //}
+                }
+                return Json(books, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public ActionResult GetAuthorBooksByAuthorID(int? userID)
         {
             try
@@ -153,23 +206,23 @@ namespace KarkaThamizha.Controllers
                     //{
                     //    mdlbook.Users = users;
                     //Get Author BookDetails
-                    mdlBookDetails = repoBookDetail.GetAllBooksDetailsByAuthorID(userID.Value).ToList();
+                    mdlBookDetails = repoBookDetail.GetAllBooksDetailsByAuthorID(userID.Value, null).ToList();
 
-                        var books1 = mdlBookDetails.GroupBy(x => x.CategoryID).Select(x => x.FirstOrDefault()).ToList();
+                    var books1 = mdlBookDetails.GroupBy(x => x.CategoryID).Select(x => x.FirstOrDefault()).ToList();
 
-                        foreach (BooksDetailsModels item in books1)
+                    foreach (BooksDetailsModels item in books1)
+                    {
+                        books.Add(new BooksDetailsModels
                         {
-                            books.Add(new BooksDetailsModels
-                            {
-                                CategoryID = item.CategoryID,
-                                CategoryName = item.CategoryName,
-                                Price = item.Price,
-                                FirstEdition = item.FirstEdition,
-                                BooksReviewID = item.BooksReview.BooksReviewID,
-                                authorBooks = mdlBookDetails.Where(x => x.CategoryID == item.CategoryID).ToList(),
-                                UserTypeID = item.UserTypeID
-                            });
-                        }
+                            CategoryID = item.CategoryID,
+                            CategoryName = item.CategoryName,
+                            Price = item.Price,
+                            FirstEdition = item.FirstEdition,
+                            BooksReviewID = item.BooksReview.BooksReviewID,
+                            authorBooks = mdlBookDetails.Where(x => x.CategoryID == item.CategoryID).ToList(),
+                            UserTypeID = item.UserTypeID
+                        });
+                    }
                     //}
                 }
                 return PartialView("_AuthorBooks", books);
@@ -217,7 +270,7 @@ namespace KarkaThamizha.Controllers
         #endregion
 
         #region Author Interviews
-        
+
         [AcceptVerbs(HttpVerbs.Get)]
         [ActionName("Interviews")]
         [Route("Interviews")]

@@ -1,0 +1,93 @@
+﻿@model KarkaThamizha.Object.Models.UserRatingModels
+<div class="row">
+    <input type="hidden" id="hdnBookName" value="@Model.BookName" />
+    <input type="hidden" id="hdnBookTitle" value="@Model.Book" />
+    <input type="hidden" id="hdnBookId" value="@Model.BookID" />
+    <input type="hidden" id="hdnMaxRating" value="@Model.MaxRating" />
+    <input type="hidden" id="hdnRating" value="@Model.Rating" />
+    <input type="hidden" id="hdnUserRating" />
+    <div class="col-md-6">
+        கற்க தமிழா மதிப்பு(Rating)
+        <div class="bdRating">
+            <div><a href="#" title=""><img src="~/Images-Website/Rating.svg" title="Global Rating" alt="" /></a></div>
+            <div id="divAvgRating" class="rating-text">
+                @{ if (!string.IsNullOrWhiteSpace(Model.AvgUserRating))
+                    {
+                        <label id="lblAvgUserRating">@Model.AvgUserRating</label>
+                        <label id="lblAvgRating">@Model.MaxRating</label>
+                    }
+                    else
+                    {
+                        <label id="lblAvgUserRating"></label>
+                        <label id="lblAvgRating"></label>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div>உங்கள் மதிப்பு</div>
+        <div class="bdRating">
+            <div><i id="elmRateUs" class="fas fa-star" style="font-size:1.8em;"></i></div>
+            <div id="divRating" class="rating-text">
+                @{ if (@Model.Rating > 0)
+                    {
+                        <label id="lblUserRating">@Model.Rating</label>
+                        <label id="lblRating">@Model.MaxRating</label>
+                    }
+                    else
+                    {
+                        <label id="lblUserRating"></label>
+                        <label id="lblRating"></label>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dialog-message" title="Rate This">
+    <div id="divRateTitle"><label id="lblRateTitle" /></div>
+    <div id="divRateTool" class="ratingrating"></div>
+    <div id="divFooter">
+        <button id="btnRate" type="button" class="btn btn-secondary btn-sm btn-block" onclick="onAddOrUpdateUserRating()">Rate</button>
+        <button id="btnRemoveRating" type="button" class="btn btn-secondary btn-sm btn-block" onclick="onRemoveUserRating()">Remove Rating</button>
+    </div>
+</div>
+<style>
+    div[aria-describedby="dialog-message"] {
+        background-color: transparent !important;
+        border: 0px !important;
+    }
+
+        div[aria-describedby="dialog-message"] .ui-dialog-titlebar {
+            background-color: transparent !important;
+            border: 0px !important;
+            padding: 0px !important;
+        }
+
+            div[aria-describedby="dialog-message"] .ui-dialog-titlebar button {
+                float: right !important;
+                border: 0px !important;
+                background-color: transparent !important;
+                transition: width 4s, height 4s, transform 5s;
+            }
+
+                div[aria-describedby="dialog-message"] .ui-dialog-titlebar button span:hover {
+                    transform: rotate(165deg);
+                }
+
+                div[aria-describedby="dialog-message"] .ui-dialog-titlebar button span {
+                    color: white;
+                    font-size: 2.3em;
+                }
+
+    .ui-widget-overlay {
+        background: #000000;
+    }
+
+
+    #dialog-message {
+        background-color: #ffffff;
+    }
+</style>

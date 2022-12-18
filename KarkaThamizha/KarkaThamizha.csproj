@@ -504,6 +504,8 @@
     <Content Include="Views\Shared\_Comments.cshtml" />
     <Content Include="Views\BooksReview\AllReview.cshtml" />
     <Content Include="Views\BooksReview\Reviews.cshtml" />
+    <Content Include="Views\UserRating\UserRating.cshtml" />
+    <Content Include="Views\Login\LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images-Articles\" />
@@ -512,8 +514,6 @@
     <Folder Include="Images-Publisher\" />
     <Folder Include="Images-Users\" />
     <Folder Include="Views\Feedback\" />
-    <Folder Include="Views\Login\" />
-    <Folder Include="Views\UserRating\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
