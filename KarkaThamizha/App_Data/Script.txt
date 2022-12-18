@@ -1,4 +1,21 @@
-﻿CREATE TABLE [dbo].[Pages](
+﻿18.12.2022
+Create table FavouriteUser(FUID int primary key identity(1,1),UserID int references Users(UserID),
+FavouriteUser varchar(60),CreatedDate DATETIME	Default GETDATE() NULL)
+
+Insert into FavouriteUser(UserID,FavouriteUser)values(178,'177,176,175,174,173,172,171,170,169,168,167,166')
+Insert into FavouriteUser(UserID,FavouriteUser)values(2,'61,62,83,64,65,69,70,72,73,74')
+
+Go
+
+Create table FavouriteCategory(FCID int primary key identity(1,1),UserID int references Users(UserID),
+FavouriteCategory varchar(30),CreatedDate DATETIME	Default GETDATE() NULL)
+
+Insert into FavouriteCategory(UserID,FavouriteCategory)values(2,'1,2,3,4,5,6,7,8,9,10')
+Insert into FavouriteCategory(UserID,FavouriteCategory)values(178,'11,12,13,14,15,16,17,18,19,20')
+
+Go
+****************************************************************************************************
+CREATE TABLE [dbo].[Pages](
 	[PageID]		[TINYINT] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[Name]			[VARCHAR](25) NULL,
 	[ProjectID]		[TINYINT] REFERENCES dbo.Projects(PROJECTID),
