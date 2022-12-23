@@ -26,7 +26,6 @@ function designAuthorBookGrid(data) {
         var gridRows = $('#tblAuthorBooks').find('.sgexpanded').parent()
         $("#tblAuthorBooks").jqGrid({ data: data }).trigger("reloadGrid");
         gridRows.each(function (id) {
-            debugger
             $("#tblAuthorBooks").expandSubGridRow($(this)[0].id)
 
         });
@@ -62,7 +61,6 @@ function designAuthorBookGrid(data) {
             "expandOnLoad": false
         },
         collapseSubGridRow: function (subgrid_id, row_id) {
-            debugger
         },
         subGridRowExpanded: function (subgrid_id, row_id) {
             var categoryID = $("#tblAuthorBooks").jqGrid('getRowData', row_id).CategoryID;

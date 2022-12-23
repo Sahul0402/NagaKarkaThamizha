@@ -47,7 +47,6 @@ $("#SaveChangePassword").click(function () {
 
 //#region Add User Books Review
 $("#SaveBookReview").click(function () {
-    debugger;
     var bookId = document.getElementById("AuthorID").value;
     var header = document.getElementById("Header").value;
     var description = document.getElementById("Description").value;

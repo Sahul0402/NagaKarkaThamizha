@@ -110,7 +110,6 @@ function onAddOrUpdateUserRating(isLogin, userRatingCallback) {
             //}
             //else { 
             $("#dialog-message").dialog("close");
-            debugger
             if (isLogin) {
                 location.reload();
             }
@@ -150,7 +149,6 @@ function GetUserRatingByUserAndBookID() {
             contentType: "application/json; charset=utf-8",
             datatype: "json",
             success: function (response, status, xhr) {
-                debugger
                 _userRating = response;
                 $('#divRating').show();
                 $('#btnRate').removeClass('remove-rate').addClass('add-rate').prop('disabled', false);

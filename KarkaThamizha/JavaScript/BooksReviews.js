@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    debugger;
     var pageName = document.location.href.match(/[^\/]+$/)[0];
     var reviewBy = hdnPageReview;
     if (reviewBy == "User")

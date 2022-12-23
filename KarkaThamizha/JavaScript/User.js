@@ -11,7 +11,6 @@
 //#region Books Review By User ID
 
 function PopulateUserInfoByUserId(id) {
-    debugger;
     var targetControlInfo = "#divUserInfo";
 
     $.ajax({
@@ -22,7 +21,6 @@ function PopulateUserInfoByUserId(id) {
         contentType: "application/json; charset=utf-8",
         dataType: "html",
         success: function (response) {
-            debugger;
             if (response != null) {
                 $(targetControlInfo).html(response);
             }
@@ -50,7 +48,6 @@ function BooksReviewUserByID(id, paging, viewIn) {
         contentType: "application/json; charset=utf-8",
         dataType: "html",
         success: function (response) {
-            debugger;
             $(targetControl).empty();
             $(targetControl).html(response);
         },

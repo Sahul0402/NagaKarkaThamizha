@@ -35,7 +35,6 @@ $("#submitFeedback").click(function () {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (response) {
-            debugger;
             if (response == "Success") {
                 alert('Thanks for your feedback.');
             }

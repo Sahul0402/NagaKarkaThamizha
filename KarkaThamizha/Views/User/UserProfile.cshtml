@@ -9,7 +9,7 @@
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
 <style>
-    
+
     .tab-accordion .tab-content .row {
         padding: 6px 0;
     }
@@ -17,6 +17,7 @@
     .tab-accordion input.form-control {
         height: 30px !important;
     }
+
     .tab-accordion select.form-control {
         height: 30px !important;
     }
@@ -264,6 +265,12 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-2 control-label">Favourite Translator</div>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(m => m.UserID, new SelectList(Model.Authors, "Value", "Text"), "...Select Author...", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-2 control-label">Favourite Categories</div>
                             <div class="col-md-10">
                                 <div>
@@ -302,7 +309,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                @Html.TextAreaFor(m => m.UserDetail.Profile, new { @maxlength = "2000", style="height:250px;", cols = "120", rows = "8", @class = "txtMultiTextBox", tabindex = 20 })
+                                @Html.TextAreaFor(m => m.UserDetail.Profile, new { @class = "ckeditor", @id = "Description", @rows = "200" })
                             </div>
                         </div>
                         <div class="row">
@@ -348,38 +355,38 @@
                     </article>
                 </section>
                 @*<section id="section3">
-                    <input type="radio" name="sections" id="option3">
-                    <label for="option3">Book Review</label>
-                    <article>
-                        <h2>Add New Book Review</h2>
-                        <div class="tab-content" style="padding-top: 10px; width: 200%;">
-                            <div class="row">
-                                <div class="col-md-2 control-label">Book ID</div>
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.AuthorID, new { @class = "form-control", style = "", tabindex = 1 })
+                        <input type="radio" name="sections" id="option3">
+                        <label for="option3">Book Review</label>
+                        <article>
+                            <h2>Add New Book Review</h2>
+                            <div class="tab-content" style="padding-top: 10px; width: 200%;">
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Book ID</div>
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.AuthorID, new { @class = "form-control", style = "", tabindex = 1 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Header</div>
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.Header, new { @class = "form-control", style = "", tabindex = 2 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Description</div>
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(m => m.Description, new { @maxlength = "1000", @class = "form-control", style = "", tabindex = 3 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3" style="float:right;">
+                                        <button type="submit" id="SaveBookReview" class="btn btn-warning btn-sm">Submit</button>
+                                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Clear</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-2 control-label">Header</div>
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.Header, new { @class = "form-control", style = "", tabindex = 2 })
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2 control-label">Description</div>
-                                <div class="col-md-10">
-                                    @Html.TextAreaFor(m => m.Description, new { @maxlength = "1000", @class = "form-control", style = "", tabindex = 3 })
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3" style="float:right;">
-                                    <button type="submit" id="SaveBookReview" class="btn btn-warning btn-sm">Submit</button>
-                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Clear</button>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </section>*@
+                        </article>
+                    </section>*@
                 <section id="section4">
                     <input type="radio" name="sections" id="option4">
                     <label for="option4">Activity Log</label>
@@ -404,6 +411,12 @@
     <script type="text/javascript">
         $(function () {
             $("#UserID").select2();
+        });
+    </script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('#UserDetail.Profile');
         });
     </script>
 }

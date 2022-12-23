@@ -90,7 +90,6 @@ function LoadLoginControl(isRating, userRating) {
 
             //#region Login & Register Popup
             $("#btnLogin").live('click', function () {
-                debugger
                 var mailid = document.getElementById("loginemail").value;
                 var pwd = document.getElementById("loginPassword").value;
                 if (mailid == "" || pwd == "") {
@@ -239,7 +238,6 @@ function LoadUserFeedback(MainPage) {
 }
 
 $("#submitComments11").click(function (e) {
-    debugger;
     e.preventDefault();
 
     var targetControl = "#msgPageFeedback";
