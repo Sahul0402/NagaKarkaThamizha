@@ -80,6 +80,7 @@
     <Compile Include="DAL\LoginRepository.cs" />
     <Compile Include="DAL\MasterRepository.cs" />
     <Compile Include="DAL\SQLObjects.cs" />
+    <Compile Include="DAL\UserCommentsRepository.cs" />
     <Compile Include="DAL\UserDetailsRepository.cs" />
     <Compile Include="DAL\UserRatingRepository.cs" />
     <Compile Include="DAL\UserRepository.cs" />
@@ -97,6 +98,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KarkaContract\KarkaThamizhaContract.csproj">
+      <Project>{7EF8D6BE-33BB-4974-AA8A-DDB6BD6CBC54}</Project>
+      <Name>KarkaThamizhaContract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KarkaThamizha.Common\KarkaThamizha.Common.csproj">
       <Project>{152DF0C5-7E35-4E71-95D2-7ECC08B5FB7A}</Project>
       <Name>KarkaThamizha.Common</Name>

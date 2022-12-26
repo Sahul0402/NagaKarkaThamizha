@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KarkaDatabase", "KarkaDatab
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "KarkaThamizha", "..\KarkaDatabase\KarkaThamizha\KarkaThamizha.sqlproj", "{3EC19EA0-5BEC-4BB8-BC57-99A1FCF9A240}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarkaThamizhaContract", "..\KarkaContract\KarkaThamizhaContract.csproj", "{7EF8D6BE-33BB-4974-AA8A-DDB6BD6CBC54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{3EC19EA0-5BEC-4BB8-BC57-99A1FCF9A240}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EC19EA0-5BEC-4BB8-BC57-99A1FCF9A240}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3EC19EA0-5BEC-4BB8-BC57-99A1FCF9A240}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7EF8D6BE-33BB-4974-AA8A-DDB6BD6CBC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EF8D6BE-33BB-4974-AA8A-DDB6BD6CBC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EF8D6BE-33BB-4974-AA8A-DDB6BD6CBC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EF8D6BE-33BB-4974-AA8A-DDB6BD6CBC54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

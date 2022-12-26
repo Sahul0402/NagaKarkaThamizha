@@ -196,6 +196,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\firefox.css" />
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\jquery-comments.css" />
     <Content Include="Content\Karkastyle.css" />
     <Content Include="Content\Magazinestyle.css" />
     <Content Include="Content\PagedList.css" />
@@ -436,6 +437,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-comments.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.star-rating.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -528,6 +530,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KarkaContract\KarkaThamizhaContract.csproj">
+      <Project>{7EF8D6BE-33BB-4974-AA8A-DDB6BD6CBC54}</Project>
+      <Name>KarkaThamizhaContract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KarkaThamizha.Common\KarkaThamizha.Common.csproj">
       <Project>{152df0c5-7e35-4e71-95d2-7ecc08b5fb7a}</Project>
       <Name>KarkaThamizha.Common</Name>

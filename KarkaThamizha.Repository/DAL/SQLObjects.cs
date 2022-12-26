@@ -17,19 +17,19 @@ namespace KarkaThamizha.Repository.DAL
         public const string AddBooks = "dbo.USP_AddBooks";
         public const string GetAllBooks = "dbo.USP_GetAllBooks";
         public const string UpdateBook = "dbo.USP_UpdateBook";
-        public const string DeleteBook = "dbo.USP_DeleteBook";                
+        public const string DeleteBook = "dbo.USP_DeleteBook";
         public const string GetSelectedAuthor = "USP_GetSelectedAuthor";
         public const string GetAllBestBooks = "USP_GetAllBestBooks";
         public const string UpdateBookStatus = "USP_UpdateBookStatus";
         public const string GetRelatedBooksByCategoryID = "USP_GetRelatedBooksByCategoryID";
         public const string GetBooksDetailsByBookID = "USP_GetBooksDetailsByBookID";
         public const string GetAllBooksByAuthorID = "USP_GetAllBooksByAuthorID";
-                    
-        
+
+
         #endregion
 
         #region Book Format
-        public const string GetAllBookFormat = "dbo.USP_GetAllBookFormat"; 
+        public const string GetAllBookFormat = "dbo.USP_GetAllBookFormat";
         #endregion
 
         #region Category
@@ -92,7 +92,7 @@ namespace KarkaThamizha.Repository.DAL
 
         public const string AddMagazine = "dbo.USP_AddMagazine";
         public const string AddMagazineReview = "dbo.USP_AddMagazineReview";
-        public const string GetAllMagazineReview = "dbo.USP_GetAllMagazineReview";                    
+        public const string GetAllMagazineReview = "dbo.USP_GetAllMagazineReview";
         public const string GetBooksReviewByMag = "dbo.USP_GetBooksReviewByMag";
         public const string AddMagazineIssue = "dbo.USP_AddMagazineIssue";
 
@@ -125,18 +125,18 @@ namespace KarkaThamizha.Repository.DAL
         public const string GetAllAuthorsProfile = "dbo.USP_GetAllAuthorsProfile";
         public const string GetAuthorsProfileByID = "USP_GetAuthorsProfileByID";
 
-        public const string AddUser = "dbo.USP_AddUser";                
+        public const string AddUser = "dbo.USP_AddUser";
         public const string GetUserByUserID = "dbo.USP_GetUserByUserID";
         public const string AddUserDetails = "dbo.USP_AddUserDetails";
-        public const string GetUsersDetailsByUserId = "dbo.USP_GetUsersDetailsByUserId";                    
+        public const string GetUsersDetailsByUserId = "dbo.USP_GetUsersDetailsByUserId";
         public const string CheckMailExists = "USP_CheckMailExists";
         public const string GetLogInUser = "USP_GetLogInUser";
         public const string GetUserProfileByUserID = "USP_GetUserProfileByUserID";
         public const string UpdateUserProfile = "USP_UpdateUserProfile";
 
         #region User
-                public const string GetAllUserType = "dbo.USP_GetAllUserType";
-                public const string GetUserDetails = "dbo.USP_GetUserDetails";
+        public const string GetAllUserType = "dbo.USP_GetAllUserType";
+        public const string GetUserDetails = "dbo.USP_GetUserDetails";
         #endregion
 
         #region Author
@@ -156,10 +156,10 @@ namespace KarkaThamizha.Repository.DAL
         public const string GetAllArticle = "dbo.USP_GetAllArticle";
         public const string GetAllArticleType = "dbo.USP_GetAllArticleType";
 
-        public const string AddAuthorSeries = "dbo.USP_AddAuthorSeries";                    
+        public const string AddAuthorSeries = "dbo.USP_AddAuthorSeries";
         public const string AddInterview = "dbo.USP_AddInterview";
         public const string AddAuthorProfile = "dbo.USP_AddAuthorProfile";
-        public const string DeleteArtcle = "dbo.USP_DeleteArtcle";                    
+        public const string DeleteArtcle = "dbo.USP_DeleteArtcle";
         public const string AddArticle = "dbo.USP_AddArticle";
 
         #endregion
@@ -211,6 +211,13 @@ namespace KarkaThamizha.Repository.DAL
         #region Rating
         public const string AddOrUpdateUserRating = "dbo.USP_AddOrUpdateUserRating";
         public const string GetUserRatingByUserAndBookID = "dbo.USP_GetUserRatingByUserAndBookID";
+        #endregion
+
+        #region userComments
+        public const string GetUserCommentsByBookID = "dbo.GetUserCommentsByBookID";
+        public const string AddOrUpdateUserCommentsByBookID = "dbo.AddOrUpdateUserCommentsByBookID";
+        public const string UpVoteUserCommentsByID = "dbo.UpVoteUserCommentsByID";
+        public const string DeleteUserCommentsByID = "dbo.DeleteUserCommentsByID";
         #endregion
 
         public const string GetLatestNews = "dbo.USP_GetLatestNews";

@@ -1,12 +1,12 @@
 
-IF EXISTS ( SELECT  *
-            FROM    sys.objects
-            WHERE   object_id = OBJECT_ID(N'usp_GetUserRatingByUserAndBookID')
-                    AND type IN ( N'P', N'PC' ) ) 
-BEGIN
- DROP PROCEDURE [dbo].[usp_GetUserRatingByUserAndBookID]
- END
-GO
+--IF EXISTS ( SELECT  *
+--            FROM    sys.objects
+--            WHERE   object_id = OBJECT_ID(N'usp_GetUserRatingByUserAndBookID')
+--                    AND type IN ( N'P', N'PC' ) ) 
+--BEGIN
+-- DROP PROCEDURE [dbo].[usp_GetUserRatingByUserAndBookID]
+-- END
+--GO
 /*
 exec [dbo].[usp_GetUserRatingByUserAndBookID]  @UserID = 178, @bookid =333
 select * from UserRating

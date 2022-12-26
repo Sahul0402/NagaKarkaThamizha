@@ -42,16 +42,18 @@
                 </div>
 
                 <div class="widget-content color-theme clearfix">
+                    <div id="comments-container"></div>
                     <div class="comments">
                         <div id="divUserFeedback"></div>
 
-                        @{
+
+                        @*@{
                             Html.RenderPartial("_Comments", new KarkaThamizha.Object.Models.CommentsModels());
                         }
 
                         @{
                             Html.RenderPartial("_AddComments", new KarkaThamizha.Object.Models.CommentsModels());
-                        }
+                        }*@
 
                     </div>
                 </div>
@@ -101,7 +103,10 @@
 @{
     @section scripts{
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">
+        <link href="~/Content/jquery-comments.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/jquery.jqgrid.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
+        <script src="~/Scripts/jquery-comments.js"></script>
         <script src="~/JavaScript/KarkaCommonJS.js"></script>
         <script src="~/JavaScript/Authors.js"></script>
         <script src="~/JavaScript/Rating.js"></script>

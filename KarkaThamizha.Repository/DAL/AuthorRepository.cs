@@ -12,9 +12,7 @@ namespace KarkaThamizha.Repository.DAL
 {
     public class AuthorRepository
     {
-      
-
-        #region Article - AboutAuthor
+            #region Article - AboutAuthor
         public string AddAuthorProfile(UserModels authorProfile)
         {
             string result = "";

@@ -57,9 +57,15 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Stored Procedures" />
+    <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Stored Procedures\dbo.USP_GetAllBooksDetailsByAuthorID.proc.sql" />
     <Build Include="Stored Procedures\dbo.usp_GetUserRatingByUserAndBookID.proc.sql" />
+    <Build Include="Stored Procedures\dbo.DeleteUserCommentsByID.proc.sql" />
+    <Build Include="Stored Procedures\dbo.GetUserCommentsByBookID.proc.sql" />
+    <Build Include="Stored Procedures\dbo.ups_AddOrUpdateUserCommentsByBookID.Proc.sql" />
+    <Build Include="Stored Procedures\dbo.UpVoteUserCommentsByID.proc.sql" />
+    <Build Include="Tables\dbo.UserComments.table.sql" />
   </ItemGroup>
 </Project>

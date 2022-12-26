@@ -1,12 +1,12 @@
 
-IF EXISTS ( SELECT  *
-            FROM    sys.objects
-            WHERE   object_id = OBJECT_ID(N'USP_GetAllBooksDetailsByAuthorID')
-                    AND type IN ( N'P', N'PC' ) ) 
-BEGIN
- DROP PROCEDURE [dbo].[USP_GetAllBooksDetailsByAuthorID]
- END
-GO
+--IF EXISTS ( SELECT  *
+--            FROM    sys.objects
+--            WHERE   object_id = OBJECT_ID(N'USP_GetAllBooksDetailsByAuthorID')
+--                    AND type IN ( N'P', N'PC' ) ) 
+--BEGIN
+-- DROP PROCEDURE [dbo].[USP_GetAllBooksDetailsByAuthorID]
+-- END
+--GO
 
 /****** Object:  StoredProcedure [dbo].[USP_GetAllBooksDetailsByAuthorID] 
 exec [dbo].[#USP_GetAllBooksDetailsByAuthorID] 63, 178

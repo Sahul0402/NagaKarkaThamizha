@@ -1,4 +1,5 @@
-﻿using KarkaThamizha.Common.Utility;
+﻿using KarkaContract;
+using KarkaThamizha.Common.Utility;
 using KarkaThamizha.Controller;
 using KarkaThamizha.Object.Models;
 using KarkaThamizha.Repository.CacheData;
@@ -16,6 +17,15 @@ namespace KarkaThamizha.Controllers
     [CustomErrorAttribute]
     public class AuthorController : KarkaThamizhaBaseController
     {
+        //private readonly IUserCommentsRepository _userCommentsRepository;
+        //public AuthorController(IUserCommentsRepository userCommentsRepository)
+        //{
+        //    _userCommentsRepository = userCommentsRepository;
+        //}
+        public AuthorController()
+        {
+        }
+
         #region Show Authors
         // GET: Author
         [AcceptVerbs(HttpVerbs.Get)]
@@ -165,7 +175,7 @@ namespace KarkaThamizha.Controllers
 
                     foreach (BooksDetailsModels item in books1)
                     {
-                        var booksList = mdlBookDetails.Where(x => x.CategoryID == item.CategoryID && x.Books.CategoryID == item.CategoryID).Select(b=>b.Books).ToList();
+                        var booksList = mdlBookDetails.Where(x => x.CategoryID == item.CategoryID && x.Books.CategoryID == item.CategoryID).Select(b => b.Books).ToList();
                         books.Add(new BooksDetailsModels
                         {
                             CategoryID = item.CategoryID,
@@ -351,5 +361,85 @@ namespace KarkaThamizha.Controllers
         //    List<UserModels> authors = caching.GetAllUsers().Where(x => x.UserID == authorID.Value).ToList();
         //    return PartialView("_AuthorInfo", authors);
         //}
+
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult GetAllUserCommentsByBookId()
+        {
+            List<UserComments> bookComments = new List<UserComments>();
+            try
+            {
+                IUserCommentsRepository _userCommentsRepository = new UserCommentsRepository();
+                bookComments = _userCommentsRepository.GetUserCommentsByBookID(330, 63, 178);
+                //bookComments.Add(new UserComments()
+                //{
+                //    id = 1,
+                //    content = "My Comments",
+                //    created = DateTime.Now,
+                //    created_by_admin = false,
+                //    created_by_current_user = true,
+                //    creator = 1,
+                //    fullname = "Naga",
+                //    is_new = true,
+                //    parent = null,
+                //    profile_picture_url = "",
+                //});
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json(bookComments, JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult AddOrUpdateUserCommentsByBookId(UserComments bookComments)
+        {
+            try
+            {
+                bookComments.BookId = 330;
+                bookComments.AuthorId = 63;
+                bookComments.creator = 178;
+                if (!string.IsNullOrEmpty(bookComments.parent))
+                {
+                    bookComments.parent = bookComments.parent.Replace("c", "");
+                }
+
+                IUserCommentsRepository _userCommentsRepository = new UserCommentsRepository();
+                _userCommentsRepository.AddOrUpdateUserCommentsByBookID(bookComments);
+            }
+            catch (Exception ex)
+            {
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult UpVoteUserComments(int commentID, int upVoteCount, bool isUpVote)
+        {
+            try
+            {
+                IUserCommentsRepository _userCommentsRepository = new UserCommentsRepository();
+                _userCommentsRepository.UpVoteUserComments(commentID, upVoteCount, isUpVote);
+            }
+            catch (Exception ex)
+            {
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult DeleteUserComments(int commentID)
+        {
+            try
+            {
+                IUserCommentsRepository _userCommentsRepository = new UserCommentsRepository();
+                _userCommentsRepository.DeleteUserComments(commentID);
+            }
+            catch (Exception ex)
+            {
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
 }

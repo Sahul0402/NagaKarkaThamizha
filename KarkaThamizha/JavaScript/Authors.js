@@ -1,5 +1,25 @@
 ﻿/* Author List Page Stared*/
 var userID;
+var usersArray = [
+    {
+        id: 1001,
+        fullname: "Current User",
+        email: "current.user@viima.com",
+        profile_picture_url: "https://viima-app.s3.amazonaws.com/media/public/defaults/user-icon.png"
+    },
+    {
+        id: 1002,
+        fullname: "Jack Hemsworth",
+        email: "jack.hemsworth@viima.com",
+        profile_picture_url: "https://viima-app.s3.amazonaws.com/media/public/defaults/user-icon.png"
+    },
+    {
+        id: 1003,
+        fullname: "Hank Smith",
+        email: "hank.smith@viima.com",
+        profile_picture_url: "https://viima-app.s3.amazonaws.com/media/public/defaults/user-icon.png"
+    }];
+
 $(document).ready(function () {
     var Page = hdnPage;
     if (Page == "AuthorDetails") {
@@ -11,7 +31,12 @@ $(document).ready(function () {
     else if (Page == "AuthorList") {
         GetAllAuthor('', 1);    // Search String, Page
     }
+    var commentsArray = [];
+    GetUserCommentsByBookId();
+
 });
+
+
 var _data = [];
 function AddOrUpdateUserRating() {
     if ((typeof onAddOrUpdateUserRating) == "function") {
@@ -34,7 +59,7 @@ function designAuthorBookGrid(data) {
     //$("#tblAuthorBooks").empty();
     $("#tblAuthorBooks").jqGrid({
         data: data,
-        colNames: ['வகைகள் (Category)', 'CategoryID','BookList'],
+        colNames: ['வகைகள் (Category)', 'CategoryID', 'BookList'],
         colModel: [
             { name: 'CategoryName', index: 'CategoryName', title: 'வகைகள்(Category)' },
             { name: 'CategoryID', hidden: true, index: 'CategoryID' },
@@ -379,3 +404,171 @@ $("#submit").click(function () {
         }
     });
 });
+
+function GetUserCommentsByBookId() {
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: "/Author/GetAllUserCommentsByBookId",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+
+            if (response != null) {
+                DesignUserComments(response);
+            }
+        },
+        failure: function (response) {
+            alert("Failure to loading  UserFeedback");
+        }
+    });
+}
+
+function AddOrUpdateUserCommentsByBookId(inputData) {
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: "/Author/AddOrUpdateUserCommentsByBookId",
+        contentType: "application/json; charset=utf-8",
+        data: inputData,
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+
+            if (response != null) {
+
+            }
+        },
+        failure: function (response) {
+            alert("Failure to loading  UserFeedback");
+        }
+    });
+}
+
+function UpVoteUserComments(commentID, upVoteCount, isUpVote) {
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: "/Author/UpVoteUserComments",
+        contentType: "application/json; charset=utf-8",
+        data: { commentID: commentID, upVoteCount: upVoteCount, isUpVote: isUpVote },
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+
+            if (response != null) {
+
+            }
+        },
+        failure: function (response) {
+            alert("Failure to loading  UserFeedback");
+        }
+    });
+}
+
+function UpVoteUserComments(commentID) {
+    $.ajax({
+        cache: false,
+        type: "GET",
+        url: "/Author/DeleteUserComments",
+        contentType: "application/json; charset=utf-8",
+        data: { commentID: commentID },
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+
+            if (response != null) {
+
+            }
+        },
+        failure: function (response) {
+            alert("Failure to loading  UserFeedback");
+        }
+    });
+}
+
+function DesignUserComments(commentsArray) {
+    var saveComment = function (data) {
+        debugger
+        // Convert pings to human readable format
+        $(Object.keys(data.pings)).each(function (index, userId) {
+            debugger
+            var fullname = data.pings[userId];
+            var pingText = '@' + fullname;
+            data.content = data.content.replace(new RegExp('@' + userId, 'g'), pingText);
+        });
+        AddOrUpdateUserCommentsByBookId(data);
+        return data;
+    }
+
+    var upVoteComments = function (data) {
+        debugger
+        UpVoteUserComments(data.id, data.upvote_count, data.user_has_upvoted);
+        return data;
+    }
+
+    var deleteComments = function (data) {
+        debugger
+        UpVoteUserComments(data.id);
+        return data;
+    }
+
+
+    $('#comments-container').comments({
+        //profilePictureURL: 'https://viima-app.s3.amazonaws.com/media/public/defaults/user-icon.png',
+        currentUserId: 1,
+        youText: 'Naga',
+        roundProfilePictures: true,
+        textareaRows: 3,
+        enableAttachments: true,
+        enableHashtags: true,
+        enablePinging: true,
+        scrollContainer: $(window),
+        searchUsers: function (term, success, error) {
+            setTimeout(function () {
+                success(usersArray.filter(function (user) {
+                    var containsSearchTerm = user.fullname.toLowerCase().indexOf(term.toLowerCase()) != -1;
+                    var isNotSelf = user.id != 1;
+                    return containsSearchTerm && isNotSelf;
+                }));
+            }, 500);
+        },
+        getComments: function (success, error) {
+            debugger
+            setTimeout(function () {
+                debugger
+                success(commentsArray);
+            }, 500);
+        },
+        postComment: function (data, success, error) {
+            setTimeout(function () {
+                success(saveComment(data));
+            }, 500);
+        },
+        putComment: function (data, success, error) {
+            setTimeout(function () {
+                success(saveComment(data));
+            }, 500);
+        },
+        deleteComment: function (data, success, error) {
+            setTimeout(function () {
+                success(deleteComments(data));
+            }, 500);
+        },
+        upvoteComment: function (data, success, error) {
+            setTimeout(function () {
+                success(upVoteComments(data));
+            }, 500);
+        },
+        validateAttachments: function (attachments, callback) {
+            setTimeout(function () {
+                callback(attachments);
+            }, 500);
+        },
+        timeFormatter: function (data, success, error) {
+            return data;
+        },
+    });
+}
+
