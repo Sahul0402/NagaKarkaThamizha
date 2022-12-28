@@ -166,6 +166,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BookDetailsController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Controllers\KarkaThamizhaBaseController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\UserAccountController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserRatingController.cs" />
     <Compile Include="Controllers\UserTrackingController.cs" />
@@ -397,6 +399,7 @@
     <Content Include="Images-Website\sep-widget-karka.png" />
     <Content Include="Images-Website\sep-widget-retina.png" />
     <Content Include="Images-Website\sep-widget.png" />
+    <Content Include="JavaScript\Account.js" />
     <Content Include="JavaScript\Authors.js" />
     <Content Include="JavaScript\BookPreRelease.js" />
     <Content Include="JavaScript\BooksReviews.js" />
@@ -508,6 +511,8 @@
     <Content Include="Views\BooksReview\Reviews.cshtml" />
     <Content Include="Views\UserRating\UserRating.cshtml" />
     <Content Include="Views\Login\LoginPartial.cshtml" />
+    <Content Include="Views\UserAccount\UserProfile.cshtml" />
+    <Content Include="Views\UserAccount\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images-Articles\" />
@@ -515,6 +520,7 @@
     <Folder Include="Images-Magazine\" />
     <Folder Include="Images-Publisher\" />
     <Folder Include="Images-Users\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Feedback\" />
   </ItemGroup>
   <ItemGroup>

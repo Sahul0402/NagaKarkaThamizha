@@ -1,0 +1,10 @@
+Log Entry:  27/12/2022 08:56:05 
+Exception Type: System.Data.SqlClient.SqlException
+Exception: Procedure or function USP_GetAllBooksDetailsByAuthorID has too many arguments specified.
+Log Entry:  27/12/2022 08:58:59 
+Exception Type: System.ArgumentException
+Exception: The parameters dictionary contains a null entry for parameter 'commentID' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult DeleteUserComments(Int32)' in 'KarkaThamizha.Controllers.AuthorController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters
+Log Entry:  27/12/2022 09:05:48 
+Exception Type: System.Data.SqlClient.SqlException
+Exception: Procedure or function USP_GetAllBooksDetailsByAuthorID has too many arguments specified.

@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
     var pageName = document.location.href.match(/[^\/]+$/)[0];
-
+    $('btnvViewType').hide();
     var urlParamValue = GetParameterValues('UserID');
     if (urlParamValue > 0) {
+        $('btnvViewType').show();
         PopulateUserInfoByUserId(urlParamValue);
         BooksReviewUserByID(urlParamValue, 1, "Grid");
     }
@@ -129,18 +130,20 @@ $(document).on("click", "#contentPager a[href]", function (e) {
 
 // Grid View
 function OnGridViewClick() {
-    $("#grid").css('background-color', '#feb500');
-    $("#list").css('background-color', '#f1f1f1');
-    $("#table").css('background-color', '#f1f1f1');
+    //$("#grid").css('background-color', '#feb500');
+    //$("#list").css('background-color', '#f1f1f1');
+    //$("#table").css('background-color', '#f1f1f1');
+
+    $("#grid").addClass('active');
+    $("#list,#table").removeClass('active');
 
     var urlParamValue = GetParameterValues('UserID');
     BooksReviewUserByID(urlParamValue, 1, "Grid");
 }
 
 function OnListViewClick() {
-    $("#grid").css('background-color', '#f1f1f1');
-    $("#table").css('background-color', '#f1f1f1');
-    $("#list").css('background-color', '#feb500');
+    $("#list").addClass('active');
+    $("#grid,#table").removeClass('active');
 
     var urlParamValue = GetParameterValues('UserID');
     BooksReviewUserByID(urlParamValue, 1, "List");
@@ -148,9 +151,8 @@ function OnListViewClick() {
 
 // Table View
 function OnTableViewClick() {
-    $("#grid").css('background-color', '#f1f1f1');
-    $("#list").css('background-color', '#f1f1f1');
-    $("#table").css('background-color', '#feb500');
+    $("#table").addClass('active');
+    $("#grid,#list").removeClass('active');
 
     var urlParamValue = GetParameterValues('UserID');
     BooksReviewUserByID(urlParamValue, 1, "Table");

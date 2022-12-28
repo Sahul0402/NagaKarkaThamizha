@@ -12,6 +12,43 @@ namespace KarkaThamizha.Repository.DAL
 {
     public class UserRepository
     {
+        #region Login
+        public AccountModels UserLogin(string email, string password)
+        {
+            AccountModels mdlLogin = new AccountModels();
+            using (SqlConnection con = ConnectionManager.GetConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(SQLObjects.GetLogInUser, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@emailId", email.Trim().ToLower());
+                    cmd.Parameters.AddWithValue("@password", Encryption.Encrypt(password.Trim()));
+
+                    try
+                    {
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                        {
+                            while (reader.Read())
+                            {
+                                mdlLogin = new AccountModels()
+                                {
+                                    LoginID = Convert.ToInt32(reader["UserID"]),
+                                    Name = Convert.ToString(reader["UserName"]),
+                                };
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw;
+                    }
+
+                }
+            }
+            return mdlLogin;
+        }
+        #endregion
         public int AddUser(UserModels list)
         {
             int Result = 0;

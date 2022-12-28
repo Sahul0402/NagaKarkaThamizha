@@ -24,7 +24,7 @@ $("#SaveChangePassword").click(function () {
             success: function (response) {
                 alert(response.message);
                 if (response.message == "Success") {
-                    alert("Password Changed Successful");
+                    alert("Password Changed Successfully");
                 }
                 else if (response.message == "Expired") {
                     alert("Session Expired");
@@ -34,7 +34,7 @@ $("#SaveChangePassword").click(function () {
                 alert('Failure' + response);
             },
             error: function (response) {
-                alert("Error while User login " + response);
+                alert("Error while CHnage Password " + response);
             }
         });
     } catch (ex) {
@@ -42,42 +42,3 @@ $("#SaveChangePassword").click(function () {
     }
 });
 //#endregion Change Password
-
-
-
-//#region Add User Books Review
-$("#SaveBookReview").click(function () {
-    var bookId = document.getElementById("AuthorID").value;
-    var header = document.getElementById("Header").value;
-    var description = document.getElementById("Description").value;
-
-    if (description == "") {
-        alert("Please enter Description");
-        return false;
-    }
-
-    $.ajax({
-        type: "Post",
-        url: "/BooksReview/AddBooksReviewByUser",
-        data: { password: pwd, confirmpwd: conPwd },
-        dataType: "JSON",
-        contentType: "application/json; charset=utf-8",
-        success: function (response) {
-            alert(response.message);
-            if (response.message == "Success") {
-                alert("Password Changed Successful");
-            }
-            else if (response.message == "Expired") {
-                alert("Session Expired");
-            }
-        },
-        failure: function (response) {
-            alert('Failure' + response);
-        },
-        error: function (response) {
-            alert("Error while User login " + response);
-        }
-    });
-
-});
-//#endregion  Add User Books Review

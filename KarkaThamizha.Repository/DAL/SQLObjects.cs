@@ -133,6 +133,7 @@ namespace KarkaThamizha.Repository.DAL
         public const string GetLogInUser = "USP_GetLogInUser";
         public const string GetUserProfileByUserID = "USP_GetUserProfileByUserID";
         public const string UpdateUserProfile = "USP_UpdateUserProfile";
+        public const string ChangePassword = "USP_ChangePassword";
 
         #region User
         public const string GetAllUserType = "dbo.USP_GetAllUserType";

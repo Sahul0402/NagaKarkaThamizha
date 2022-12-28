@@ -68,4 +68,7 @@
     <Build Include="Stored Procedures\dbo.UpVoteUserCommentsByID.proc.sql" />
     <Build Include="Tables\dbo.UserComments.table.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Stored Procedures\USP_ChangePassword.sql" />
+  </ItemGroup>
 </Project>

@@ -142,5 +142,33 @@ namespace KarkaThamizha.Repository.DAL
             }
             return mdlLogin;
         }
+
+        public string ChangePassword(int loginId, string password)
+        {
+            string Result = "";
+            using (SqlConnection sqlConnection = ConnectionManager.GetConnection())
+            {
+                using (SqlCommand cmd = new SqlCommand(SQLObjects.ChangePassword, sqlConnection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@UserID", loginId);
+                    cmd.Parameters.AddWithValue("@Password", password.Trim());
+
+                    cmd.Parameters.Add("@Result", SqlDbType.VarChar, 7);
+                    cmd.Parameters["@Result"].Direction = ParameterDirection.Output;
+                    try
+                    {
+                        sqlConnection.Open();
+                        cmd.ExecuteNonQuery();
+                        Result = cmd.Parameters["@Result"].Value.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+            return Result;
+        }
     }
 }

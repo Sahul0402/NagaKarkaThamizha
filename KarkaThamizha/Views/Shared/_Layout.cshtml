@@ -54,7 +54,7 @@
                             <li class="dropdown color-theme">
                                 <a class="dropdown-toggle" data-hover="dropdown">@Session["Name"].ToString()<b class="caret"></b><span class="nav-line"></span></a>
                                 <ul class="dropdown-menu" data-dropdownanimation="true" data-animation="fadeInLeft">
-                                    <li>@Html.ActionLink("My Profile", "UserProfile", "User", new { id = Session["UserID"] }, new { @class = "link" })</li>
+                                    <li>@Html.ActionLink("My Profile", "UserProfile", "UserAccount", new { id = Session["UserID"] }, new { @class = "link" })</li>
                                     <li>@Html.ActionLink("Change Password", "ChangePassword", "Login", new { id = Session["UserID"] }, new { @class = "link" })</li>
                                     <li>@Html.ActionLink("Log Out", "Logout", "Login", new { id = Session["UserID"] }, new { @class = "link", target = "" })</li>
                                 </ul>
