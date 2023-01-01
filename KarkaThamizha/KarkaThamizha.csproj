@@ -201,6 +201,7 @@
     <Content Include="Content\jquery-comments.css" />
     <Content Include="Content\Karkastyle.css" />
     <Content Include="Content\Magazinestyle.css" />
+    <Content Include="Content\multi-select.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\responsive.css" />
     <Content Include="Content\select2.min.css" />

@@ -8,6 +8,8 @@
     Layout = "~/Views/Shared/_FullWidthLayout.cshtml";
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+<link href="~/Content/select2.min.css" rel="stylesheet" />
+<link href="~/Content/multi-select.min.css" rel="stylesheet" />
 <style>
 
     .tab-accordion .tab-content .row {
@@ -171,159 +173,177 @@
                         <h2>User Profile</h2>
                         @using (Html.BeginForm("UserProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
-                    <div class="tab-content" style="padding-top:10px;">
-                        <input type="hidden" value="@Session["Name"]" id="hdnUserName" />
-                        <div class="row">
-                            <div class="col-md-2 control-label">Name</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.Name, new { @readonly = "readonly", @maxlength = "35", @placeholder = "Karka Thamizha", @class = "form-control", tabindex = 1 })
-                            </div>
-                            <div class="col-md-2 control-label">EMail</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.Email, new { @readonly = "readonly", onblur = "ValidateEmail(this)", @maxlength = "35", @placeholder = "support@karkathamizha.com", @class = "form-control toLowerCase", tabindex = 3 })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Name(In Tamil)</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserName, new { @maxlength = "50", @placeholder = "கற்க தமிழா", @class = "form-control", style = "", tabindex = 2 })
-                            </div>
-                            <div class="col-md-2 control-label">Mobile</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.Mobile, new { @maxlength = "20", @placeholder = "8190090011", @class = "form-control", tabindex = 4 })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Profession</div>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.Profession.ProfessionID, new SelectList(Model.Profession.lstProfession, "Value", "Text"), "...Select Profession...", new { @class = "form-control", tabindex = 5 })
-                            </div>
-                            <div class="col-md-2 control-label">DOB</div>
-                            <div class="col-md-4">
-                                @Html.EditorFor(m => m.UserDetail.DOB, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control", style = "width:105px;", onkeydown = "", onpaste = "return false", tabindex = 6 } })
-                                @*<span>Age</span>@Html.TextBox("UserAge", "", new { @maxlenght = "2", style = "width:50px;", @class = "form-control", tabindex = 7 })*@
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Website</div>
-                            <div class="col-md-4">
-                                @Html.DropDownListFor(m => m.UserDetail.Protocol, new List<SelectListItem> { new SelectListItem { Text = "http://www.", Value = "1" }, new SelectListItem { Text = "https://www.", Value = "2" }, }, "Select")
-                                @Html.TextBoxFor(m => m.UserDetail.Website, new { @maxlength = "30", @placeholder = "karkathamizha.com", @class = "form-control", style = "", tabindex = 8 })
-                            </div>
-                            <div class="col-md-2 control-label">Blog</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserDetail.Blog, new { @maxlength = "20", @placeholder = "thamizharnilam", @class = "form-control", style = "width:140px;", tabindex = 9 })
-                                @Html.DropDownListFor(m => m.UserDetail.BlogType, new List<SelectListItem> { new SelectListItem { Text="Blogspot",Value="B" },
-                            new SelectListItem {Text="Wordpress",Value="W" }}, "Please Select", new { @class = "form-control", style = "width:100%;min-width:100%;" })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Facebook</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserDetail.FaceBook, new { @maxlength = "50", @placeholder = "karkathamizha (or) id=100010314105460", @class = "form-control", style = "", tabindex = 10 })
-                            </div>
-                            <div class="col-md-2 control-label">Twitter</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserDetail.Twitter, new { @maxlength = "30", @placeholder = "karkathamizha", @class = "form-control", style = "", tabindex = 11 })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Pinterest</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserDetail.Pinterest, new { @maxlength = "25", @placeholder = "", @class = "form-control", style = "", tabindex = 12 })
-                            </div>
-                            <div class="col-md-2 control-label">YouTube</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserDetail.YouTube, new { @maxlength = "32", @placeholder = "v=6zcq1aebNQE", @class = "form-control", style = "", tabindex = 13 })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Instagram</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserDetail.Instagram, new { @maxlength = "15", @placeholder = "", @class = "form-control", style = "", tabindex = 14 })
-                            </div>
-                            <div class="col-md-2 control-label">Wikipedia</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.UserDetail.Wikipedia, new { @maxlength = "50", @placeholder = "பிரபஞ்சன்", @class = "form-control", style = "", tabindex = 15 })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Comments Image</div>
-                            <div class="col-md-4">
-                                <input type="file" name="commentsImage" id="commentsImage" />
-                            </div>
+                            <div class="tab-content" style="padding-top:10px;">
+                                <input type="hidden" value="@Session["Name"]" id="hdnUserName" />
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Name</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.Name, new { @readonly = "readonly", @maxlength = "35", @placeholder = "Karka Thamizha", @class = "form-control", tabindex = 1 })
+                                    </div>
+                                    <div class="col-md-2 control-label">EMail</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.Email, new { @readonly = "readonly", onblur = "ValidateEmail(this)", @maxlength = "35", @placeholder = "support@karkathamizha.com", @class = "form-control toLowerCase", tabindex = 3 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Name(In Tamil)</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserName, new { @maxlength = "50", @placeholder = "கற்க தமிழா", @class = "form-control", style = "", tabindex = 2 })
+                                    </div>
+                                    <div class="col-md-2 control-label">Mobile</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.Mobile, new { @maxlength = "20", @placeholder = "8190090011", @class = "form-control", tabindex = 4 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Profession</div>
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(m => m.Profession.ProfessionID, new SelectList(Model.Profession.lstProfession, "Value", "Text"), "...Select Profession...", new { @class = "form-control", tabindex = 5 })
+                                    </div>
+                                    <div class="col-md-2 control-label">DOB</div>
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(m => m.UserDetail.DOB, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control", style = "width:105px;", onkeydown = "", onpaste = "return false", tabindex = 6 } })
+                                        @*<span>Age</span>@Html.TextBox("UserAge", "", new { @maxlenght = "2", style = "width:50px;", @class = "form-control", tabindex = 7 })*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Website</div>
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(m => m.UserDetail.Protocol, new List<SelectListItem> { new SelectListItem { Text = "http://www.", Value = "1" }, new SelectListItem { Text = "https://www.", Value = "2" }, }, "Select")
+                                        @Html.TextBoxFor(m => m.UserDetail.Website, new { @maxlength = "30", @placeholder = "karkathamizha.com", @class = "form-control", style = "", tabindex = 8 })
+                                    </div>
+                                    <div class="col-md-2 control-label">Blog</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserDetail.Blog, new { @maxlength = "20", @placeholder = "thamizharnilam", @class = "form-control", style = "width:140px;", tabindex = 9 })
+                                        @Html.DropDownListFor(m => m.UserDetail.BlogType, new List<SelectListItem> { new SelectListItem { Text="Blogspot",Value="B" },
+                                    new SelectListItem {Text="Wordpress",Value="W" }}, "Please Select", new { @class = "form-control", style = "width:100%;min-width:100%;" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Facebook</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserDetail.FaceBook, new { @maxlength = "50", @placeholder = "karkathamizha (or) id=100010314105460", @class = "form-control", style = "", tabindex = 10 })
+                                    </div>
+                                    <div class="col-md-2 control-label">Twitter</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserDetail.Twitter, new { @maxlength = "30", @placeholder = "karkathamizha", @class = "form-control", style = "", tabindex = 11 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Pinterest</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserDetail.Pinterest, new { @maxlength = "25", @placeholder = "", @class = "form-control", style = "", tabindex = 12 })
+                                    </div>
+                                    <div class="col-md-2 control-label">YouTube</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserDetail.YouTube, new { @maxlength = "32", @placeholder = "v=6zcq1aebNQE", @class = "form-control", style = "", tabindex = 13 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Instagram</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserDetail.Instagram, new { @maxlength = "15", @placeholder = "", @class = "form-control", style = "", tabindex = 14 })
+                                    </div>
+                                    <div class="col-md-2 control-label">Wikipedia</div>
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserDetail.Wikipedia, new { @maxlength = "50", @placeholder = "பிரபஞ்சன்", @class = "form-control", style = "", tabindex = 15 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Comments Image</div>
+                                    <div class="col-md-4">
+                                        <input type="file" name="commentsImage" id="commentsImage" />
+                                    </div>
 
-                            <div class="col-md-2 control-label">Profile Image</div>
-                            <div class="col-md-4">
-                                <input type="file" name="profileImage" id="profileImage" multiple />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Favourite Author</div>
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(m => m.UserID, new SelectList(Model.Authors, "Value", "Text"), "...Select Author...", new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Favourite Translator</div>
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(m => m.UserID, new SelectList(Model.Authors, "Value", "Text"), "...Select Author...", new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Favourite Categories</div>
-                            <div class="col-md-10">
-                                <div>
-                                    <span>அகராதி / களஞ்சியம்: </span>
-                                    <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="1" name="அகராதி / களஞ்சியம்" type="checkbox" value="true" />
+                                    <div class="col-md-2 control-label">Profile Image</div>
+                                    <div class="col-md-4">
+                                        <input type="file" name="profileImage" id="profileImage" multiple />
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Favourite Author</div>
+                                    <div class="col-md-10">
+                                        <select class="select2 form-select shadow-none mt-3"
+                                                multiple="multiple"
+                                                style="height: 36px; width: 100%">
+                                            <optgroup label="Alaskan/Hawaiian Time Zone">
+                                                <option value="AK">Alaska</option>
+                                                <option value="HI">Hawaii</option>
+                                                <option value="CA">California</option>
+                                                <option value="NV">Nevada</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Favourite Translator</div>
+                                    <div class="col-md-10">
+                                        <select class="select2 form-select shadow-none mt-3"
+                                                multiple="multiple"
+                                                style="height: 36px; width: 100%">
+                                            <optgroup label="Alaskan/Hawaiian Time Zone">
+                                                <option value="AK">Alaska</option>
+                                                <option value="HI">Hawaii</option>
+                                                <option value="CA">California</option>
+                                                <option value="NV">Nevada</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Favourite Categories</div>
+                                    <div class="col-md-10">
+                                        <div>
+                                            <span>அகராதி / களஞ்சியம்: </span>
+                                            <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="1" name="அகராதி / களஞ்சியம்" type="checkbox" value="true" />
+                                        </div>
 
-                                <div>
-                                    <span>அதிரடி & சாகசம்: </span>
-                                    <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="2" name="அதிரடி & சாகசம்" type="checkbox" value="true" />
-                                </div>
-                                <div>
-                                    <span>அரசியல்: </span>
-                                    <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="3" name="அரசியல்" type="checkbox" value="true" />
-                                </div>
-                                <div>
-                                    <span>அறவியல்: </span>
-                                    <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="4" name="அறவியல்" type="checkbox" value="true" />
-                                </div>
-                                <div>
-                                    <span>அறிவியல், தொழில்நுட்பம் மற்றும் மருத்துவம்: </span>
-                                    <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="6" name="அறிவியல், தொழில்நுட்பம் மற்றும் மருத்துவம்" type="checkbox" value="true" />
-                                </div>
-                                <span>ஆட்சியியல்: </span>
-                                <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="7" name="ஆட்சியியல்" type="checkbox" value="true" />
+                                        <div>
+                                            <span>அதிரடி & சாகசம்: </span>
+                                            <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="2" name="அதிரடி & சாகசம்" type="checkbox" value="true" />
+                                        </div>
+                                        <div>
+                                            <span>அரசியல்: </span>
+                                            <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="3" name="அரசியல்" type="checkbox" value="true" />
+                                        </div>
+                                        <div>
+                                            <span>அறவியல்: </span>
+                                            <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="4" name="அறவியல்" type="checkbox" value="true" />
+                                        </div>
+                                        <div>
+                                            <span>அறிவியல், தொழில்நுட்பம் மற்றும் மருத்துவம்: </span>
+                                            <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="6" name="அறிவியல், தொழில்நுட்பம் மற்றும் மருத்துவம்" type="checkbox" value="true" />
+                                        </div>
+                                        <span>ஆட்சியியல்: </span>
+                                        <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="7" name="ஆட்சியியல்" type="checkbox" value="true" />
 
-                                <span>இதழ் தொகுப்பு: </span>
-                                <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="8" name="இதழ் தொகுப்பு" type="checkbox" value="true" />
+                                        <span>இதழ் தொகுப்பு: </span>
+                                        <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="8" name="இதழ் தொகுப்பு" type="checkbox" value="true" />
 
-                                <span>கணினி, இணையதளம் மற்றும் டிஜிட்டல் மீடியா: </span>
-                                <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="9" name="கணினி, இணையதளம் மற்றும் டிஜிட்டல் மீடியா" type="checkbox" value="true" />
+                                        <span>கணினி, இணையதளம் மற்றும் டிஜிட்டல் மீடியா: </span>
+                                        <input checked="checked" data-val="true" data-val-required="The Tea field is required." id="9" name="கணினி, இணையதளம் மற்றும் டிஜிட்டல் மீடியா" type="checkbox" value="true" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Profile</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @Html.TextAreaFor(m => m.UserDetail.Profile, new { @class = "ckeditor", @id = "Description", @rows = "200" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 control-label">Mail Subscription</div>
+                                    <div class="col-md-10">
+                                        @Html.CheckBoxFor(m => m.UserDetail.IsMailSubscription, new { tabindex = 21 })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4" style="float:right;">
+                                        <button type="submit" id="SaveUserProfile" class="btn btn-warning btn-sm">Submit</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Profile</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                @Html.TextAreaFor(m => m.UserDetail.Profile, new { @class = "ckeditor", @id = "Description", @rows = "200" })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 control-label">Mail Subscription</div>
-                            <div class="col-md-10">
-                                @Html.CheckBoxFor(m => m.UserDetail.IsMailSubscription, new { tabindex = 21 })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4" style="float:right;">
-                                <button type="submit" id="SaveUserProfile" class="btn btn-warning btn-sm">Submit</button>
-                            </div>
-                        </div>
-                    </div>
                         }
                     </article>
                 </section>
@@ -418,5 +438,13 @@
         $(document).ready(function () {
             CKEDITOR.replace('#UserDetail.Profile');
         });
+    </script>
+    <script src="~/Scripts/select2.full.min.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script>
+        //***********************************//
+        // For select 2
+        //***********************************//
+        $(".select2").select2();
     </script>
 }
