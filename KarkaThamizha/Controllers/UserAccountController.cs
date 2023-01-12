@@ -75,27 +75,18 @@ namespace KarkaThamizha.Controllers
                 int userID = Convert.ToInt32(Session["UserID"]);
                 repoUser = new UserRepository();
                 mdlUsers.UserID = userID;
-                var returnValue = repoUser.UpdateUser(mdlUsers);
+                var returnValue = "Success";//repoUser.UpdateUser(mdlUsers);
 
                 if (returnValue == "Success")
                 {
-                    InsertFavouriteAuthor(userID);
-                    InsertFavouriteCategory(userID);
+                    
                 }
             }
             return RedirectToAction("UserProfile", "UserAccount");
         }
-
-        private void InsertFavouriteAuthor(int userID)
-        {
-
-        }
-
-        private void InsertFavouriteCategory(int userID)
-        {
-
-        }
+        
         #endregion
+
         [AcceptVerbs(HttpVerbs.Post)]
         #region New User Registration
 

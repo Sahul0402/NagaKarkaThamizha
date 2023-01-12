@@ -42,3 +42,34 @@ $("#SaveChangePassword").click(function () {
     }
 });
 //#endregion Change Password
+
+//#region User Profile
+$("#ProfileRegister").click(function () {
+    debugger;
+    $.ajax({
+        type: "Post",
+        url: "/UserAccount/UserProfile",
+        data: {  },
+        dataType: "JSON",
+        contentType: "application/json; charset=utf-8",
+        success: function (response) {
+            alert(response.message);
+            if (response.message == "Success") {
+                alert("Profile updated successfully");
+            }
+            else if (response.message == "Expired") {
+                alert("Session Expired");
+            }
+            else if (response.message == null) {
+                alert("");
+            }
+        },
+        failure: function (response) {
+            alert('Failure' + response);
+        },
+        error: function (response) {
+            alert("Error while CHnage Password " + response);
+        }
+    });
+});
+//#endregion Update User Profile

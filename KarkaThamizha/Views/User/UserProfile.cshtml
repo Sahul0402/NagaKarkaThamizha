@@ -12,7 +12,7 @@
 <link href="~/Content/multi-select.min.css" rel="stylesheet" />
 <link href="~/Content/themes/base/minified/jquery.ui.datepicker.min.css" rel="stylesheet" />*@
 
-<style>
+@*<style>
 
     .tab-accordion .tab-content .row {
         padding: 6px 0;
@@ -155,7 +155,7 @@
         position: relative;
         Height: 150px;
     }
-</style>
+</style>*@
 
 <div style="height:1300px;">
     <div class="widget-title">
@@ -173,7 +173,7 @@
                     <label for="option1">User Profile</label>
                     <article>
                         <h2>User Profile</h2>
-                        @using (Html.BeginForm("UserProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        @using (Html.BeginForm("UserProfile", "UserAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
                             <div class="tab-content" style="padding-top:10px;">
                                 <input type="hidden" value="@Session["Name"]" id="hdnUserName" />
@@ -432,7 +432,7 @@
 
 @section Scripts{
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    @*<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="~/Scripts/select2.full.min.js"></script>
     <script src="~/Scripts/select2.min.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
@@ -454,10 +454,10 @@
         //***********************************//
         $(".select2").select2();
         /*date picker*/
-        $("#DOB,").datepicker({
+        $("#DOB").datepicker({
             autoclose: true,
             todayHighlight: true,
             format: 'dd/mm/yyyy',
         });
-    </script>
+    </script>*@
 }

@@ -125,25 +125,25 @@ namespace KarkaThamizha.Controllers
 
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult UserProfile(UserModels mdlUsers)
-        {
-            UserRepository repoUser = null;
-            if (Session["UserID"] != null)
-            {
-                int userID = Convert.ToInt32(Session["UserID"]);
-                repoUser = new UserRepository();
-                mdlUsers.UserID = userID;
-                var returnValue = repoUser.UpdateUser(mdlUsers);
+        //[AcceptVerbs(HttpVerbs.Post)]
+        //public ActionResult UserProfile(UserModels mdlUsers)
+        //{
+        //    UserRepository repoUser = null;
+        //    if (Session["UserID"] != null)
+        //    {
+        //        int userID = Convert.ToInt32(Session["UserID"]);
+        //        repoUser = new UserRepository();
+        //        mdlUsers.UserID = userID;
+        //        var returnValue = repoUser.UpdateUser(mdlUsers);
 
-                if (returnValue == "Success")
-                {
-                    InsertFavouriteAuthor(userID);
-                    InsertFavouriteCategory(userID);
-                }
-            }
-            return RedirectToAction("UserProfile", "User");
-        }
+        //        if (returnValue == "Success")
+        //        {
+        //            InsertFavouriteAuthor(userID);
+        //            InsertFavouriteCategory(userID);
+        //        }
+        //    }
+        //    return RedirectToAction("UserProfile", "User");
+        //}
 
         private void InsertFavouriteAuthor(int userID)
         {
